@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/main.css')}}">  
         <link id="preset" rel="stylesheet" href="{{ URL::asset('/css/user/css/presets/preset1.css')}}">	
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/responsive.css')}}">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
         <!-- font -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>

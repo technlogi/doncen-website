@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'User\UserController@home');
 
 Route::group(['prefix' => 'admin'], function () {
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
@@ -42,3 +40,26 @@ Route::group(['prefix' => 'user'], function () {
   Route::get('/password/reset', 'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
 });
+
+
+
+
+
+Route::get('/user/add/post',['uses' =>'User\UserController@addPost','as'=>'user.add.post']);
+Route::get('/user/aboutus',['uses' =>'User\UserController@aboutUs','as'=>'user.aboutUs']);
+Route::get('/user/index',['uses' =>'User\UserController@home','as'=>'user.home']);
+Route::get('/user/categories',['uses' =>'User\UserController@categories','as'=>'user.categories']);
+Route::get('/user/details',['uses' =>'User\UserController@details','as'=>'user.details']);
+Route::get('/user/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
+Route::get('/user/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
+Route::get('/user/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
+
+Route::get('/user/published',['uses' =>'User\UserController@published','as'=>'user.published']);
+Route::get('/user/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
+
+
+Route::get('/user/donation-post-details',['uses' =>'User\UserController@adPostDetails','as'=>'user.adPostDetails']);
+
+
+
+
