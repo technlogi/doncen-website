@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
         User::truncate();
         User::create([
             'name' => 'user',
+            'key' => generateKey(9) ,
             'email' => 'user@gmail.com',
             'password' => bcrypt('123456'),
             'created_at' =>new \DateTime()	,

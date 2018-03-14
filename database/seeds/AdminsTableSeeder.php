@@ -15,6 +15,7 @@ class AdminsTableSeeder extends Seeder
         Admin::truncate();
         Admin::create([
             'name' => 'admin',
+            'key' => generateKey(1) ,
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
             'created_at' => new \DateTime()	,
