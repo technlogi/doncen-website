@@ -16,7 +16,7 @@ class CreateSpecificationsTable extends Migration
         Schema::create('specifications', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
-            $table->integer('subcategorie_id');
+            $table->integer('subcategory_id');
             $table->string('name');
             $table->string('type');
             $table->timestamps();

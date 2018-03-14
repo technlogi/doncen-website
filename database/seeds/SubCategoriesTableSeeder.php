@@ -16,7 +16,7 @@ class SubCategoriesTableSeeder extends Seeder
         $hospital = array(0=>'Blood',1=>'Platelets',2=>'Kidneys',3=>'Lungs',4=>'Liver',5=>'Pancreas',6=>'Intestines',7=>'Eye (Cornea)',8=>'Ear',9=>'Skin',10=>'Heart Valves',11=>'Bone',12=>'Veins',13=>'Cartilage',14=>'Tendons',15=>'Ligaments',16=>'Heart',17=>'Body');        for ($i=0; $i <= 17 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 1,
+              'category_id' => 1,
               'name' => $hospital[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -27,7 +27,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 10 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 2,
+              'category_id' => 2,
               'name' => $food[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -37,7 +37,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 4 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 3,
+              'category_id' => 3,
               'name' => $cloth[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -47,7 +47,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 3 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 4,
+              'category_id' => 4,
               'name' => $residence[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -57,7 +57,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 5 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 5,
+              'category_id' => 5,
               'name' => $education[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -67,7 +67,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 8 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 6,
+              'category_id' => 6,
               'name' => $litrature[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -77,7 +77,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 3 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 7,
+              'category_id' => 7,
               'name' => $toy [$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -87,7 +87,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 2 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 8,
+              'category_id' => 8,
               'name' => $FMCG[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -97,7 +97,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 4 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 9,
+              'category_id' => 9,
               'name' => $agirculture[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -107,7 +107,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 3 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 10,
+              'category_id' => 10,
               'name' => $service[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -117,7 +117,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 2 ; $i++) { 
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 11,
+              'category_id' => 11,
               'name' => $tour[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -126,7 +126,7 @@ class SubCategoriesTableSeeder extends Seeder
         $help = array(0=>'Help line No');
             Subcategory::create([
               'key' => generateKey(8),
-              'categorie_id' => 12,
+              'category_id' => 12,
               'name' => $help[0],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
@@ -135,7 +135,7 @@ class SubCategoriesTableSeeder extends Seeder
         for ($i=0; $i <= 3 ; $i++) { 
             Subcategory::create([
             'key' => generateKey(8),
-            'categorie_id' => 13,
+            'category_id' => 13,
             'name' => $beast[$i],
               'created_at' => new \DateTime()	,
               'updated_at' =>  new \DateTime()
