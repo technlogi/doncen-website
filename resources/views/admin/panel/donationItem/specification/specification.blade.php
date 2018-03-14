@@ -9,13 +9,13 @@
                 <a href="{{ url('/admin/home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Donation Item</li>
-                <li class="breadcrumb-item active">Category</li>
+                <li class="breadcrumb-item active">Specification</li>
             </ol>
             <!-- end Breadcrumbs-->
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                <i class="fa fa-table"></i> Data Table Example
+                <i class="fa fa-table"></i> Specification List
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">

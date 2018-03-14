@@ -22,7 +22,7 @@
                             <div class="section cat-option select-category post-option">
                                 <h4>Select a Category</h4>
                                 <ul role="tablist">
-                                    <li class="active link-active"><a href="#cat1" aria-controls="cat1" role="tab" data-toggle="tab">
+                                    <li class=""><a href="#cat1" aria-controls="cat1" role="tab" data-toggle="tab">
                                             <span class="select">
                                                 <svg version="1.1" class="svg-color" width="50px" height="30px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 488.9 488.9" style="enable-background:new 0 0 488.9 488.9;" xml:space="preserve" >
@@ -143,7 +143,7 @@
                                             Food
                                         </a></li>
 
-                                    <li><a href="#cat3" aria-controls="cat3" role="tab" data-toggle="tab">
+                                  <!--   <li><a href="#cat3" aria-controls="cat3" role="tab" data-toggle="tab">
                                             <span class="select">
                                                 <svg version="1.1" class="svg-color"  width="50px" height="30px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -942,7 +942,7 @@
                                             </span>
                                             Beast(Include Animal & Birds)
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -1063,8 +1063,7 @@
                                                 </svg>
                                                 Platelets
                                             </a>
-                                        </li>
-
+                                          </li>
                                         <li><a href="#kidneys" aria-controls="kidneys" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 485.852 485.852" style="enable-background:new 0 0 485.852 485.852;" xml:space="preserve">
@@ -1123,8 +1122,7 @@
                                                 </svg>
                                                 Kidneys
                                             </a>
-                                        </li>
-
+                                         </li>
                                         <li><a href="#lungs" aria-controls="lungs" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 461.409 461.409" style="enable-background:new 0 0 461.409 461.409;" xml:space="preserve">
@@ -1962,7 +1960,7 @@
                                                 </svg>
                                                 Bone
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#veins" aria-controls="veins" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 504.223 504.223" style="enable-background:new 0 0 504.223 504.223;" xml:space="preserve">
@@ -2184,7 +2182,7 @@
 
                                                 Veins
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#cartilage" aria-controls="cartilage" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 487.172 487.172" style="enable-background:new 0 0 487.172 487.172;" xml:space="preserve">
@@ -2220,7 +2218,7 @@
                                                 </svg>
                                                 Cartilage
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#tendons" aria-controls="tendons" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 155.901 155.9" style="enable-background:new 0 0 155.901 155.9;"   xml:space="preserve">
@@ -2248,7 +2246,7 @@
                                                 </svg>
                                                 Tendons
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#ligaments" aria-controls="ligaments" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 491.807 491.807" style="enable-background:new 0 0 491.807 491.807;" xml:space="preserve">
@@ -2309,7 +2307,7 @@
                                                 </g></svg>
                                                 Ligaments
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#heart" aria-controls="heart" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -2360,7 +2358,7 @@
                                                 </svg>
                                                 Heart
                                             </a>
-                                        </li>
+                                         </li>
                                         <li><a href="#body" aria-controls="body" role="tab" data-toggle="tab">
                                                 <svg version="1.1" class="svg-color" width="40px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 206.326 206.326" style="enable-background:new 0 0 206.326 206.326;" xml:space="preserve">
@@ -2402,7 +2400,7 @@
                                                 </svg>
                                                 Body
                                             </a>
-                                        </li>
+                                         </li>
                                     </ul>
                                 </div>
                                 <div role="tabpanel" class="tab-pane " id="cat2">
@@ -2660,11 +2658,6 @@
                                         <li><a href="javascript:void(0)">Died</a></li>
                                     </ul>	
                                 </div>
-
-
-
-
-
                                 <div class="btn-section">
                                     <!--<a href="ad-post-details.html" class="btn">Next</a>-->
                                     <a href="#" class="btn-info"> Cancle</a>
