@@ -12,12 +12,14 @@
 */
 
 Route::get('/', 'User\UserController@home');
-
+/** ============================================================================================================================================
+ *                                                           Adminsite Or Admin Panel
+ * ============================================================================================================================================
+ */
 Route::group(['prefix' => 'admin'], function () {
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('logout');
-
   // Route::get('/register', 'AdminAuth\RegisterController@showRegistrationForm')->name('register');
   // Route::post('/register', 'AdminAuth\RegisterController@register');
 
@@ -25,8 +27,62 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/password/reset', 'AdminAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
-});
 
+
+                             //////////////////////////
+                            ////// Donation Item//////
+                           //////////////////////////
+  Route::get('/donation/item/category',       [ 'uses' => 'Admin\DonationItemController@category',           'as'=>'admin.donationItem.category.category']);
+  Route::post('/donation/item/category',       [ 'uses' => 'Admin\DonationItemController@categories',           'as'=>'admin.donationItem.category.categories']);
+  
+  Route::get('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subCategory',        'as'=>'admin.donationItem.subCategory.subCategory']);
+  Route::post('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subcategories',        'as'=>'admin.donationItem.subCategory.subcategories']);
+  
+  Route::get('/donation/item/specification',  [ 'uses' => 'Admin\DonationItemController@specification',      'as'=>'admin.donationItem.specification.specification']);
+  Route::post('/donation/item/specification',  [ 'uses' => 'Admin\DonationItemController@specifications',      'as'=>'admin.donationItem.specification.specifications']);
+                             //////////////////////////
+                            ////// Locations    //////
+                           //////////////////////////
+  Route::get('/location/country',       [ 'uses' => 'Admin\LocationController@country',           'as'=>'admin.Location.country.country']);
+  Route::post('/location/country',       [ 'uses' => 'Admin\LocationController@countries',           'as'=>'admin.Location.country.countries']);
+  
+  Route::get('/location/state',         [ 'uses' => 'Admin\LocationController@state',             'as'=>'admin.Location.state.state']);
+  Route::post('/location/state',         [ 'uses' => 'Admin\LocationController@states',             'as'=>'admin.Location.state.states']);
+  
+  Route::get('/location/city',          [ 'uses' => 'Admin\LocationController@city',              'as'=>'admin.Location.city.city']);
+  Route::post('/location/city',          [ 'uses' => 'Admin\LocationController@cities',              'as'=>'admin.Location.city.cities']);  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+/** ============================================================================================================================================
+ *                                                           Website Or User Panel
+ * ============================================================================================================================================
+ */
 Route::group(['prefix' => 'user'], function () {
   Route::get('/login', 'UserAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'UserAuth\LoginController@login');
