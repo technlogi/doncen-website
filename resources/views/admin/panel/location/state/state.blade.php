@@ -23,7 +23,6 @@
                             <thead>
                                 <th>Sr.No</th>
                                 <th>Name</th>
-                                <th>Title</th>
                                 <th>Created At</th>
                                 <th>Options</th>
                             </thead>
@@ -49,7 +48,6 @@
             "columns": [
                 { "data": "id" },
                 { "data": "name" },
-                { "data": "title" },
                 { "data": "created_at" },
                 { "data": "options" }
             ]	 

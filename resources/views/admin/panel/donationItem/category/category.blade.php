@@ -16,6 +16,10 @@
             <div class="card mb-3">
                 <div class="card-header">
                 <i class="fa fa-table"></i> Category List
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="{{route('admin.donationItem.category.create')}}">
+                        <i class="fa fa-plus">  </i>  Create New Category</a>
+                 </div>
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">

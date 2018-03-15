@@ -12,7 +12,7 @@ use \App\Models\Specification;
 class DonationItemController extends Controller
 {
     /**
-     *  Country Section 
+     * Category
     */
     public function category()
     { 
@@ -20,23 +20,26 @@ class DonationItemController extends Controller
     }
     public function categories(Request $request)
     {   
-        $show= ''; //route('posts.show',$category->id);
-        $edit = '';// route('posts.edit',$category->id);
            $categories = dataTable(
-                [0 =>'id',1 =>'name',2=> 'title',3=> 'created_at',4=> 'key'],
+                ['id','name','title','created_at','key'],
                 'categories' ,
                 'title',
                 $request,
-                $show ,
-                $edit
+                $show= '', 
+                $edit = '',
+                $delete ='',
+                $status =''
             );
             echo json_encode($categories);  
     }
-
+    public function create_category()
+    {
+       return view('admin.panel.donationItem.category.create');
+    }
 
 
     /**
-     *  State Section 
+     *  SubCategory
     */
     public function subCategory()
     { 
@@ -44,77 +47,21 @@ class DonationItemController extends Controller
     }
     public function subcategories(Request $request)
     { 
-         
-                $columns = array( 
-                    0 =>'id',
-                    1 =>'name',
-                    2=> 'type',
-                    3=> 'created_at',
-                    4=> 'key',
-                );
-
-                $totalData = Subcategory::count();
-
-                $totalFiltered = $totalData; 
-
-                $limit = $request->input('length');
-                $start = $request->input('start');
-                $order = $columns[$request->input('order.0.column')];
-                $dir = $request->input('order.0.dir');
-
-                if(empty($request->input('search.value')))
-                {            
-                    $categories = Subcategory::offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
-                }
-                else {
-                $search = $request->input('search.value'); 
-
-                $categories =  Subcategory::where('id','LIKE',"%{$search}%")
-                            ->orWhere('name', 'LIKE',"%{$search}%")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
-
-                $totalFiltered = Subcategory::where('id','LIKE',"%{$search}%")
-                            ->orWhere('name', 'LIKE',"%{$search}%")
-                            ->count();
-                }
-
-                $data = array();
-                if(!empty($categories))
-                {
-                    $i=0;
-                foreach ($categories as $category)
-                {
-                    // $show =  route('posts.show',$category->id);
-                    // $edit =  route('posts.edit',$category->id);
-                    $nestedData['id'] = ++$i;
-                    $nestedData['name'] = $category->name;
-                    $nestedData['type'] = $category->type;
-                    $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
-                    $nestedData['options'] = "&emsp;<a href='{}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-                                            &emsp;<a href='{}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
-                    $data[] = $nestedData;
-
-                    }
-                }
-                $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
-                    );
-
-                echo json_encode($json_data); 
-
+           $subcategorys = dataTable(
+                ['id','name','type','created_at','key'],
+                'subcategories' ,
+                'name',
+                $request,
+                $show= '', //route('posts.show',$category->id),
+                $edit = '',// route('posts.edit',$category->id),
+                $delete ='',
+                $status =''
+            );
+            echo json_encode($subcategorys);  
     }
 
     /**
-     *  city Section 
+     *  Specification 
     */
     public function specification()
     { 
@@ -122,73 +69,17 @@ class DonationItemController extends Controller
     }
     public function specifications(Request $request)
     { 
-         
-                $columns = array( 
-                    0 =>'id',
-                    1 =>'name',
-                    2=> 'type',
-                    3=> 'created_at',
-                    4=> 'key',
-                );
-
-                $totalData = Specification::count();
-
-                $totalFiltered = $totalData; 
-
-                $limit = $request->input('length');
-                $start = $request->input('start');
-                $order = $columns[$request->input('order.0.column')];
-                $dir = $request->input('order.0.dir');
-
-                if(empty($request->input('search.value')))
-                {            
-                    $categories = Specification::offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
-                }
-                else {
-                $search = $request->input('search.value'); 
-
-                $categories =  Specification::where('id','LIKE',"%{$search}%")
-                            ->orWhere('name', 'LIKE',"%{$search}%")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
-
-                $totalFiltered = Specification::where('id','LIKE',"%{$search}%")
-                            ->orWhere('name', 'LIKE',"%{$search}%")
-                            ->count();
-                }
-
-                $data = array();
-                if(!empty($categories))
-                {
-                    $i=0;
-                foreach ($categories as $category)
-                {
-                    // $show =  route('posts.show',$category->id);
-                    // $edit =  route('posts.edit',$category->id);
-                    $nestedData['id'] = ++$i;
-                    $nestedData['name'] = $category->name;
-                    $nestedData['type'] = $category->type;
-                    $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
-                    $nestedData['options'] = "&emsp;<a href='{}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-                                            &emsp;<a href='{}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
-                    $data[] = $nestedData;
-
-                    }
-                }
-                $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
-                    );
-
-                echo json_encode($json_data); 
-
+           $specifications = dataTable(
+                [0 =>'id',1 =>'name',2=> 'type',3=> 'created_at',4=> 'key'],
+                'specifications' ,
+                'name',
+                $request,
+                $show= '', //route('posts.show',$category->id),
+                $edit = '',// route('posts.edit',$category->id),
+                $delete ='',
+                $status =''
+            );
+            echo json_encode($specifications);  
     }
 
 }

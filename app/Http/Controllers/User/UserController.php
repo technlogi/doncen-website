@@ -4,13 +4,60 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \App\Models\Category;
 
 class UserController extends Controller
 {
     public function addPost()
     {
-        return view('web.add_post');
+        $categories = Category::all();
+        return view('web.add_post',compact('categories'));
     }
+  
+    public function getSubcategory(Request $request)
+    {
+        $category = Category::where('key',$request->key)->first();
+        $subcategories = $category->subcategories;
+        $var = ' <ul role="tablist">';
+        foreach($subcategories as $subcategory){
+            $var .= '<li><a class="subcategory" id="'. $subcategory->key.'" aria-controls="platelets" role="tab" data-toggle="tab">
+                            '.$subcategory->name.'
+                        </a>
+                    </li>';
+        }
+        return $var.'</ul>' ;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function aboutUs()
     {
         return view('web.aboutUs');

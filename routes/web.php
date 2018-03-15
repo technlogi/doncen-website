@@ -32,9 +32,12 @@ Route::group(['prefix' => 'admin'], function () {
                              //////////////////////////
                             ////// Donation Item//////
                            //////////////////////////
-  Route::get('/donation/item/category',       [ 'uses' => 'Admin\DonationItemController@category',           'as'=>'admin.donationItem.category.category']);
+  Route::get('/donation/item/category',        [ 'uses' => 'Admin\DonationItemController@category',             'as'=>'admin.donationItem.category.category']);
   Route::post('/donation/item/category',       [ 'uses' => 'Admin\DonationItemController@categories',           'as'=>'admin.donationItem.category.categories']);
+  Route::get('/donation/item/create/category', [ 'uses' => 'Admin\DonationItemController@create_category',      'as'=>'admin.donationItem.category.create']);
+  Route::post('/donation/item/create/category', [ 'uses' => 'Admin\DonationItemController@store_category',      'as'=>'admin.donationItem.category.create']);
   
+
   Route::get('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subCategory',        'as'=>'admin.donationItem.subCategory.subCategory']);
   Route::post('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subcategories',        'as'=>'admin.donationItem.subCategory.subcategories']);
   
@@ -57,9 +60,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
+  Route::post('/getsubcatory',          [ 'uses' => 'User\UserController@getSubcategory',              'as'=>'admin.users.categorie.subcategories']);  
 
 
-
+  
 
 
 

@@ -17,12 +17,22 @@ if (! function_exists('generateKey')) {
     }
     
 }
+if (! function_exists('get')) {
+    function get($column) {
+       if(!empty($column)){
+         if($column['title']){
+             return 'title';
+         }
+       }
+
+    }
+}
 
 
 
 
 if (! function_exists('dataTable')) {
-    function dataTable($column,$table_name,$search_by,$request, $show ,$edit) {
+    function dataTable($column,$table_name,$search_by,$request, $show , $edit , $delete , $status) {
         $totalData = DB::table($table_name)->count();
 
         $totalFiltered = $totalData; 
@@ -56,18 +66,34 @@ if (! function_exists('dataTable')) {
         $data = array();
         if(!empty($informations))
         {
-        $i=0;
-        foreach ($informations as $category)
-        {
-           
-            $nestedData['id'] = ++$i;
-            $nestedData['name'] = $category->name;
-            $nestedData['title'] = $category->title;
-            $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
-            $nestedData['options'] = "&emsp;<a href='{}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-                                    &emsp;<a href='{}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
+            $i=0;
+            foreach ($informations as $category)
+            {
+                $nestedData['id'] = ++$i;
+                foreach($column as $field){
+                    if($field == 'created_at'){
+                        $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
+                    }else{
+                        $nestedData[$field] = $category->$field;
+                    }
+                }
+                $option = '';
+                if($show != ''){
+                    $show_link = route('admin.Location.country.country');
+                    $option = "&emsp;<a href='{$show_link}' title='SHOW' ><span class='fa fa-eye'></span></a>";
+                }
+                if($edit != ''){
+                    $edit_link = route($edit,$category->key);
+                    $option .= "&emsp;<a href='{$edit_link}' title='EDIT' ><span class='fa fa-edit'></span></a>";
+                }
+                if($delete != ''){
+                    $option .= "&emsp;<a href='{$delete}' title='DELETE' ><span class='fa fa-trash'></span></a>";
+                }
+                if($status != ''){
+                    $option .= "&emsp;<a href='{$delete}' title='DELETE' ><span class='fa fa-user'></span></a>";
+                }
+                $nestedData['options'] = $option ;
             $data[] = $nestedData;
-
             }
         }
         $json_data = array(

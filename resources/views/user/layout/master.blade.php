@@ -33,7 +33,7 @@
     @include('user.layout.footer')
         <!-- JS -->
         <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
-        <script src="{{ URL::asset('/js/user/js/modernizr.min.js')}}"></script>
+         <script src="{{ URL::asset('/js/user/js/modernizr.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/bootstrap.min.js')}}"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script src="{{ URL::asset('/js/user/js/gmaps.min.js')}}"></script>
@@ -44,7 +44,8 @@
         <script src="{{ URL::asset('/js/user/js/scrollup.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/price-range.js')}}"></script>    
         <script src="{{ URL::asset('/js/user/js/custom.js')}}"></script>
-        <script src="{{ URL::asset('/js/user/js/switcher.js')}}"></script>
+       <script src="{{ URL::asset('/js/user/js/switcher.js')}}"></script>
+        @stack('javaScript')
         <script>
             // $(function (i, s, o, g, r, a, m) {
             //     i['GoogleAnalyticsObject'] = r;
@@ -62,5 +63,6 @@
             // ga('send', 'pageview');
 
         </script>
+
     </body>
 </html>
