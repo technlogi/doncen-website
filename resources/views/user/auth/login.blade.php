@@ -7,7 +7,7 @@
                     <!-- user-login -->			
                     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                         <div class="user-account">
-                            <h2>User Login</h2>
+                            <h2>Login</h2>
                             <!-- form -->
                             <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/login') }}">
                                   {{ csrf_field() }}

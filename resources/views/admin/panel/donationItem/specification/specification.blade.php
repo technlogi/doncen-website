@@ -78,9 +78,12 @@
                         data        : datastring, // our data object
                         encode          : true,
                         success: function(data){
-                            hotsnackbar('hsdone', data);
                             $('#addSpecificationModel').modal('hide');
                             $("#addSpecificationFormId").trigger("reset"); 
+                            $('#messageSuccess').removeClass('fade');  
+                            setTimeout(() => {
+                                $('#messageSuccess').addClass('fade');  
+                            }, 2500);
                         }
                     });
             }

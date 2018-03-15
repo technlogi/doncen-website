@@ -34,7 +34,7 @@
                             <li><a href="{{ url('/user/register') }}">Register</a></li>
                         </ul><!-- sign-in -->					
 
-                        <a href="{{ route('user.add.post') }}" class="btn">Donate Now</a>
+                        <a href="{{ route('web.donation.category') }}" class="btn">Donate Now</a>
                     </div>
                     <!-- nav-right -->
                 </div><!-- container -->

@@ -63,16 +63,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-  Route::post('/getsubcatory',          [ 'uses' => 'User\UserController@getSubcategory',              'as'=>'admin.users.categorie.subcategories']);  
-  Route::post('/getspecification',      [ 'uses' => 'User\UserController@getSpecification',            'as'=>'admin.users.categorie.specification']);  
-  Route::post('/insert-post',            [ 'uses' => 'User\UserController@insertPost',                  'as'=>'admin.users.categorie.insertPost']);  
-
-
-  
-
-
-
-
 
 
 
@@ -110,20 +100,28 @@ Route::group(['prefix' => 'user'], function () {
 
 
 
-Route::get('/user/add/post',['uses' =>'User\UserController@addPost','as'=>'user.add.post']);
-Route::get('/user/aboutus',['uses' =>'User\UserController@aboutUs','as'=>'user.aboutUs']);
-Route::get('/user/index',['uses' =>'User\UserController@home','as'=>'user.home']);
-Route::get('/user/categories',['uses' =>'User\UserController@categories','as'=>'user.categories']);
-Route::get('/user/details',['uses' =>'User\UserController@details','as'=>'user.details']);
-Route::get('/user/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
-Route::get('/user/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
-Route::get('/user/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
+Route::get('/aboutus',['uses' =>'User\UserController@aboutUs','as'=>'user.aboutUs']);
+Route::get('/index',['uses' =>'User\UserController@home','as'=>'user.home']);
+Route::get('/categories',['uses' =>'User\UserController@categories','as'=>'user.categories']);
+Route::get('/details',['uses' =>'User\UserController@details','as'=>'user.details']);
+Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
+Route::get('/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
+Route::get('/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
 
-Route::get('/user/published',['uses' =>'User\UserController@published','as'=>'user.published']);
-Route::get('/user/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
+Route::get('/published',['uses' =>'User\UserController@published','as'=>'user.published']);
+Route::get('/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
 
 
-Route::get('/user/donation-post-details',['uses' =>'User\UserController@adPostDetails','as'=>'user.adPostDetails']);
+Route::get('/donation-post-details',['uses' =>'User\UserController@adPostDetails','as'=>'user.adPostDetails']);
+
+
+
+Route::get('/donation/category',      ['uses' =>'User\UserController@addPost',                       'as'=>'web.donation.category']);
+Route::post('/getsubcatory',          [ 'uses' => 'User\UserController@getSubcategory',              'as'=>'web.categorie.subcategories']);  
+Route::post('/getspecification',      [ 'uses' => 'User\UserController@getSpecification',            'as'=>'web.categorie.specification']);  
+Route::post('/donation/form',         [ 'uses' => 'User\UserController@postDetails',                 'as'=>'web.categorie.postDetails']);  
+Route::get('/donation/form',          [ 'uses' => 'User\UserController@addPost',                     'as'=>'web.donation.form']);  
+
 
 
 

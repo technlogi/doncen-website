@@ -25,32 +25,28 @@
                                         <div class="form-group selected-product">
                                             <ul class="select-category list-inline">
                                                 <li>
-                                                    <a href="ad-post.html">
-                                                        Category
-                                                    </a>
+                                                        {{$category->name }}
                                                 </li>
                                                 <li>
-                                                    <a href="#">
-                                                        Sub-category
-                                                    </a>
+                                                    {{$subcategory->name }}
                                                 </li>
-
                                                 <li class="active">
-                                                    <a href="#">Specification</a>
+                                                   {{ $specification->name }}
                                                 </li>
                                             </ul>
-                                            <a class="edit" href="#"><i class="fa fa-pencil"></i>Edit</a>
+
+                                            <a class="edit" href="{{ route('web.donation.category') }}"><i class="fa fa-pencil"></i>Edit</a>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-sm-3">I Am / We Are<span class="required">*</span></label>
                                             <div class="col-sm-9 user-type">
-                                                <input  type="radio" name="Donation" value="Donor" id="donor" onclick="showhideDonor()">
+                                                <input  type="radio" name="Donation" value="1" id="donor" onclick="showhideDonor()">
                                                 <label for="donor">Donor</label>
-                                                <input type="radio" name="Donation" value="Help of Donor" id="helper-of-donor" onclick="showhidehelper()">
+                                                <input type="radio" name="Donation" value="2" id="helper-of-donor" onclick="showhidehelper()">
                                                 <label for="helper-of-donor">Helper of Donor</label>
-                                                <input type="radio" name="Donation" value="Donee" id="donee" onclick="showhideDonor()">
+                                                <input type="radio" name="Donation" value="3" id="donee" onclick="showhideDonor()">
                                                 <label for="donee">Donee</label>
-                                                <input type="radio" name="Donation" value="Help of Donee" id="helper-of-donee" onclick="showhidehelper()">
+                                                <input type="radio" name="Donation" value="4" id="helper-of-donee" onclick="showhidehelper()">
                                                 <label for="helper-of-donee">Helper of Donee</label>                                       
                                             </div>
                                         </div>

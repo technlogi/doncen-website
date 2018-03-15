@@ -15,6 +15,7 @@
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
+                
                 <i class="fa fa-table"></i> Category List
                 <div class="pull-right">
                     <a class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModel">
@@ -36,6 +37,8 @@
                 </div>
                 </div><!-- end card-body -->
             </div><!-- end card mb-3 -->
+           
+            @include('admin.layout.message')
         </div>
     </div>
     @include('admin.panel.donationItem.category.create')
@@ -43,6 +46,8 @@
  @push('javaScript')
   <script>
     $(document).ready(function () {
+     
+        
         $('#categoryDataTable').DataTable({
             "processing": true,
             "serverSide": true,
@@ -61,6 +66,7 @@
             ]	 
 
         });
+       
         
         
         $("form[name='addCtegoryForm']").validate({
@@ -80,9 +86,12 @@
                         data        : datastring, // our data object
                         encode          : true,
                         success: function(data){
-                            hotsnackbar('hsdone', data);
                             $('#addCategoryModel').modal('hide');
                             $("#addCtegoryFormId").trigger("reset");
+                            $('#messageSuccess').removeClass('fade');  
+                            setTimeout(() => {
+                                $('#messageSuccess').addClass('fade');  
+                            }, 2500);
                         }
                     });
             }

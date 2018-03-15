@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use \App\Models\Category;
 use \App\Models\Subcategory;
 use \App\Models\Specification;
-
+use DB;
 
 class UserController extends Controller
 {
@@ -23,10 +23,9 @@ class UserController extends Controller
         $subcategories = $category->subcategories;
         $var = ' <ul role="tablist">';
         foreach($subcategories as $subcategory){
-            $var .= '<li><a class="subcategory" id="'. $subcategory->key.'" aria-controls="platelets" role="tab" data-toggle="tab">
+            $var .= '<a class="subcategory" id="'. $subcategory->key.'" aria-controls="platelets" role="tab" data-toggle="tab"><li>
                             '.$subcategory->name.'
-                        </a>
-                    </li>';
+                    </li></a>';
         }
         return $var.'</ul>' ;
     }
@@ -36,24 +35,21 @@ class UserController extends Controller
         $specifications = $subcategory->specifications;
         $var = ' <ul role="tablist">';
         foreach($specifications as $specification){
-            $var .= '<li><a class="specification" id="'. $specification->key.'" aria-controls="platelets" role="tab" data-toggle="tab">
+            $var .= '<a class="specification" id="'. $specification->key.'" aria-controls="platelets" role="tab" data-toggle="tab"><li>
                             '.$specification->name.'
-                        </a>
-                    </li>';
+                    </li></a>';
         }
         return $var.'</ul>' ;
     }
 
 
-    public function insertPost(Request $request)
+    public function postDetails(Request $request)
     {
-        return $request;
-       
-        $category = Subcategory::where('key',$request->category)->first();
-        $subcategory = Subcategory::where('key',$request->subcatgory)->first();
-        $specification = Subcategory::where('key',$request->specification)->first();
-        
-        return view('web.adPostDetails');
+        $specification = Specification::where('key',$request->specification)->first();
+        $subcategory = $specification->subcategory;
+        $category = $subcategory->category;
+        $user_types = DB::table('user_types')->select('name','key')->where('status',1)->get();
+        return view('web.adPostDetails',compact('specification','subcategory','category','user_types'));
     }
 
 

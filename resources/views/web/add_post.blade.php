@@ -10,9 +10,9 @@
                     <!-- breadcrumb -->
                     <ol class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
-                        <li>Ad Post</li>
+                        <li>Donation Form</li>
                     </ol><!-- breadcrumb -->						
-                    <h2 class="title">Post Free Ad</h2>
+                    <h2 class="title">Donate anything, whatever you can think.</h2>
                 </div><!-- banner -->
 
                 <div id="">
@@ -22,12 +22,12 @@
                                 <h4>Select a Category</h4>
                                 <ul role="tablist">
                                       @foreach($categories as $category)
+                                      <a  class="category"  id="{{$category->key}}" aria-controls="cat1" role="tab" data-toggle="tab">
                                           <li class="">
-                                            <a  class="category"  id="{{$category->key}}" aria-controls="cat1" role="tab" data-toggle="tab">
-                                                <img class="img-responsive" src="http://localhost:8000/uploads/images/doncen-responsive.png" alt="Logo">
+                                                <!-- <img class="img-responsive" src="http://localhost:8000/uploads/images/doncen-responsive.png" alt="Logo"> -->
                                                 {{ $category->name }}
-                                            </a>
-                                          </li>
+                                            </li>
+                                        </a>
                                       @endforeach  
                                 </ul>
                             </div>
@@ -49,9 +49,8 @@
                                 </div>
                              
                                 <div class="btn-section" id="button_section">
-                                    <form method="POST"  action="{{ route('admin.users.categorie.insertPost') }}"> 
-                                        <input type="hidden" name="category"      id="category_field"  />
-                                        <input type="hidden" name="subcatgory"    id="subcatgory_field"  />
+                                    <form method="POST"  action="{{ route('web.donation.form') }}"> 
+                                         {{ csrf_field() }}
                                         <input type="hidden" name="specification" id="specification_field"  />
                                         <button type="submit" class="btn">Next</button>
                                     </form>   
@@ -87,7 +86,7 @@
      $('.appendSubCategory').children().hide();
       $.ajax({
        type:'POST',
-       url: "{{ URL::route('admin.users.categorie.subcategories') }}",
+       url: "{{ URL::route('web.categorie.subcategories') }}",
        data: { key: $id},
        success: function(data) {
            $('.appendSubCategory').append(data);
@@ -107,7 +106,7 @@
     $('.appendSpecification').children().hide();
     $.ajax({
        type:'POST',
-       url: "{{ URL::route('admin.users.categorie.specification') }}",
+       url: "{{ URL::route('web.categorie.specification') }}",
        data: { key: $id},
        success: function(data) {
            $('.appendSpecification').append(data);

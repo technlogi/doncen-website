@@ -72,13 +72,13 @@ class DonationItemController extends Controller
         $category = Category::where('key',$request->id)->first();
         DB::table('subcategories')->insert([
             'key'=> generateKey(3),
-            'category_id'=> $request->id,
+            'category_id'=> $category->id,
             'name' => $request->name,
             'type' => $request->type,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
         ]);
-        echo "Sub Category create Successfully";
+        echo "   Sub Category create Successfully";
     }
 
 
@@ -116,6 +116,6 @@ class DonationItemController extends Controller
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
         ]);
-        echo "Specification create Successfully";
+        echo "  Specification create Successfully";
     }
 }
