@@ -345,3 +345,10 @@ footer.sticky-footer {
   body.sidenav-toggled footer.sticky-footer {
     width: calc(100% - 55px); } }
 
+    
+  form .error {
+      color: #ff0000;
+    }
+    form-control .error{
+    color: #ff0000;
+  }

@@ -49,9 +49,9 @@
                                 </div>
                              
                                 <div class="btn-section" id="button_section">
-                                    <form method="GET"  action="{{ route('admin.users.categorie.insertPost') }}"> 
-                                        <input type="hidden" name="category" id="category_field"  />
-                                        <input type="hidden" name="subcatgory" id="subcatgory_field"  />
+                                    <form method="POST"  action="{{ route('admin.users.categorie.insertPost') }}"> 
+                                        <input type="hidden" name="category"      id="category_field"  />
+                                        <input type="hidden" name="subcatgory"    id="subcatgory_field"  />
                                         <input type="hidden" name="specification" id="specification_field"  />
                                         <button type="submit" class="btn">Next</button>
                                     </form>   
@@ -92,7 +92,7 @@
        success: function(data) {
            $('.appendSubCategory').append(data);
            $('#button_section').hide();
-           $('#category_field').attr('value') = $id;
+           $('#category_field').val($id);
        }
       });
    });
@@ -112,7 +112,7 @@
        success: function(data) {
            $('.appendSpecification').append(data);
            $('#button_section').hide();
-           $('#subcatgory_field').val = $id;
+           $('#subcatgory_field').val($id);
        }
       });
    });
@@ -120,7 +120,7 @@
         $id = $(this).attr('id');
         if($id != '' ){
              $('#button_section').show();
-             $('#specification_field').value() = $id;
+             $('#specification_field').val($id);
         }
    });
  });

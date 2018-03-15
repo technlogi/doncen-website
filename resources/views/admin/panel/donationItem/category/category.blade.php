@@ -17,8 +17,9 @@
                 <div class="card-header">
                 <i class="fa fa-table"></i> Category List
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{route('admin.donationItem.category.create')}}">
-                        <i class="fa fa-plus">  </i>  Create New Category</a>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModel">
+                        <i class="fa fa-plus"></i>Create New Category</a>
+                    </a>
                  </div>
                 </div>
                 <div class="card-body">
@@ -37,6 +38,7 @@
             </div><!-- end card mb-3 -->
         </div>
     </div>
+    @include('admin.panel.donationItem.category.create')
  @endsection
  @push('javaScript')
   <script>
@@ -58,6 +60,32 @@
                 { "data": "options" }
             ]	 
 
+        });
+        
+        
+        $("form[name='addCtegoryForm']").validate({
+            rules: {
+                name: "required",
+                title: "required",
+            },  
+            messages: {
+                name: "Please enter name.",
+                title: "Please enter title.",
+            },
+            submitHandler: function(form) {
+                    var datastring = $("#addCtegoryFormId").serialize();
+                    $.ajax({
+                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url         : "{{ URL::route('admin.donationItem.category.create')}}", // the url where we want to POST
+                        data        : datastring, // our data object
+                        encode          : true,
+                        success: function(data){
+                            hotsnackbar('hsdone', data);
+                            $('#addCategoryModel').modal('hide');
+                            $("#addCtegoryFormId").trigger("reset");
+                        }
+                    });
+            }
         });
     });
 </script>

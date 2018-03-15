@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use \App\Models\Category;
 use \App\Models\Subcategory;
 use \App\Models\Specification;
-
+use DB;
 
 class DonationItemController extends Controller
 {
@@ -16,7 +16,7 @@ class DonationItemController extends Controller
     */
     public function category()
     { 
-       return view('admin.panel.donationItem.category.category');
+        return view('admin.panel.donationItem.category.category');
     }
     public function categories(Request $request)
     {   
@@ -32,9 +32,16 @@ class DonationItemController extends Controller
             );
             echo json_encode($categories);  
     }
-    public function create_category()
+    public function store_category(Request $request)
     {
-       return view('admin.panel.donationItem.category.create');
+        DB::table('categories')->insert([
+            'key'=> generateKey(3),
+            'title' => $request->title,
+            'name' => $request->name,
+            'created_at' => new \DateTime(),
+            'updated_at' => new \DateTime()
+        ]);
+        echo "  Category create Successfully";
     }
 
 
@@ -43,7 +50,8 @@ class DonationItemController extends Controller
     */
     public function subCategory()
     { 
-       return view('admin.panel.donationItem.subCategory.sub_category');
+        $categories =  Category::select('key','name')->get();
+       return view('admin.panel.donationItem.subCategory.sub_category',compact('categories'));
     }
     public function subcategories(Request $request)
     { 
@@ -59,13 +67,28 @@ class DonationItemController extends Controller
             );
             echo json_encode($subcategorys);  
     }
+    public function store_subcategories(Request $request)
+    {
+        $category = Category::where('key',$request->id)->first();
+        DB::table('subcategories')->insert([
+            'key'=> generateKey(3),
+            'category_id'=> $request->id,
+            'name' => $request->name,
+            'type' => $request->type,
+            'created_at' => new \DateTime(),
+            'updated_at' => new \DateTime()
+        ]);
+        echo "Sub Category create Successfully";
+    }
+
 
     /**
      *  Specification 
     */
     public function specification()
     { 
-       return view('admin.panel.donationItem.specification.specification');
+        $subcategories =  Subcategory::select('key','name')->get();
+       return view('admin.panel.donationItem.specification.specification',compact('subcategories'));
     }
     public function specifications(Request $request)
     { 
@@ -82,4 +105,17 @@ class DonationItemController extends Controller
             echo json_encode($specifications);  
     }
 
+    public function store_specifications(Request $request)
+    { 
+        $Subcategory = Subcategory::where('key',$request->id)->first();
+        DB::table('specifications')->insert([
+            'key'=> generateKey(6),
+            'subcategory_id'=> $Subcategory->id,
+            'name' => $request->name,
+            'type' => $request->type,
+            'created_at' => new \DateTime(),
+            'updated_at' => new \DateTime()
+        ]);
+        echo "Specification create Successfully";
+    }
 }

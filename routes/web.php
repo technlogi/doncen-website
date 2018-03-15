@@ -32,27 +32,30 @@ Route::group(['prefix' => 'admin'], function () {
                              //////////////////////////
                             ////// Donation Item//////
                            //////////////////////////
-  Route::get('/donation/item/category',        [ 'uses' => 'Admin\DonationItemController@category',             'as'=>'admin.donationItem.category.category']);
-  Route::post('/donation/item/category',       [ 'uses' => 'Admin\DonationItemController@categories',           'as'=>'admin.donationItem.category.categories']);
-  Route::get('/donation/item/create/category', [ 'uses' => 'Admin\DonationItemController@create_category',      'as'=>'admin.donationItem.category.create']);
-  Route::post('/donation/item/create/category', [ 'uses' => 'Admin\DonationItemController@store_category',      'as'=>'admin.donationItem.category.create']);
+  Route::get('/donation/item/category',          [ 'uses' => 'Admin\DonationItemController@category',             'as'=>'admin.donationItem.category.category']);
+  Route::post('/donation/item/category',         [ 'uses' => 'Admin\DonationItemController@categories',           'as'=>'admin.donationItem.category.categories']);
+  Route::post('/donation/item/create/category',  [ 'uses' => 'Admin\DonationItemController@store_category',       'as'=>'admin.donationItem.category.create']);
   
 
-  Route::get('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subCategory',        'as'=>'admin.donationItem.subCategory.subCategory']);
-  Route::post('/donation/item/sub-category',   [ 'uses' => 'Admin\DonationItemController@subcategories',        'as'=>'admin.donationItem.subCategory.subcategories']);
+  Route::get('/donation/item/sub-category',           [ 'uses' => 'Admin\DonationItemController@subCategory',          'as'=>'admin.donationItem.subCategory.subCategory']);
+  Route::post('/donation/item/sub-category',          [ 'uses' => 'Admin\DonationItemController@subcategories',        'as'=>'admin.donationItem.subCategory.subcategories']);
+  Route::post('/donation/item/create/sub-category',   [ 'uses' => 'Admin\DonationItemController@store_subcategories',  'as'=>'admin.donationItem.subCategory.create']);
   
-  Route::get('/donation/item/specification',  [ 'uses' => 'Admin\DonationItemController@specification',      'as'=>'admin.donationItem.specification.specification']);
-  Route::post('/donation/item/specification',  [ 'uses' => 'Admin\DonationItemController@specifications',      'as'=>'admin.donationItem.specification.specifications']);
+  
+  Route::get('/donation/item/specification',           [ 'uses' => 'Admin\DonationItemController@specification',               'as'=>'admin.donationItem.specification.specification']);
+  Route::post('/donation/item/specification',          [ 'uses' => 'Admin\DonationItemController@specifications',              'as'=>'admin.donationItem.specification.specifications']);
+  Route::post('/donation/item/create/specification',   [ 'uses' => 'Admin\DonationItemController@store_specifications',        'as'=>'admin.donationItem.specification.create']);
+  
                              //////////////////////////
                             ////// Locations    //////
                            //////////////////////////
-  Route::get('/location/country',       [ 'uses' => 'Admin\LocationController@country',           'as'=>'admin.Location.country.country']);
+  Route::get('/location/country',        [ 'uses' => 'Admin\LocationController@country',             'as'=>'admin.Location.country.country']);
   Route::post('/location/country',       [ 'uses' => 'Admin\LocationController@countries',           'as'=>'admin.Location.country.countries']);
   
-  Route::get('/location/state',         [ 'uses' => 'Admin\LocationController@state',             'as'=>'admin.Location.state.state']);
+  Route::get('/location/state',          [ 'uses' => 'Admin\LocationController@state',              'as'=>'admin.Location.state.state']);
   Route::post('/location/state',         [ 'uses' => 'Admin\LocationController@states',             'as'=>'admin.Location.state.states']);
   
-  Route::get('/location/city',          [ 'uses' => 'Admin\LocationController@city',              'as'=>'admin.Location.city.city']);
+  Route::get('/location/city',           [ 'uses' => 'Admin\LocationController@city',                'as'=>'admin.Location.city.city']);
   Route::post('/location/city',          [ 'uses' => 'Admin\LocationController@cities',              'as'=>'admin.Location.city.cities']);  
   
 
@@ -62,7 +65,7 @@ Route::group(['prefix' => 'admin'], function () {
 
   Route::post('/getsubcatory',          [ 'uses' => 'User\UserController@getSubcategory',              'as'=>'admin.users.categorie.subcategories']);  
   Route::post('/getspecification',      [ 'uses' => 'User\UserController@getSpecification',            'as'=>'admin.users.categorie.specification']);  
-  Route::get('/insert-post',      [ 'uses' => 'User\UserController@insertPost',            'as'=>'admin.users.categorie.insertPost']);  
+  Route::post('/insert-post',            [ 'uses' => 'User\UserController@insertPost',                  'as'=>'admin.users.categorie.insertPost']);  
 
 
   

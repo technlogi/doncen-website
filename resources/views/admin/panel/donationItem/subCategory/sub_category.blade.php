@@ -16,6 +16,9 @@
             <div class="card mb-3">
                 <div class="card-header">
                 <i class="fa fa-table"></i> Sub-Category List
+                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#addSubCategoryModel">
+                        <i class="fa fa-plus"></i>Create New Sub-Category</a>
+                    </a>
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
@@ -33,6 +36,7 @@
             </div><!-- end card mb-3 -->
         </div>
     </div>
+    @include('admin.panel.donationItem.subCategory.create')
  @endsection
  @push('javaScript')
   <script>
@@ -54,6 +58,33 @@
                 { "data": "options" }
             ]	 
 
+        });
+        $("form[name='addSubCategory']").validate({
+            rules: {
+                name: "required",
+                id: "required",
+                type: "required"
+            },  
+            messages: {
+                name: "Please enter name.",
+                id: "Please select Category.",
+                title: "Please enter title.",
+                
+            },
+            submitHandler: function(form) {
+                    var datastring = $("#addSubCategoryId").serialize();
+                    $.ajax({
+                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url         : "{{ URL::route('admin.donationItem.subCategory.create')}}", // the url where we want to POST
+                        data        : datastring, // our data object
+                        encode          : true,
+                        success: function(data){
+                            hotsnackbar('hsdone', data);
+                            $('#addSubCategoryModel').modal('hide');
+                            $("#addSubCategoryId").trigger("reset");
+                        }
+                    });
+            }
         });
     });
 </script>

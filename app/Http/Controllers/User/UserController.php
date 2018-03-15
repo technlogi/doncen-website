@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Models\Category;
 use \App\Models\Subcategory;
+use \App\Models\Specification;
+
 
 class UserController extends Controller
 {
@@ -45,7 +47,13 @@ class UserController extends Controller
 
     public function insertPost(Request $request)
     {
-        return  $request->all();
+        return $request;
+       
+        $category = Subcategory::where('key',$request->category)->first();
+        $subcategory = Subcategory::where('key',$request->subcatgory)->first();
+        $specification = Subcategory::where('key',$request->specification)->first();
+        
+        return view('web.adPostDetails');
     }
 
 
