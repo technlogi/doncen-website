@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin'], function () {
 
   Route::post('/getsubcatory',          [ 'uses' => 'User\UserController@getSubcategory',              'as'=>'admin.users.categorie.subcategories']);  
   Route::post('/getspecification',      [ 'uses' => 'User\UserController@getSpecification',            'as'=>'admin.users.categorie.specification']);  
+  Route::get('/insert-post',      [ 'uses' => 'User\UserController@insertPost',            'as'=>'admin.users.categorie.insertPost']);  
 
 
   

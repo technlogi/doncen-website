@@ -45,19 +45,17 @@
                         <div class="col-md-4 col-sm-6">
                             <div class="section tab-content next-stap post-option">
                                 <h4>Select a specification</h4>
-
-                                <div role="tabpanel" class="tab-pane active" id="blood">                                    
-                                    <ul>
-                                        <li><a href="ad-post-details.html">A+</a></li>
-                                        <li><a href="ad-post-details.html">B+</a></li>
-                                        <li><a href="ad-post-details.html">AB+</a></li>
-                                        <li><a href="ad-post-details.html">O-</a></li>                                        
-                                    </ul>	
+                                <div role="tabpanel" class="appendSpecification">
                                 </div>
                              
-                                <div class="btn-section">
-                                    <!--<a href="ad-post-details.html" class="btn">Next</a>-->
-                                    <a href="#" class="btn-info"> Cancle</a>
+                                <div class="btn-section" id="button_section">
+                                    <form method="GET"  action="{{ route('admin.users.categorie.insertPost') }}"> 
+                                        <input type="hidden" name="category" id="category_field"  />
+                                        <input type="hidden" name="subcatgory" id="subcatgory_field"  />
+                                        <input type="hidden" name="specification" id="specification_field"  />
+                                        <button type="submit" class="btn">Next</button>
+                                    </form>   
+                                    <button type="text" class="btn"> Cancel</button>
                                 </div>
                             </div>
                         </div><!-- next-stap -->
@@ -74,10 +72,12 @@
         </section><!-- post-page -->
 @endsection
 @push('javaScript')
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src = "{{ URL::asset('/js/user/js/jquery.min.js')}} "></script>
 <script>
  $(function(){
+     $('#button_section').hide();
    $('.category').on('click',function(){
+       $('#button_section').hide();
       $id = $(this).attr('id');
       $.ajaxSetup({
             headers: {
@@ -91,24 +91,37 @@
        data: { key: $id},
        success: function(data) {
            $('.appendSubCategory').append(data);
+           $('#button_section').hide();
+           $('#category_field').attr('value') = $id;
        }
       });
    });
    $(document).on("click", ".subcategory" , function() {
     $id = $(this).attr('id');
+    $('#button_section').hide();
     $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
     });
+    $('.appendSpecification').children().hide();
     $.ajax({
        type:'POST',
        url: "{{ URL::route('admin.users.categorie.specification') }}",
        data: { key: $id},
        success: function(data) {
            $('.appendSpecification').append(data);
+           $('#button_section').hide();
+           $('#subcatgory_field').val = $id;
        }
       });
+   });
+   $(document).on("click", ".specification" , function() {
+        $id = $(this).attr('id');
+        if($id != '' ){
+             $('#button_section').show();
+             $('#specification_field').value() = $id;
+        }
    });
  });
 </script>

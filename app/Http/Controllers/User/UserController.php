@@ -43,6 +43,11 @@ class UserController extends Controller
     }
 
 
+    public function insertPost(Request $request)
+    {
+        return  $request->all();
+    }
+
 
 
 
