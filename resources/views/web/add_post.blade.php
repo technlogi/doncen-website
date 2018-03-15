@@ -94,16 +94,22 @@
        }
       });
    });
-   
- });
- $(function(){
-   $('.subcategory').on('click',function(){
-    alert('heoll');
+   $(document).on("click", ".subcategory" , function() {
     $id = $(this).attr('id');
-      alert($id);
-
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    });
+    $.ajax({
+       type:'POST',
+       url: "{{ URL::route('admin.users.categorie.specification') }}",
+       data: { key: $id},
+       success: function(data) {
+           $('.appendSpecification').append(data);
+       }
+      });
    });
-   
  });
 </script>
 @endpush

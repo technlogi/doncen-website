@@ -18,7 +18,7 @@ class CreateSpecificationsTable extends Migration
             $table->string('key');
             $table->integer('subcategory_id');
             $table->string('name');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

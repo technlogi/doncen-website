@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Models\Category;
+use \App\Models\Subcategory;
 
 class UserController extends Controller
 {
@@ -22,6 +23,19 @@ class UserController extends Controller
         foreach($subcategories as $subcategory){
             $var .= '<li><a class="subcategory" id="'. $subcategory->key.'" aria-controls="platelets" role="tab" data-toggle="tab">
                             '.$subcategory->name.'
+                        </a>
+                    </li>';
+        }
+        return $var.'</ul>' ;
+    }
+    public function getSpecification(Request $request)
+    {
+        $subcategory = Subcategory::where('key',$request->key)->first();
+        $specifications = $subcategory->specifications;
+        $var = ' <ul role="tablist">';
+        foreach($specifications as $specification){
+            $var .= '<li><a class="specification" id="'. $specification->key.'" aria-controls="platelets" role="tab" data-toggle="tab">
+                            '.$specification->name.'
                         </a>
                     </li>';
         }
