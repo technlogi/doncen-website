@@ -49,7 +49,7 @@
                                 </div>
                              
                                 <div class="btn-section" id="button_section">
-                                    <form method="POST"  action="{{ route('web.donation.form') }}"> 
+                                    <form method="POST"  action="{{ route('web.categorie.donationDetails') }}"> 
                                          {{ csrf_field() }}
                                         <input type="hidden" name="specification" id="specification_field"  />
                                         <button type="submit" class="btn">Next</button>

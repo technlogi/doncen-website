@@ -95,6 +95,9 @@ Route::get('/categories',         [  'uses' => 'Web\CategoryController@categorie
 
 
 
+Route::get('/donation/form/{key}',     [  'uses' => 'Web\WebController@donationDetailForm',           'as' => 'web.donation.DetailForm' ]);
+Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donation_detail',          'as'=> 'web.donation.create']);
+
 
 
 
