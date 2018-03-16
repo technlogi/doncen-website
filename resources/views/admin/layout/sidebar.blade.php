@@ -8,7 +8,7 @@
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Donation Item">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
+            <i class="fa fa-fw fa-gift"></i>
             <span class="nav-link-text">Donation Item</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
@@ -25,7 +25,7 @@
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Location">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#locationComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
+            <i class="fa fa-map-marker"></i>
             <span class="nav-link-text">Location</span>
           </a>
           <ul class="sidenav-second-level collapse" id="locationComponents">

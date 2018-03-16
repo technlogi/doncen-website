@@ -53,12 +53,17 @@ Route::group(['prefix' => 'admin'], function () {
                                  /* Country  */
   Route::get('/location/country',        [ 'uses' => 'Admin\LocationController@country',             'as'=>'admin.Location.country.country']);
   Route::post('/location/country',       [ 'uses' => 'Admin\LocationController@countries',           'as'=>'admin.Location.country.countries']);
+  Route::post('/create/country',         [ 'uses' => 'Admin\LocationController@store_country',       'as'=>'admin.Location.country.create']);
+  
                                   /* State  */
   Route::get('/location/state',          [ 'uses' => 'Admin\LocationController@state',              'as'=>'admin.Location.state.state']);
   Route::post('/location/state',         [ 'uses' => 'Admin\LocationController@states',             'as'=>'admin.Location.state.states']);
+  Route::post('/create/state',           [ 'uses' => 'Admin\LocationController@store_state',        'as'=>'admin.Location.state.create']);
                                   /* City  */
   Route::get('/location/city',           [ 'uses' => 'Admin\LocationController@city',                'as'=>'admin.Location.city.city']);
   Route::post('/location/city',          [ 'uses' => 'Admin\LocationController@cities',              'as'=>'admin.Location.city.cities']);  
+  Route::post('/create/city',          [ 'uses' => 'Admin\LocationController@store_city',          'as'=>'admin.Location.city.create']);  
+  
 });
 /** ============================================================================================================================================
  *                                                           User Panel

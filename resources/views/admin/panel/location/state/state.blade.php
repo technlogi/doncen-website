@@ -16,6 +16,11 @@
             <div class="card mb-3">
                 <div class="card-header">
                 <i class="fa fa-table"></i> State List
+                <div class="pull-right">
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#addStateModel">
+                        <i class="fa fa-plus"></i>Add New State</a>
+                    </a>
+                 </div>
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
@@ -32,6 +37,8 @@
             </div><!-- end card mb-3 -->
         </div>
     </div>
+    @include('admin.panel.location.state.create')
+    
 @endsection
  @push('javaScript')
   <script>
@@ -52,6 +59,33 @@
                 { "data": "options" }
             ]	 
 
+        });
+        $("form[name='addStateForm']").validate({
+            rules: {
+                name: "required",
+                country_id: "required",
+            },  
+            messages: {
+                name: "Please enter name.",
+                country_id: "Please select Country.",
+            },
+            submitHandler: function(form) {
+                    var datastring = $("#addStateFormId").serialize();
+                    $.ajax({
+                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url         : "{{ URL::route('admin.Location.state.create')}}", // the url where we want to POST
+                        data        : datastring, // our data object
+                        encode          : true,
+                        success: function(data){
+                            $('#addStateModel').modal('hide');
+                            $("#addStateFormId").trigger("reset");
+                            $('#messageSuccess').removeClass('fade');  
+                            setTimeout(() => {
+                                $('#messageSuccess').addClass('fade');  
+                            }, 2500);
+                        }
+                    });
+            }
         });
     });
 </script>
