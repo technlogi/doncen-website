@@ -27,13 +27,34 @@
                     <!-- nav-right -->
                     <div class="nav-right">
 
-                        <!-- sign-in -->					
+                        <!-- sign-in -->		
+                        @if(!Auth::guard('user')->check())		
                         <ul class="sign-in">
                             <li><i class="fa fa-user"></i></li>
                             <li><a href="{{ url('/user/login') }}"> Sign In </a></li>
                             <li><a href="{{ url('/user/register') }}">Register</a></li>
                         </ul><!-- sign-in -->					
+                        @else
+                        <div class="dropdown language-dropdown">
+                            <i class="fa fa-user"></i> 						
+                            <a data-toggle="dropdown" href="#" aria-expanded="false"><span class="change-text">{{Auth::guard('user')->user()->name}}</span> <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu language-change">
+                                <li><a href="{{ route('user.home') }}">Profile</a></li>
+                                <li><a href="#">My Favourite</a></li>
+                                <li><a href="#">My Donation</a></li>
+                                <li><a href="#">My Urgency</a></li>
+                                
+                                <li><a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a></li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
+                                            {{ csrf_field() }}
+                                        </form>
+                            </ul>								
+                        </div>	
 
+                        @endif
                         <a href="{{ route('web.donation.category') }}" class="btn">Donate Now</a>
                     </div>
                     <!-- nav-right -->

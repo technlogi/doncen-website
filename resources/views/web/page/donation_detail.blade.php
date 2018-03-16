@@ -104,7 +104,7 @@
                                         <div class="row form-group select-condition">
                                             <label class="col-sm-3">Condition<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <input type="radio" name="condition" value="1" id="new"> 
+                                                <input type="radio" name="condition" checked value="1" id="new"> 
                                                 <label for="new">New</label>
                                                 <input type="radio" name="condition" value="2" id="used"> 
                                                 <label for="used">Old</label>
@@ -146,7 +146,7 @@
                                                     <label for="by-post">  By Post</label>
                                                     <input  type="radio" name="donation_type" value="4" id="any-other" onclick="hidetxtAnyOthermeans()">
                                                     <label for="any-other"> Any Other means</label>
-                                                    <input style="display: none" class="form-control"  type="text"  value="" placeholder=" Write name of type of Donation  " />
+                                                    <input style="display: none" class="form-control" name="donation_type_other"  type="text"  value="" placeholder=" Write name of type of Donation  " />
                                                 </div>
                                                 @if ($errors->has('donation_type'))
                                                     <span class="help-block">
@@ -159,21 +159,21 @@
                                                 <div class="col-sm-9 checkbox">
                                                     <div >
                                                         <label>
-                                                            <input type="checkbox" name=""  id="any-one" checked >&nbsp; Any One
+                                                            <input type="checkbox" name="preference"  id="any-one" value="1"  checked>&nbsp; Any One
                                                         </label>
                                                         <br>
                                                         <label>
-                                                            <input type="checkbox" name="preference_gender[]" onclick="chkshow();" id="gender">&nbsp; Gender
+                                                            <input type="checkbox"  onclick="chkshow();" id="gender">&nbsp; Gender
                                                         </label>
-                                                        <br>
+                                                       
                                                         <label>
-                                                            <input type="checkbox"  value="1" disabled="true" id="chkreadonly">&nbsp; Male
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" value="2" disabled="true" id="chkreadonly1">&nbsp; Female
+                                                            <input type="checkbox" name="preference_gender[]" value="1" disabled="true" id="chkreadonly">&nbsp; Male
                                                         </label>
                                                         <label>
-                                                            <input type="checkbox" value="3" disabled="true"  id="chkreadonly2">&nbsp; other
+                                                            <input type="checkbox" name="preference_gender[]" value="2" disabled="true" id="chkreadonly1">&nbsp; Female
+                                                        </label>
+                                                        <label>
+                                                            <input type="checkbox" name="preference_gender[]" value="3" disabled="true"  id="chkreadonly2">&nbsp; other
                                                         </label>
                                                         @if ($errors->has('preference_gender'))
                                                             <span class="help-block">
@@ -184,18 +184,18 @@
                                                         <label>
                                                             <input type="checkbox"  onclick="chkshowage();">&nbsp;  Age
                                                         </label>
-                                                        <br/>
+                                                        
                                                         <label>
-                                                            <input type="checkbox" name="preference_age[]"  disabled="true" id="chkreadonlyage">&nbsp; 0-14
+                                                            <input type="checkbox" name="preference_age[]"  disabled="true" value="1" id="chkreadonlyage">&nbsp;0-14
                                                         </label>
                                                         <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true" id="chkreadonlyage1">&nbsp; 14-30
+                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="2" id="chkreadonlyage1">&nbsp;14-30
                                                         </label>
                                                         <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true" id="chkreadonlyage2">&nbsp; 30-60
+                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="3" id="chkreadonlyage2">&nbsp;30-60
                                                         </label>
                                                         <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true" id="chkreadonlyage3">&nbsp; 60-Above
+                                                            <input type="checkbox" name="preference_age[]" disabled="true"  value="4" id="chkreadonlyage3">&nbsp;Above 60
                                                         </label>
                                                         @if ($errors->has('preference_age'))
                                                             <span class="help-block">
@@ -204,7 +204,7 @@
                                                         @endif
                                                         <br>
                                                         <label>
-                                                            <input type="checkbox" name="preference_is_handicap" value="Handicaped" id="3g">&nbsp; Handicaped
+                                                            <input type="checkbox" name="preference_is_handicap" value="1" id="3g">&nbsp; Handicaped
                                                             @if ($errors->has('preference_is_handicap'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('preference_is_handicap') }}</strong>
@@ -227,8 +227,8 @@
                                                     <label for="monetary">Monetary</label>
                                                     <input type="radio" name="consideration" id="non-monetary" value="2" onclick="NonMonetary()"/>
                                                     <label for="non-monetary">  Non-Monetary</label>
-                                                    <input type="text" placeholder="Monetary" class="form-control" name="OtherConsideration" id="txtMonetary" style="display: none"/>
-                                                    <input type="text" placeholder="Non-Monetary" class="form-control" name="OtherConsideration" id="txtNonMonetary" style="display: none"/>
+                                                    <input type="text" placeholder="Monetary" class="form-control" name="consideration_detail" id="txtMonetary" style="display: none"/>
+                                                    <input type="text" placeholder="Non-Monetary" class="form-control" name="consideration_detail" id="txtNonMonetary" style="display: none"/>
                                                     @if ($errors->has('consideration'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('consideration') }}</strong>
@@ -263,9 +263,9 @@
                                             <div class="row form-group">
                                                 <label class="col-sm-3 label-title">Status<span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="radio" name="sellerType" checked value="individual" id="individual">&nbsp;&nbsp;
+                                                    <input type="radio" name="d_status" checked value="0" id="individual">&nbsp;&nbsp;
                                                     <label for="individual">Individual</label>&nbsp;&nbsp;
-                                                    <input type="radio" name="sellerType" value="dealer" id="dealer">&nbsp;&nbsp; 
+                                                    <input type="radio" name="d_status" value="1" id="dealer">&nbsp;&nbsp; 
                                                     <label for="dealer">Organization</label>&nbsp;&nbsp;
                                                 </div>
                                             </div>

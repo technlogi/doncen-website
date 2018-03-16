@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use \App\Models\Category;
 use \App\Models\Subcategory;
 use \App\Models\Specification;
+use \App\Models\City;
 use DB;
-
+use \Auth;
 class WebController extends Controller
 {
 
@@ -31,7 +32,13 @@ class WebController extends Controller
     }
     public function store_donation_detail(Request $request)
     {
-        // return $request->all();
+        if (Auth::guard('user')->check()){
+            $user = Auth::guard('user')->user()->id;
+        }else{
+            session()->flash('error', 'You Must Login First For create Dontation.');
+           return redirect('/user/login');
+        }
+
         $this->validate($request, [
             'donation' => 'required',
             'donation_type' => 'required',
@@ -48,8 +55,46 @@ class WebController extends Controller
             'helper_email' => 'nullable|email',
             'helper_mobile_no' => 'nullable|min:8',
             'helper_address'=> 'nullable|min:5'
-            
         ]);
+        
+        $city = City::where('name','LIKE',$request->city)->first();
+        $specification = Specification::where('key',$request->key)->first();
+        DB::table('donation_posts')->insert([
+            'key'=> generateKey(14),
+            'post_no'=> generatePostNO(),
+            'user_id' =>  $user	,
+            'specification_id'=> $specification->id, 
+            'user_type_id' => $request->donation,
+            'title' => $request->title,
+            'description'=> $request->description,
+            'condition' => $request->condition,
+            'city_id' =>$city->id ,
+            'donation_type_id' => $request->donation_type,
+            'donation_type_other' => $request->donation_type_other,
+            'preference' =>$request->preference,                              //0-new | 1-anyone	
+            'preference_gender' => implode(',',$request->preference_gender),              // 1-male | 2-female | 3-other	
+            'preference_age' => implode(',',$request->preference_age),                   //1-0to14 | 2-14to30 | 3-30to60 | 4-above60	
+            'preference_is_handicap'=> $request->preference_is_handicap,   // 0-no | 1-yes	
+            'consideration' => $request->consideration,                   //0-free | 1-Non-Monetary | 2-Monetary	
+            'consideration_detail'=> $request->consideration_detail,
+            'is_urgent'=> $request->is_urgent ,                          // 0-no | 1-yes
+            'urgent_reason'	=> $request->urgent_reason,
+            'd_status' => $request->d_status ,//0-Individual | 1-Organization	
+            'd_name'	=> $request->name ,
+            'd_email'=> $request->email ,
+            'd_contact'=> $request->mobile_no ,
+            'd_address'=> $request->address ,
+            'helper_status'=> $request->helper_status ,                                       // 0-Individual | 1-Organization	
+            'helper_name'=> $request->helper_name ,
+            'helper_email'=> $request->helper_email ,
+            'helper_contact'=> $request->helper_contact ,
+            'helper_address'	=> $request->helper_address, 
+            'status' =>1 ,
+            'created_at'=> new \DateTime(),
+            'updated_at'=> new \DateTime()
+      ]);
+      session()->flash('success','Donation Ads Create Successfully.');
+     return redirect('/user/dashboard');
     }
 
    

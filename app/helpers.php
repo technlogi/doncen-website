@@ -17,14 +17,14 @@ if (! function_exists('generateKey')) {
     }
     
 }
-if (! function_exists('get')) {
-    function get($column) {
-       if(!empty($column)){
-         if($column['title']){
-             return 'title';
-         }
-       }
-
+if (! function_exists('generatePostNO')) {
+    function generatePostNO() {
+        $alpha_key = '';
+        $numeric = range(1, 9);
+        for ($i = 0; $i < 12; $i++) {
+            $alpha_key .= $numeric[array_rand($numeric)] ;
+        }
+        return $alpha_key;
     }
 }
 

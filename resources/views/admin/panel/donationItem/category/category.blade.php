@@ -87,7 +87,7 @@
                         encode          : true,
                         success: function(data){
                             $('#addCategoryModel').modal('hide');
-                            $("#addCtegoryFormId").trigger("reset");
+                            $('#addCtegoryFormId').trigger('reset');
                             $('#messageSuccess').removeClass('fade');  
                             setTimeout(() => {
                                 $('#messageSuccess').addClass('fade');  
