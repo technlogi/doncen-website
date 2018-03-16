@@ -1,85 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Subcategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class SubcategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getSubcategory(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Subcategory $subcategory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subcategory $subcategory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Subcategory $subcategory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Subcategory $subcategory)
-    {
-        //
+        $category = Category::where('key',$request->key)->first();
+        $subcategories = $category->subcategories;
+        $var = ' <ul role="tablist">';
+        foreach($subcategories as $subcategory){
+            $var .= '<a class="subcategory" id="'. $subcategory->key.'" aria-controls="platelets" role="tab" data-toggle="tab"><li>
+                            '.$subcategory->name.'
+                    </li></a>';
+        }
+        return $var.'</ul>' ;
     }
 }

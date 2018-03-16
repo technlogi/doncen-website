@@ -55,7 +55,7 @@
                                 <p>Doncen is Worldest leading Donation platform that brings!</p>
                                 <!-- form -->
                                 <form action="#">
-                                    <input type="email" class="form-control" placeholder="Your email id">
+                                    <input type="email" class="form-control" placeholder="Your email id" required>
                                     <button type="submit" class="btn btn-primary">Sign Up</button>
                                 </form><!-- form -->			
                             </div>

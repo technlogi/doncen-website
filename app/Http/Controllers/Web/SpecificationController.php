@@ -1,85 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Specification;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use \App\Models\Subcategory;
 
 class SpecificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getSpecification(Request $request)
     {
-        //
+        $subcategory = Subcategory::where('key',$request->key)->first();
+        $specifications = $subcategory->specifications;
+        $var = ' <ul role="tablist">';
+        foreach($specifications as $specification){
+            $var .= '<a class="specification" id="'. $specification->key.'" aria-controls="platelets" role="tab" data-toggle="tab"><li>
+                            '.$specification->name.'
+                    </li></a>';
+        }
+        return $var.'</ul>' ;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Specification  $specification
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Specification $specification)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Specification  $specification
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Specification $specification)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Specification  $specification
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Specification $specification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Specification  $specification
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Specification $specification)
-    {
-        //
-    }
 }

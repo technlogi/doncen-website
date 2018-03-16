@@ -257,7 +257,7 @@
                                 </div><!-- featured-top -->	
 
                                 <!-- ad-item -->
-                                <div class="ad-item row">
+                                <div class="row">
                                     <!-- item-image -->
                                     <div class="item-image-box col-sm-4">
                                         <div class="item-image">
@@ -794,10 +794,9 @@
                     <div class="col-sm-12 text-center">
                         <h2 class="title">Do you have something-Donate?</h2>
                         <h4>Donate anything, whatever you can think on Doncen.com</h4>
-                        <a href="ad-post.html" class="btn btn-primary">Donate Now</a>
+                        <a href="{{ route('web.donation.category') }}" class="btn btn-primary">Donate Now</a>
                     </div>
                 </div><!-- row -->
             </div><!-- contaioner -->
         </section><!-- something-sell -->
-
 @endsection

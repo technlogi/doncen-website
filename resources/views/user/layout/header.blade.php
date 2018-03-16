@@ -11,15 +11,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html"><img class="img-responsive" src="{{ URL::asset('/uploads/images/doncen-responsive.png')}}" alt="Logo"></a>
+                        <a class="navbar-brand" href="{{ route('web.home') }}"><img class="img-responsive" src="{{ URL::asset('/uploads/images/doncen-responsive.png')}}" alt="Logo"></a>
                     </div>
                     <!-- /navbar-header -->
 
                     <div class="navbar-left">
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ url('/')}}">Home</a></li>
-                                <li><a href="categories.html">all categories</a></li>
+                                <li><a href="{{ route('web.home') }}">Home</a></li>
+                                <li><a href="{{ route('web.categorie.categories') }}">all categories</a></li>
                             </ul>
                         </div>
                     </div>
