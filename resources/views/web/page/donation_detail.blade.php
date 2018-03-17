@@ -60,7 +60,7 @@
                                         <div class="row form-group add-title">
                                             <label class="col-sm-3 label-title">Title<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="title" id="text" placeholder="ex, I want to give AB+ Blood">
+                                                <input type="text" class="form-control" name="title" id="text" value="{{ old('title') }}" placeholder="ex, I want to give AB+ Blood">
                                                 @if ($errors->has('title'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('title') }}</strong>
@@ -71,7 +71,7 @@
                                         <div class="row form-group add-title">
                                             <label class="col-sm-3 label-title">Description<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <textarea name="description" class="form-control" id="textarea" placeholder="Write few lines about your products" rows="6" ></textarea>
+                                                <textarea name="description" class="form-control" id="textarea" placeholder="Write few lines about your products" rows="6" >{{ old('description')}}</textarea>
                                                 @if ($errors->has('description'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('description') }}</strong>
@@ -118,7 +118,7 @@
                                         <div class="row form-group ">
                                             <label class="col-sm-3 label-title">City<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                               <input type="text" name="city" class="form-control" id="text" placeholder="ex, Enter City">
+                                               <input type="text" name="city" class="form-control" id="text" value="{{ old('city') }}" placeholder="ex, Enter City">
                                                @if ($errors->has('city'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('city') }}</strong>

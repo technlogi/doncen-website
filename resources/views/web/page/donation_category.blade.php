@@ -52,9 +52,9 @@
                                     <form method="POST"  action="{{ route('web.categorie.donationDetails') }}"> 
                                          {{ csrf_field() }}
                                         <input type="hidden" name="specification" id="specification_field"  />
+                                        <!-- <button type="text" class="btn"><a href="{{ route('web.home') }}" >Cancel</a></button> -->
                                         <button type="submit" class="btn">Next</button>
                                     </form>   
-                                    <button type="text" class="btn"> Cancel</button>
                                 </div>
                             </div>
                         </div><!-- next-stap -->

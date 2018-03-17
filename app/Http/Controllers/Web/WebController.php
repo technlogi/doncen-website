@@ -14,17 +14,34 @@ class WebController extends Controller
 {
 
     public function home()
-     {  
+    {
         $cities = City::where('status',1)->get();
         $categories = Category::where('status',1)->get();
+            foreach($categories as $category){
+            $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
+                                    FROM categories                 
+                                    JOIN subcategories ON categories.id = subcategories.category_id                 
+                                    JOIN specifications ON subcategories.id = specifications.subcategory_id                 
+                                    JOIN donation_posts ON specifications.id = donation_posts.specification_id                 
+                                    WHERE donation_posts.status = 1  and categories.key ='$category->key' GROUP BY categories.key");
+                if(!empty($count)){
+                    $category->total_post = $count[0]->total_count ;
+                }else{
+                    $category->total_post = 0;
+                }
+            }
         $specifications = Specification::where('status',1)->get();
-        
         $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
         return view('web.page.home',compact('cities','specifications','titles','categories'));
     }
     public function donationDetails(Request $request)
     {
-        
+        if (Auth::guard('user')->check()){
+            $user = Auth::guard('user')->user()->id;
+        }else{
+            session()->flash('error', 'You Must Login First For create Dontation.');
+           return redirect('/user/login');
+        }
         return redirect()->route('web.donation.DetailForm',$request->specification);
     }
     public function donationDetailForm($key)

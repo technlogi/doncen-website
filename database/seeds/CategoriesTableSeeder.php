@@ -27,10 +27,26 @@ class CategoriesTableSeeder extends Seeder
                 12=>'Beast(Include Animal & Birds)'
             );
 
+        $svg = array(  0=>'Hospital.svg',
+            1=>'Food.svg',
+            2=>'ClothesAccessory.svg',
+            3=>'Residence.svg',
+            4=>'Education.svg',
+            5=>'Literature.svg',
+            6=>'ToysSports.svg',
+            7=>'FMCG.svg',
+            8=>'Agriculture.svg',
+            9=>'ServicesTime.svg',
+            10=>'ToursTraveling.svg',
+            11=>'HelplineNumber.svg',
+            12=>'Beast.svg'
+        );
+
            for ($i=0; $i < 12 ; $i++) { 
             Category::create([
               'key' => generateKey(3),
               'name' => $categories[$i],
+              'image' => $svg[$i],
               'title' =>  $categories[$i].'title'
             ]);
            } 

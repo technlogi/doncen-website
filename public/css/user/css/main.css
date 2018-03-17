@@ -3340,7 +3340,15 @@ input, select, a, .transition,
     background: #662d91;
 }
 
+
+
+
+.help-block{
+    color: lightcoral;
+}
 /* 
+
+
 
 ::content .mt-header-ads, ::content .mt_adv, ::content .mt_adv_v, ::content .mtv-adChoicesLogo, ::content .mtv-adv, ::content .multiad2, ::content .multiadwrapper, ::content .multiple-ad-tiles, ::content .mvAd, ::content .mvAdHdr, ::content .mvp-ad-label, ::content .mvp-widget-ad, ::content .mvp-widget-feat2-side-ad, ::content .mvp_ad_widget, ::content .mvp_block_type_ad_module, ::content .mvw_onPageAd1, ::content .mwaads, ::content .mx-box-ad, ::content .mxl_ad_inText_250, ::content .my-ad250x300, ::content .my-ads, ::content .myAds, ::content .myAdsBox, ::content .myAdsGroup, ::content .myimg-advert, ::content .mypicadsarea, ::content .myplate_ad, ::content .nSponsoredLcContent, ::content .nSponsoredLcTopic, ::content .n_ad, ::content .nadvt300, ::content .narrow_ad_unit, ::content .narrow_ads, ::content .native-ad-item, ::content .native-ad-link, ::content .native-ad-promoted-provider, ::content .native-adv, ::content .native-advts, ::content .nativeAd, ::content .nativeAd-sponsor-position, ::content .nativeMessageAd, ::content .native_ad, ::content .nativead, ::content .nature-ad, ::content .nav-adWrapper, ::content .navAdsBanner, ::content .navBads, ::content .nav__adbanner, ::content .nav_ad, ::content .nav_textads{
     display: block !important;

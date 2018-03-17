@@ -80,11 +80,11 @@
                                 <a href="categories.html">
                                     <div class="category-icon">
                                     @if($category->image != '')
-                                    <img src="{{ URL::asset('/uploads/svg/'.$category->image.'') }}" alt="{{$category->name}}">  
+                                        <img src="{{ URL::asset('/uploads/svg/'.$category->image.'') }}" alt="{{$category->name}}">  
                                     @endif
                                     </div>
                                     <span class="category-title">{{$category->name}}</span>
-                                    <span class="category-quantity">(1298)</span>
+                                    <span class="category-quantity">({{$category->total_post}})</span>
                                 </a>
                             </li><!-- category-item -->
                         @endforeach
