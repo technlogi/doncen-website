@@ -18,6 +18,7 @@ class CreateCountriesTable extends Migration
             $table->string('key');
             $table->string('name');
             $table->string('country_code')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

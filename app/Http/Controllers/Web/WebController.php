@@ -14,8 +14,13 @@ class WebController extends Controller
 {
 
     public function home()
-    {
-        return view('web.page.home');
+     {  
+        $cities = City::where('status',1)->get();
+        $categories = Category::where('status',1)->get();
+        $specifications = Specification::where('status',1)->get();
+        
+        $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
+        return view('web.page.home',compact('cities','specifications','titles','categories'));
     }
     public function donationDetails(Request $request)
     {

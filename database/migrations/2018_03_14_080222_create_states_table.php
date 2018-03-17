@@ -18,6 +18,7 @@ class CreateStatesTable extends Migration
             $table->string('key');
             $table->integer('country_id');
             $table->string('name');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
