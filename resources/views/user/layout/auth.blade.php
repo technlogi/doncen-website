@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel Multi Auth Guard') }}</title>
+    <title>@section('title')</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">

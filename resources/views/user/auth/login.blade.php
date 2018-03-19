@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-
+@section('title','Login')
 @section('content')
 <section id="main" class="clearfix user-page">
             <div class="container">

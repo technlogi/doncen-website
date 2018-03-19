@@ -17,6 +17,7 @@ if (! function_exists('generateKey')) {
     }
     
 }
+
 if (! function_exists('generatePostNO')) {
     function generatePostNO() {
         $alpha_key = '';
@@ -27,9 +28,6 @@ if (! function_exists('generatePostNO')) {
         return $alpha_key;
     }
 }
-
-
-
 
 if (! function_exists('dataTable')) {
     function dataTable($column,$table_name,$search_by,$request, $show , $edit , $delete , $status) {
@@ -106,4 +104,16 @@ if (! function_exists('dataTable')) {
        
     }
     
+}
+
+
+if (! function_exists('generateOtp')) {
+    function generateOtp() {
+        $alpha_key = '';
+        $numeric = range(1, 9);
+        for ($i = 0; $i < 4; $i++) {
+            $alpha_key .= $numeric[array_rand($numeric)] ;
+        }
+        return $alpha_key;
+    }
 }

@@ -74,8 +74,12 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/login', 'UserAuth\LoginController@login');
   Route::post('/logout', 'UserAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'UserAuth\RegisterController@register');
+  Route::get('/register', 'UserAuth\RegistrationController@showRegistrationForm')->name('register');
+  Route::post('/register', 'UserAuth\RegistrationController@register');
+  Route::get('/register/otp/{key}', ['uses'=>'UserAuth\RegistrationController@showOtpForm','as'=>'user.registration.otpForm']);
+  Route::post('/register/otp', ['uses'=>'UserAuth\RegistrationController@otpSubmit','as'=>'user.registration.otpSubmit']);
+  
+  
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');

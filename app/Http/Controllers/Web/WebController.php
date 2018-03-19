@@ -15,7 +15,7 @@ class WebController extends Controller
 
     public function home()
     {
-        $cities = City::where('status',1)->get();
+        // $cities = City::where('status',1)->get();
         $categories = Category::where('status',1)->get();
             foreach($categories as $category){
             $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
@@ -30,9 +30,9 @@ class WebController extends Controller
                     $category->total_post = 0;
                 }
             }
-        $specifications = Specification::where('status',1)->get();
+        // $specifications = Specification::where('status',1)->get();
         $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
-        return view('web.page.home',compact('cities','specifications','titles','categories'));
+        return view('web.page.home',compact('titles','categories'));
     }
     public function donationDetails(Request $request)
     {

@@ -17,8 +17,11 @@ class CreateUsersTable extends Migration
             $table->string('key');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('contact')->unique();
             $table->string('password');
-            $table->tinyInteger('status')->default(1);
+            $table->string('otp');
+            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('is_verify')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,4 +1,5 @@
 @extends('user.layout.master')
+@section('title','Registration')
 
 @section('content')
 <section id="main" class="clearfix user-page">
@@ -26,7 +27,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('mobile_no') ? ' has-error' : '' }}">
                                     <input type="text" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}" placeholder="Mobile Number">
                                     @if ($errors->has('mobile_no'))
                                         <span class="help-block">

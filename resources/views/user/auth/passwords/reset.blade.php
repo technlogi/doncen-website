@@ -1,5 +1,5 @@
 @extends('user.layout.auth')
-
+@section('title','Reset Password')
 @section('content')
 <div class="container">
     <div class="row">

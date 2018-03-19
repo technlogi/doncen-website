@@ -19,9 +19,7 @@
                                             <input type="text" name="location" placeholder="Enter city/state/country">
                                          <a data-toggle="dropdown" href="#"><span class="change-text">Select City</span> <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu language-change">
-                                            @foreach($cities as $city)
-                                                <li><a href="#">{{$city->name}}</a></li>
-                                            @endforeach
+                                         
                                         </ul>								 
                                     </div>--><!-- language-dropdown -->
                                     <!-- category-change -->
@@ -35,25 +33,48 @@
                                             <li><a href="#">Sports & Games</a></li>
                                         </ul>								
                                     </div> -->
-                                    <!-- category-change -->
-                                    <input list="cities" type="text" class="form-control" name="location" placeholder="Select City">
-                                    <datalist id="cities">
-                                        @foreach($cities as $city)
-                                                <option value="{{$city->name}}" >{{$city->state->name}}, {{$city->state->country->name}}</option>
-                                        @endforeach                                  
-                                    </datalist>
-                                    <input list="cateogry" type="text" class="form-control" name="location" placeholder="Select Category">
-                                    <datalist id="cateogry">
-                                        @foreach($specifications as $specification)
-                                                <option value="{{$specification->name}}" >{{$specification->subcategory->name}}, {{$specification->subcategory->category->name}}</option>
-                                        @endforeach                                  
-                                    </datalist>
-                                    <input list="title" type="text" class="form-control" name="location" placeholder="Type Your key word">
-                                    <datalist id="title">
-                                        @foreach($titles as $title)
-                                                <option value="{{ $title->title }}" />
-                                        @endforeach                                  
-                                    </datalist>
+                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                               
 
                                     <button type="submit" class="form-control" value="Search">Search</button>
                                 </form>
