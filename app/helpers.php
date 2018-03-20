@@ -118,3 +118,11 @@ if (! function_exists('generateOtp')) {
         return $alpha_key;
     }
 }
+
+if(! function_exists('POST_IMAGE')){
+    function POST_IMAGE($image){
+      $company_url =  env('COMPANY_URL');
+      $base_path = base_path('/uploads/image/post/');
+      return $company_url.''.$base_path.''.$image;
+    }
+}

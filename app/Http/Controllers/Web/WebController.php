@@ -54,6 +54,9 @@ class WebController extends Controller
     }
     public function store_donation_detail(Request $request)
     {
+    print_r($_FILES);
+    die();
+       
         if (Auth::guard('user')->check()){
             $user = Auth::guard('user')->user()->id;
         }else{
@@ -81,7 +84,7 @@ class WebController extends Controller
         
         $city = City::where('name','LIKE',$request->city)->first();
         $specification = Specification::where('key',$request->key)->first();
-        DB::table('donation_posts')->insert([
+        $id =  DB::table('donation_posts')->insertGetId([
             'key'=> generateKey(14),
             'post_no'=> generatePostNO(),
             'user_id' =>  $user	,
@@ -115,7 +118,20 @@ class WebController extends Controller
             'created_at'=> new \DateTime(),
             'updated_at'=> new \DateTime()
       ]);
-      session()->flash('success','Donation Ads Create Successfully.');
+        if(!empty($request->image_file)){
+           foreach($request->image_file as $image_file)
+            $imageName = time().'.'.$request->image_file1->getClientOriginalExtension();
+            $request->image_file1->move(public_path('images/uploads/donation_post/'), $imageName);
+            DB::table('donation_images')->insert([
+                'donation_post_id' => $id,
+                'key' => generateKey(12),
+                'image' => $imageName,
+                'status' =>1 ,
+                'created_at'=> new \DateTime(),
+                'updated_at'=> new \DateTime()
+            ]);
+        }
+      session()->flash('success','Donation Post Created Successfully.');
      return redirect('/user/dashboard');
     }
 

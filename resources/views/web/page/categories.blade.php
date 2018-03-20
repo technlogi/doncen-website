@@ -1,4 +1,6 @@
 @extends('user.layout.master')
+@section('title','Category List')
+
 
 @section('content')
    <!-- main -->

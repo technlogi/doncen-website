@@ -1,4 +1,5 @@
 @extends('user.layout.master')
+@section('title','Home')
 
 @section('content')
 
@@ -13,74 +14,39 @@
                             <h3>DonCen! Donate anything, whatever you can think.</h3>
                             <!-- banner-form -->
                             <div class="banner-form">
-                                <form action="#">
-                                    <!-- language-dropdown -->
-                                   <!-- <div class="dropdown category-dropdown"> 						
-                                            <input type="text" name="location" placeholder="Enter city/state/country">
-                                         <a data-toggle="dropdown" href="#"><span class="change-text">Select City</span> <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown-menu language-change">
-                                         
-                                        </ul>								 
+                                 <form action="#">
+                                     <!-- language-dropdown -->
+                                  <div class="dropdown category-dropdown"> 						
+                                      <a data-toggle="dropdown" href="#"><span class="change-text">United Kingdom</span> <i class="fa fa-angle-down"></i></a>
+                                        <!-- <div class="dropdown category-dropdown"> 						
+                                                    <input type="text" name="location" placeholder="Enter city/state/country">
+                                                <a data-toggle="dropdown" href="#"><span class="change-text">Select City</span> <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown-menu language-change">
+                                                <li><a href="#">United Kingdom</a></li>
+                                                <li><a href="#">United States</a></li>
+                                                <li><a href="#">China</a></li>
+                                                <li><a href="#">Russia</a></li>
+                                            </ul>								
+                                        </div><!-- language-dropdown -->
+                                       </ul>								 
                                     </div>--><!-- language-dropdown -->
                                     <!-- category-change -->
-                                    <!-- <div class="dropdown category-dropdown">						
-                                        <a data-toggle="dropdown" href="#"><span class="change-text">Select Category</span> <i class="fa fa-angle-down"></i></a>
+                                    <div class="dropdown category-dropdown">						
+                                         <a data-toggle="dropdown" href="#"><span class="change-text">Select Category</span> <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu category-change">
-                                            <li><a href="#">Fashion & Beauty</a></li>
-                                            <li><a href="#">Cars & Vehicles</a></li>
-                                            <li><a href="#">Electronics & Gedgets</a></li>
+                                             <li><a href="#">Fashion & Beauty</a></li>
                                             <li><a href="#">Real Estate</a></li>
-                                            <li><a href="#">Sports & Games</a></li>
-                                        </ul>								
-                                    </div> -->
-                               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                               
-
-                                    <button type="submit" class="form-control" value="Search">Search</button>
+                                             <li><a href="#">Sports & Games</a></li>
+                                         </ul>								
+                                    </div> 
+                                   
+                                    
+ 
+                                  <input type="text" class="form-control" placeholder="Type Your key word">
+                                     <button type="submit" class="form-control" value="Search">Search</button>
                                 </form>
-                            </div><!-- banner-form -->
-
-                            <!-- banner-socail -->
+                             </div><!-- banner-form -->
+                           <!-- banner-socail -->
                             <ul class="banner-socail">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>

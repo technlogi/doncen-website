@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-
+@section('title','Donation Category')
 @section('content')
      <!-- post-page -->
      <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,6 +11,8 @@
                     <ol class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
                         <li>Donation Form</li>
+                        <li>( You must be logged-in before filling donation form. )</li>
+                        
                     </ol><!-- breadcrumb -->						
                     <h2 class="title">Donate anything, whatever you can think.</h2>
                 </div><!-- banner -->

@@ -18,7 +18,7 @@
                 <div class="adpost-details">
                     <div class="row">	
                         <div class="col-md-8">
-                            <form action="{{ route('web.donation.create',[$key]) }}" method="POST">
+                            <form action="{{ route('web.donation.create',[$key]) }}" method="POST"  enctype="multipart/form-data">>
                               {{ csrf_field() }}
                                 <fieldset>
                                     <input type="hidden" name="key" value="{{$key}}"/>
@@ -85,18 +85,18 @@
                                                 <h5><i class="fa fa-upload" aria-hidden="true"></i>Select Files to Upload / Drag and Drop Files <span>You can add multiple images.</span></h5>
                                                 <div class="upload-section">
                                                     <label class="upload-image" for="upload-image-one">
-                                                        <input type="file" id="upload-image-one">
+                                                        <input type="file" id="upload-image-one" name="image_file[]">
                                                     </label>										
 
                                                     <label class="upload-image" for="upload-image-two">
-                                                        <input type="file" id="upload-image-two">
+                                                        <input type="file" id="upload-image-two" name="image_file[]">
                                                     </label>											
                                                     <label class="upload-image" for="upload-image-three">
-                                                        <input type="file" id="upload-image-three">
+                                                        <input type="file" id="upload-image-three" name="image_file[]">
                                                     </label>										
 
                                                     <label class="upload-image" for="upload-imagefour">
-                                                        <input type="file" id="upload-imagefour">
+                                                        <input type="file" id="upload-imagefour" name="image_file[]">
                                                     </label>
                                                 </div>	
                                             </div>

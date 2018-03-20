@@ -20,32 +20,30 @@
                                 @endif
                             <h2>Verification</h2>
                             <form class="form-horizontal" role="form" method="POST" action="{{ route('user.registration.otpSubmit') }}">
-                        {{ csrf_field() }}
-                        <div>
-                        <div class="form-group{{ $errors->has('otp') ? ' has-error' : '' }}">
-                            <label for="otp" class="control-label pull-left">OTP :-</label><br>
+                                {{ csrf_field() }}
+                                <div>
+                                <div class="form-group{{ $errors->has('otp') ? ' has-error' : '' }}">
+                                    <label for="otp" class="control-label pull-left">OTP :-</label><br>
 
-                            <div class="">
-                                <input id="key" type="hidden" name="key" value="{{$user_identity}}">
-                                <input id="otp" type="password" class="form-control" name="otp" value="{{ old('otp') }}">
-                                @if ($errors->has('otp'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('otp') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                                    <div class="">
+                                        <input id="key" type="hidden" name="key" value="{{$user_identity}}">
+                                        <input id="otp" type="password" class="form-control" name="otp" value="{{ old('otp') }}">
+                                        @if ($errors->has('otp'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('otp') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="align-item-center">
-                                <button type="submit" class="btn btn-primary">
-                                   Verify
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                            
+                                <div class="row">
+                                    <div class="align-item-center">
+                                        <button type="submit" class="btn btn-primary">
+                                        Verify
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div><!-- user-login -->			
                     <a href="{{ url('/user/login') }}" class="btn-primary">Back To Login</a>

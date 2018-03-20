@@ -38,8 +38,6 @@ class RegistrationController extends Controller
     }
     public function otpSubmit(Request $request)
     {
-        return $request->all();
-
         $this->validate($request,[
            'otp'=>'required|regex:/^\d{4}$/'
         ],[
@@ -55,7 +53,8 @@ class RegistrationController extends Controller
                 $user->is_verify = 1;
                 $user->status = 1;
                 $user->save();
-                return redirect()->route('login')->with('success','Registration Successfully.');
+                  session()->flash('success','Registration Successfully.');
+                return redirect()->back()->with('success','Registration Successfully.');
             }else{
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');
             }
