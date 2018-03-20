@@ -14,6 +14,7 @@ class RegistrationController extends Controller
     }
     public function register(UserRegistration $request)
     {
+      try{
        $user = User::create([
             'key'=> generateKey(1),
             'name' => $request->name,
@@ -23,29 +24,38 @@ class RegistrationController extends Controller
             'otp' => generateOtp(),
             'is_verify'=> 0,
             'status' => 1
-        ]);
-       return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP is send to Email Id provided.');   
+            ]);
+            return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP is send to Email Id provided.');   
+       }catch (\Exception $e) {
+        return redirect()->back()->with('error','User Alerady exist with this Email Id.');   
+       }
     }
     
     public function showOtpForm($key)
     {
-        return view('user.auth.passwords.otp_form',compact('key'));
+        $user_identity = $key ;
+        return view('user.auth.passwords.otp_form',compact('user_identity'));
     }
     public function otpSubmit(Request $request)
     {
+        return $request->all();
+
         $this->validate($request,[
            'otp'=>'required|regex:/^\d{4}$/'
         ],[
             'otp.required' => "Please Enter OTP.",
             'otp.regex' => "OTP must be 4 digit.",
         ]);
+
         if(User::where('key',$request->key)->count() > 0){
             $user = User::where('key',$request->key)->first();
             if($user->otp == $request->otp){
                 $user->otp = generateOtp();
                 $user->key = generateKey(1);
-                
-                return redirect('/user/login')->with('success','Registration Successfully.');
+                $user->is_verify = 1;
+                $user->status = 1;
+                $user->save();
+                return redirect()->route('login')->with('success','Registration Successfully.');
             }else{
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');
             }

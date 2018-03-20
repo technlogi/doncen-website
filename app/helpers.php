@@ -42,7 +42,8 @@ if (! function_exists('dataTable')) {
 
         if(empty($request->input('search.value')))
         {            
-            $informations = DB::table($table_name)->offset($start)
+            $informations = DB::table($table_name)
+                    ->offset($start)
                     ->limit($limit)
                     ->orderBy($order,$dir)
                     ->get();

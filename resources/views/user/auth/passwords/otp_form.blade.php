@@ -21,11 +21,12 @@
                             <h2>Verification</h2>
                             <form class="form-horizontal" role="form" method="POST" action="{{ route('user.registration.otpSubmit') }}">
                         {{ csrf_field() }}
-                        <div type="hidden" name="key" value="{{ $key }}">
+                        <div>
                         <div class="form-group{{ $errors->has('otp') ? ' has-error' : '' }}">
                             <label for="otp" class="control-label pull-left">OTP :-</label><br>
 
                             <div class="">
+                                <input id="key" type="hidden" name="key" value="{{$user_identity}}">
                                 <input id="otp" type="password" class="form-control" name="otp" value="{{ old('otp') }}">
                                 @if ($errors->has('otp'))
                                     <span class="help-block">
