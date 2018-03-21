@@ -99,6 +99,11 @@
                                                         <input type="file" id="upload-imagefour" name="image_file[]">
                                                     </label>
                                                 </div>	
+                                                @if ($errors->has('image_file'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('image_file') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row form-group select-condition">

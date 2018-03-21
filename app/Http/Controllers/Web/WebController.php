@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
+use \App\Http\Requests\StoreDonationDetailRequest;
 use App\Http\Controllers\Controller;
 use \App\Models\Category;
 use \App\Models\Subcategory;
@@ -15,10 +16,10 @@ class WebController extends Controller
 
     public function home()
     {
-        // $cities = City::where('status',1)->get();
+         
         $categories = Category::where('status',1)->get();
             foreach($categories as $category){
-            $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
+              $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
                                     FROM categories                 
                                     JOIN subcategories ON categories.id = subcategories.category_id                 
                                     JOIN specifications ON subcategories.id = specifications.subcategory_id                 
@@ -30,7 +31,6 @@ class WebController extends Controller
                     $category->total_post = 0;
                 }
             }
-        // $specifications = Specification::where('status',1)->get();
         $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
         return view('web.page.home',compact('titles','categories'));
     }
@@ -52,37 +52,16 @@ class WebController extends Controller
         $user_types = DB::table('user_types')->select('name','key')->where('status',1)->get();
         return view('web.page.donation_detail',compact('specification','subcategory','category','user_types','key'));
     }
-    public function store_donation_detail(Request $request)
+    public function store_donation_detail(StoreDonationDetailRequest $request)
     {
-    print_r($_FILES);
-    die();
-       
         if (Auth::guard('user')->check()){
             $user = Auth::guard('user')->user()->id;
         }else{
             session()->flash('error', 'You Must Login First For create Dontation.');
            return redirect('/user/login');
         }
-
-        $this->validate($request, [
-            'donation' => 'required',
-            'donation_type' => 'required',
-            'preference_gender' =>'required',
-            'preference_age' =>'required',
-            'condition' =>'required',
-            'title' =>'required',
-            'description' => 'required',
-            'city' => 'required',
-            'name' =>'required',
-            'email' => 'required|email',
-            'mobile_no' => 'required|min:9',
-            'address' => 'required|min:5',
-            'helper_email' => 'nullable|email',
-            'helper_mobile_no' => 'nullable|min:8',
-            'helper_address'=> 'nullable|min:5'
-        ]);
         
-        $city = City::where('name','LIKE',$request->city)->first();
+        $city = City::where('name','LIKE','%'.$request->city.'%')->first();
         $specification = Specification::where('key',$request->key)->first();
         $id =  DB::table('donation_posts')->insertGetId([
             'key'=> generateKey(14),
@@ -119,18 +98,20 @@ class WebController extends Controller
             'updated_at'=> new \DateTime()
       ]);
         if(!empty($request->image_file)){
-           foreach($request->image_file as $image_file)
-            $imageName = time().'.'.$request->image_file1->getClientOriginalExtension();
-            $request->image_file1->move(public_path('images/uploads/donation_post/'), $imageName);
-            DB::table('donation_images')->insert([
-                'donation_post_id' => $id,
-                'key' => generateKey(12),
-                'image' => $imageName,
-                'status' =>1 ,
-                'created_at'=> new \DateTime(),
-                'updated_at'=> new \DateTime()
-            ]);
+           foreach($request->image_file as $image_file){
+                $imageName = uniqid('img_').time().'.'.$image_file->getClientOriginalExtension();
+                $image_file->move(public_path('images/uploads/donation_post/'), $imageName);
+                DB::table('donation_images')->insert([
+                    'donation_post_id' => 9,
+                    'key' => generateKey(12),
+                    'image' => $imageName,
+                    'status' =>1 ,
+                    'created_at'=> new \DateTime(),
+                    'updated_at'=> new \DateTime()
+                ]);
+           }
         }
+        
       session()->flash('success','Donation Post Created Successfully.');
      return redirect('/user/dashboard');
     }
