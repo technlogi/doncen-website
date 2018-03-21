@@ -135,9 +135,12 @@ class WebController extends Controller
                                         ->where('status',1)
                                         ->first();
                     if(!empty($donation_image)){
-                        array_add((array)$subcategory,'image',DONATION_POST_IMAGE($donation_image->image));
+                        $donation->image = DONATION_POST_IMAGE($donation_image->image);
+                        // array_add((array)$subcategory,'image',DONATION_POST_IMAGE($donation_image->image));
                     }else{
-                        array_add((array)$subcategory,'image','');
+                        $donation->image = '';
+                        
+                        // array_add((array)$subcategory,'image','');
                     }
                     array_push($results,$donation);
                 }
@@ -146,13 +149,64 @@ class WebController extends Controller
         $print ='';
         if(!empty($results)){
             foreach($results as $result){
-                $print .= '';
+                $city = \App\Models\City::where('status',1)->where('id',$result->city_id)->first();
+                $user_type = DB::table('user_types')->where('status',1)->where('id',$result->donation_type_id)->first();
+                $print .= '  <!-- ad-item -->
+                <div class="row">
+                    <!-- item-image -->
+                    <div class="item-image-box col-sm-3">
+                        <div class="item-image">';
+                           if(!empty($result->image)){
+                            $print .='<a href="details.html"><img src="'.$result->image.'" alt="Image" class="img-responsive"></a>';
+                           }else{
+                            $print .='<a href="details.html"><img src="/images/uploads/donation_post/preview.jpg" alt="Image" class="img-responsive"></a>';
+                           }    
+                           $print .= '<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="Verified"><i class="fa fa-check-square-o"></i></a>
+                        </div><!-- item-image -->
+                    </div>
+
+                    <!-- rending-text -->
+                    <div class="item-info col-sm-9">
+                        <!-- ad-info -->
+                        <div class="ad-info">
+                            <h3 class="item-price">'.$result->title .'</h3>
+                            <h4 class="item-title">'. $result->description.'</h4>
+                            <div class="item-cat">
+                                <span><a href="#">'.$categories->name .'</a></span> 
+                            </div>	
+                        </div><!-- ad-info -->
+
+                        <!-- ad-meta -->
+                        <div class="ad-meta">
+                            <div class="meta-content">
+                                <span class="dated"><a href="#">'.\Carbon\Carbon::parse($result->created_at)->format('d-m-Y h:i A').' </span>
+                                <a href="#" class="tag"><i class="fa fa-tags"></i> ';
+                                 if($result->condition == 1) 
+                                  $print .= "New";
+                                  else
+                                  $print .= "Used";
+                                  $print .='</a>
+                                <a href="#" class="tag"><i class="fa fa-map-marker"></i> '. $city->name .'</a>,
+                                <a href="#" class="tag"> '. $city->state->name .'</a>,
+                                <a href="#" class="tag"> '. $city->state->country->name .'</a>.
+                            </div>									
+                            <!-- item-info-right -->
+                            <div class="user-option pull-right">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="'. $city->name .'"><i class="fa fa-map-marker"></i> </a>';
+                                
+                              $print .=  '<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="Dealer"><i class="fa fa-suitcase"></i> </a>											
+                            </div><!-- item-info-right -->
+                        </div><!-- ad-meta -->
+                    </div><!-- item-info -->
+                </div><!-- ad-item -->
+        ';
             }
         }else{
             $print .= '<div class="alert alert-info">There is No Dontaion Post.</div>';
         }
         
      echo $print;
+        // print_r($results);
     }
    
 }

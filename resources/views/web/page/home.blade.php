@@ -14,35 +14,18 @@
                             <h3>DonCen! Donate anything, whatever you can think.</h3>
                             <!-- banner-form -->
                             <div class="banner-form">
-                                 <form action="#">
+                                 <form method="post" action="#">
                                      <!-- language-dropdown -->
-                                  <div class="dropdown category-dropdown"> 						
-                                      <a data-toggle="dropdown" href="#"><span class="change-text">United Kingdom</span> <i class="fa fa-angle-down"></i></a>
-                                        <!-- <div class="dropdown category-dropdown"> 						
-                                                    <input type="text" name="location" placeholder="Enter city/state/country">
-                                                <a data-toggle="dropdown" href="#"><span class="change-text">Select City</span> <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown-menu language-change">
-                                                <li><a href="#">United Kingdom</a></li>
-                                                <li><a href="#">United States</a></li>
-                                                <li><a href="#">China</a></li>
-                                                <li><a href="#">Russia</a></li>
-                                            </ul>								
-                                        </div><!-- language-dropdown -->
-                                       </ul>								 
-                                    </div>--><!-- language-dropdown -->
-                                    <!-- category-change -->
-                                    <div class="dropdown category-dropdown">						
-                                         <a data-toggle="dropdown" href="#"><span class="change-text">Select Category</span> <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown-menu category-change">
-                                             <li><a href="#">Fashion & Beauty</a></li>
-                                            <li><a href="#">Real Estate</a></li>
-                                             <li><a href="#">Sports & Games</a></li>
-                                         </ul>								
+                                    <div class="dropdown category-dropdown"> 						
+                                        <input type="text" name="search_text" placeholder="Enter City" id='search_text'>
+                                    </div><!-- language-dropdown -->
+    
+                                    <div class="dropdown category-dropdown">		
+                                        <input type="text" name="category_box" placeholder="Enter Category" id='category_box'>
                                     </div> 
-                                   
-                                    
- 
-                                  <input type="text" class="form-control" placeholder="Type Your key word">
+                                    <div class="dropdown category-dropdown">
+                                        <input type="text" name="word_box" placeholder="Type Your key word">
+                                    </div>
                                      <button type="submit" class="form-control" value="Search">Search</button>
                                 </form>
                              </div><!-- banner-form -->
@@ -64,7 +47,7 @@
                         <ul class="category-list">	
                         @foreach($categories as $category)
                             <li class="category-item">
-                                <a href="categories.html">
+                                <a href="{{ route('home.category.details', $category->key ) }}">
                                     <div class="category-icon">
                                     @if($category->image != '')
                                         <img src="{{ URL::asset('/uploads/svg/'.$category->image.'') }}" alt="{{$category->name}}">  
@@ -84,6 +67,7 @@
                         <h4>Urgent Donation</h4>
                         <!-- Nav tabs -->      
                         <ul class="nav nav-tabs" role="tablist">
+
                         @foreach($categories as $category)
                             <li role="presentation" value="{{ $category->key}}" class="categoryTab"><a href="#{{ $category->key}}"  data-toggle="tab">{{ $category->name }}</a></li>
                         @endforeach
@@ -94,81 +78,8 @@
                     <div class="tab-content">
                         <!-- tab-pane -->
                         <div role="tabpanel" class="tab-pane fade in active" id="recent-ads">
-                            <!-- ad-item -->
-                            <div class=" row">
-                                <!-- item-image -->
-                                <div class="item-image-box col-sm-3">
-                                    <div class="item-image">
-                                        <a href="details.html"><img src="{{ URL::asset('/uploads/images/listing/1.jpg')}}" alt="Image" class="img-responsive"></a>
-                                        <a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="Verified"><i class="fa fa-check-square-o"></i></a>
-                                    </div><!-- item-image -->
-                                </div>
-
-                                <!-- rending-text -->
-                                <div class="item-info col-sm-9">
-                                    <!-- ad-info -->
-                                    <div class="ad-info">
-                                        <h3 class="item-price">$50.00</h3>
-                                        <h4 class="item-title"><a href="#">Apple TV - Everything you need to know!</a></h4>
-                                        <div class="item-cat">
-                                            <span><a href="#">Electronics & Gedgets</a></span> /
-                                            <span><a href="#">Tv & Video</a></span>
-                                        </div>	
-                                    </div><!-- ad-info -->
-
-                                    <!-- ad-meta -->
-                                    <div class="ad-meta">
-                                        <div class="meta-content">
-                                            <span class="dated"><a href="#">7 Jan, 16  10:10 pm </a></span>
-                                            <a href="#" class="tag"><i class="fa fa-tags"></i> Used</a>
-                                        </div>									
-                                        <!-- item-info-right -->
-                                        <div class="user-option pull-right">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Los Angeles, USA"><i class="fa fa-map-marker"></i> </a>
-                                            <a class="online" href="#" data-toggle="tooltip" data-placement="top" title="Dealer"><i class="fa fa-suitcase"></i> </a>											
-                                        </div><!-- item-info-right -->
-                                    </div><!-- ad-meta -->
-                                </div><!-- item-info -->
-                            </div><!-- ad-item -->
-
-                            <!-- ad-item -->
-                            <div class="row">
-                                <div class="item-image-box col-sm-3">
-                                    <!-- item-image -->
-                                    <div class="item-image">
-                                        <a href="details.html"><img src="{{ URL::asset('/uploads/images/trending/2.jpg')}}" alt="Image" class="img-responsive"></a>
-                                    </div><!-- item-image -->
-                                </div><!-- item-image-box -->
-
-                                <!-- rending-text -->
-                                <div class="item-info col-sm-9">
-                                    <!-- ad-info -->
-                                    <div class="ad-info">
-                                        <h3 class="item-price">$250.00 <span>(Negotiable)</span></h3>
-                                        <h4 class="item-title"><a href="#">Bark Furniture, Handmade Bespoke Furniture</a></h4>
-                                        <div class="item-cat">
-                                            <span><a href="#">Home Appliances</a></span> /
-                                            <span><a href="#">Sofa</a></span>
-                                        </div>										
-                                    </div><!-- ad-info -->
-
-                                    <!-- ad-meta -->
-                                    <div class="ad-meta">
-                                        <div class="meta-content">
-                                            <span class="dated"><a href="#">7 Jan, 16  10:10 pm </a></span>
-                                            <a href="#" class="tag"><i class="fa fa-tags"></i> Used</a>
-                                        </div>									
-                                        <!-- item-info-right -->
-                                        <div class="user-option pull-right">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Los Angeles, USA"><i class="fa fa-map-marker"></i> </a>
-                                            <a class="online" href="#" data-toggle="tooltip" data-placement="top" title="Dealer"><i class="fa fa-suitcase"></i> </a>											
-                                        </div><!-- item-info-right -->
-                                    </div><!-- ad-meta -->
-                                </div><!-- item-info -->
-                            </div><!-- ad-item -->
-                      
+                          <div class="appendText"></div>
                         </div><!-- tab-pane -->
-                        
                     </div>
                 </div><!-- trending-ads -->			
 
@@ -270,26 +181,75 @@
                 </div><!-- row -->
             </div><!-- contaioner -->
         </section><!-- download -->
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
+
 @push('javaScript')
 <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
+
 <script>
 $(document).ready(function(){
-    $(document).on('click','.categoryTab',function(){
+     $(document).on('click','.categoryTab',function(){
          key = $(this).attr('value');
-      
-        $.ajax({
-            type        : 'POST', 
-            url         : "{{ URL::route('web.home.getDonation')}}", // the url where we want to POST
-            data        : {'id': key}, 
-            success: function(data){
-                alert(data);
-            }
+         $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
         });
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ URL::route('web.home.getDonation')}}", // the url where we want to POST
+            data        : {key: key},
+            success: function(data){
+                $('.appendText').html(data);
+           }
+      });
+   });
+    $("#search_text").autocomplete({
+        source: function(request, response) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('home.search.city') }}",
+                dataType: "json",
+                data: {
+                    city : request.term
+                },
+                success: function(data) {
+                    response(data);
+                    
+                }
+            });
+        },
+      minLength: 2,
     });
-
+    $("#category_box").autocomplete({
+        source: function(request, response) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('home.search.category') }}",
+                dataType: "json",
+                data: {
+                    category : request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+      minLength: 1,
+    });
 });
 </script>
 @endpush

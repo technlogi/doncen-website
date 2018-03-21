@@ -28,4 +28,26 @@ class CategoryController extends Controller
         }
         return view('web.page.categories');
     }
+   
+    //for home search and get category
+    public function getCategory(Request $request) {
+        $query = $request->category;
+        $categories = Category::where('name','LIKE','%'.$query.'%')->get();
+        $data=array();
+        foreach ($categories  as $category) {
+                $data[]=array('value'=>$category->name  );
+        }
+        if(count($data))
+                return $data;
+        else
+            return ['value'=>'No Result Found'];
+    }
+
+
+    public function categoryDetail($key)
+    {
+  
+    }
 }
+
+

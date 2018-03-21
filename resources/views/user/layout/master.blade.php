@@ -18,7 +18,7 @@
         <link id="preset" rel="stylesheet" href="{{ URL::asset('/css/user/css/presets/preset1.css')}}">	
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/responsive.css')}}">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-
+        <link href="{{ URL::asset('/css/user/css/jquery.ui.autocomplete.css')}}" rel="stylesheet">
         <!-- font -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'> -->

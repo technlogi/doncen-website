@@ -92,21 +92,9 @@
                                             <!-- panel-body -->
                                             <div class="panel-body">
                                                 <h5><a href=""><i class="fa fa-caret-down"></i> All Categories</a></h5>
-                                                <label for="hospitals"><input type="checkbox" name="" id="hospitals"> Hospitals<span>(1029)</span></label>
-                                                <label for="foods"><input type="checkbox" name="" id="foods"> Foods<span>(1228)</span></label>
-                                                <label for="clothes"><input type="checkbox" name="" id="clothes"> Clothes & Accessory<span>(178)</span></label>
-                                                <label for="residence"><input type="checkbox" name="" id="residence"> Residence<span>(7163)</span></label>
-                                                <label for="education"><input type="checkbox" name="" id="education"> Education<span>(8709)</span></label>                                                
-                                                <label for="literature"><input type="checkbox" name="" id="literature"> Literature<span>(3129)</span></label>
-                                                <label for="toys-&-sports"><input type="checkbox" name="" id="toys-&-sports"> Toys & Sports<span>(2019)</span></label>
-                                                <label for="fmcg"><input type="checkbox" name="" id="fmcg"> FMCG<span>(323)</span></label>
-                                                <label for="agriculture"><input type="checkbox" name="" id="agriculture"> Agriculture<span>(425)</span></label>
-                                                <label for="services-&-time"><input type="checkbox" name="" id="services-&-time"> Services & Time<span>(3223)</span></label>                                                
-                                                <label for="tours-&-traveling"><input type="checkbox" name="" id="tours-&-traveling"> Tours & Traveling<span>(3283)</span></label>
-                                                <label for="helpline-number"><input type="checkbox" name="" id="helpline-number"> Helpline Number<span>(3221)</span></label>
-                                                <label for="beast"><input type="checkbox" name="" id="beast"> Beast<span>(3221)</span></label>
-                                                <label for="others"><input type="checkbox" name="" id="others"> Others<span>(3129)</span></label>
-
+                                             
+                                                     <label for="hospitals"><input type="checkbox" name="" ><span></span></label>
+                                              
 
                                             </div><!-- panel-body -->
                                         </div>
@@ -802,3 +790,31 @@
             </div><!-- contaioner -->
         </section><!-- something-sell -->
 @endsection
+@push('javaScript')
+<script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
+
+<script>
+$(document).ready(function(){
+    $(document).on('click','.categoryTab',function(){
+         key = $(this).attr('value');
+         $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+        $.ajax({
+            type:      'POST',
+            url         : "{{ route('web.home.getDonation') }}", // the url where we want to POST
+            data        : {key: key}, 
+            success: function(data){
+                $('.appendText').html(data);
+            }
+        });
+    });
+
+    cityOnChange(){
+        alert('change');
+    }
+});
+</script>
+@endpush
