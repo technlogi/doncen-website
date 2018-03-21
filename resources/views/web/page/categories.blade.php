@@ -1,7 +1,5 @@
 @extends('user.layout.master')
 @section('title','Category List')
-
-
 @section('content')
    <!-- main -->
    <section id="main" class="clearfix category-page">
@@ -19,30 +17,18 @@
 
                     <!-- banner-form -->
                     <div class="banner-form banner-form-full">
-                        <form action="#">
-                            <!-- language-dropdown -->
-                            <div class="dropdown category-dropdown language-dropdown ">						
-                                <a data-toggle="dropdown" href="#"><span class="change-text">United Kingdom</span> <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu  language-change">
-                                    <li><a href="#">United Kingdom</a></li>
-                                    <li><a href="#">United States</a></li>
-                                    <li><a href="#">China</a></li>
-                                    <li><a href="#">Russia</a></li>
-                                </ul>								
+                        <form method="post" action="#">
+                                <!-- language-dropdown -->
+                            <div class="dropdown category-dropdown"> 						
+                                <input type="text" name="city_search_box" placeholder="Enter City" id="city_search_box">
                             </div><!-- language-dropdown -->
-                            <!-- category-change -->
-                            <div class="dropdown category-dropdown">						
-                                <a data-toggle="dropdown" href="#"><span class="change-text">Select Category</span> <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu category-change">
-                                    <li><a href="#">Fashion & Beauty</a></li>
-                                    <li><a href="#">Cars & Vehicles</a></li>
-                                    <li><a href="#">Electronics & Gedgets</a></li>
-                                    <li><a href="#">Real Estate</a></li>
-                                    <li><a href="#">Sports & Games</a></li>
-                                </ul>								
-                            </div><!-- category-change -->                          
 
-                            <input type="text" class="form-control" placeholder="Type Your key word">
+                            <div class="dropdown category-dropdown">		
+                                <input type="text" name="category_box" placeholder="Enter Category" id='category_box'>
+                            </div> 
+                            <div class="dropdown category-dropdown">
+                                <input type="text" name="word_box" placeholder="Type Your key word">
+                            </div>
                             <button type="submit" class="form-control" value="Search">Search</button>
                         </form>
                     </div><!-- banner-form -->
@@ -91,11 +77,9 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <h5><a href=""><i class="fa fa-caret-down"></i> All Categories</a></h5>
-                                             
-                                                     <label for="hospitals"><input type="checkbox" name="" ><span></span></label>
-                                              
-
+                                                   @foreach($categories as $category)
+                                                     <label for="hospitals"><input type="checkbox" name="" >{{$category->name}}<span>({{$category->total_post}})</span></label>
+                                                   @endforeach
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -112,10 +96,10 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="blood"><input type="checkbox" name="" id="blood"> Blood<span>(425)</span></label>
-                                                <label for="vegetable"><input type="checkbox" name="" id="vegetable"> Vegetable<span>(3223)</span></label>                                          
-                                                <label for="lodgement"><input type="checkbox" name="" id="lodgement"> Lodgement<span>(3221)</span></label>
-                                                <label for="study"><input type="checkbox" name="" id="study"> study<span>(3221)</span></label>         
+                                                @foreach($subcategories as $subcategory)
+                                                      <label for="blood"><input type="checkbox" name="" id="blood">{{ $subcategory->name}}<span></span></label>
+                                                @endforeach
+
 
                                             </div><!-- panel-body -->
                                         </div>
@@ -133,10 +117,10 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="a+"><input type="checkbox" name="" id="a+"> A+<span>(435)</span></label>
-                                                <label for="b-"><input type="checkbox" name="" id="b-"> B-<span>(23)</span></label>                                          
-                                                <label for="ab+"><input type="checkbox" name="" id="ab+"> AB+<span>(322)</span></label>
-                                                <label for="o+"><input type="checkbox" name="" id="o+"> O+<span>(321)</span></label>
+                                                @foreach($specifications as $specification)
+                                                    <label for="a+"><input type="checkbox" name="" id="a+">{{$specification->name }}<span></span></label>
+                                                @endforeach
+
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -193,11 +177,9 @@
                                         <div id="type-of-donation" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="any-type"><input type="checkbox" name="new" id="any-type"> Any type</label>
-                                                <label for="go-to-f2f"><input type="checkbox" name="used" id="go-to-f2f"> Go TO F2F</label>
-                                                <label for="call-in-and-f2f"><input type="checkbox" name="new" id="call-in-and-f2f"> Call In And F2F</label>
-                                                <label for="by-post"><input type="checkbox" name="used" id="by-post"> By Post</label>
-                                                <label for="other-type"><input type="checkbox" name="used" id="other-type"> Other type</label>
+                                            @foreach($donation_types as $donation_type)
+                                                <label for="other-type"><input type="checkbox" name="used" id="other-type"> {{$donation_type->name}}</label>
+                                            @endforeach
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -789,32 +771,57 @@
                 </div><!-- row -->
             </div><!-- contaioner -->
         </section><!-- something-sell -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @push('javaScript')
 <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
-
+<script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
 <script>
-$(document).ready(function(){
-    $(document).on('click','.categoryTab',function(){
-         key = $(this).attr('value');
-         $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+$(function(){
+  $('#city_search_box').autocomplete({
+    source: function(request, response) {
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('home.search.city') }}",
+                dataType: "json",
+                data: {
+                    city : request.term
+                },
+                success: function(data) {
+                    response(data);
+                    
+                }
             });
-        $.ajax({
-            type:      'POST',
-            url         : "{{ route('web.home.getDonation') }}", // the url where we want to POST
-            data        : {key: key}, 
-            success: function(data){
-                $('.appendText').html(data);
-            }
-        });
+        },
+    minLength: 2,
+  });
+  $("#category_box").autocomplete({
+        source: function(request, response) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('home.search.category') }}",
+                dataType: "json",
+                data: {
+                    category : request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+      minLength: 1,
     });
-
-    cityOnChange(){
-        alert('change');
-    }
 });
+
 </script>
 @endpush

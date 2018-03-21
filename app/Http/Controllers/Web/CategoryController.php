@@ -15,18 +15,26 @@ class CategoryController extends Controller
         return view('web.page.donation_category',compact('categories'));
     }
 
-    public function categories()
+    public function searchCategory()
     {
-        $donation_posts = DB::table('donation_posts')->where('status',1)->get();
-        foreach($donation_posts as $donation_post){
-           if(DB::table('donation_images')->where('donation_post_id',$donation_post->id)->count() > 0){
-            $image = DB::table('donation_images')->where('donation_post_id',$donation_post->id)->first();
-            array_add((array)$donation_post ,'image_url',$image->image);
-           }else{
-            array_add((array)$donation_post ,'image_url',$image->image);
-           }
+        $categories = Category::where('status',1)->get();
+        foreach($categories as $category){
+          $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
+                                FROM categories                 
+                                JOIN subcategories ON categories.id = subcategories.category_id                 
+                                JOIN specifications ON subcategories.id = specifications.subcategory_id                 
+                                JOIN donation_posts ON specifications.id = donation_posts.specification_id                 
+                                WHERE donation_posts.status = 1  and categories.key ='$category->key' GROUP BY categories.key");
+            if(!empty($count)){
+                $category->total_post = $count[0]->total_count ;
+            }else{
+                $category->total_post = 0;
+            }
         }
-        return view('web.page.categories');
+        $subcategories = \App\Models\Subcategory::where('status',1)->get();
+        $specifications = \App\Models\Specification::where('status',1)->get();
+        $donation_types = DB::table('donation_types')->where('status',1)->get();
+        return view('web.page.categories',compact('categories','subcategories','specifications','donation_types'));
     }
    
     //for home search and get category

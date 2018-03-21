@@ -100,7 +100,7 @@ Route::post('/getsubcatory',      [  'uses' => 'Web\SubcategoryController@getSub
 Route::post('/getspecification',  [  'uses' => 'Web\SpecificationController@getSpecification','as' => 'web.categorie.specification'   ]);  
 Route::post('/donation/form',     [  'uses' => 'Web\WebController@donationDetails',           'as' => 'web.categorie.donationDetails' ]);
 
-Route::get('/categories',         [  'uses' => 'Web\CategoryController@categories',           'as' => 'web.categorie.categories'      ]);  
+Route::get('/search',         [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory'      ]);  
 
 
 

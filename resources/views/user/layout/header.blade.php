@@ -19,7 +19,7 @@
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ route('web.home') }}">Home</a></li>
-                                <li><a href="{{ route('web.categorie.categories') }}">all categories</a></li>
+                                <li><a href="{{ route('web.categorie.searchCategory') }}">all categories</a></li>
                             </ul>
                         </div>
                     </div>
