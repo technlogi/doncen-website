@@ -119,10 +119,10 @@ if (! function_exists('generateOtp')) {
     }
 }
 
-if(! function_exists('POST_IMAGE')){
-    function POST_IMAGE($image){
+if(! function_exists('DONATION_POST_IMAGE')){
+    function DONATION_POST_IMAGE($image){
       $company_url =  env('COMPANY_URL');
-      $base_path = base_path('/uploads/image/post/');
+      $base_path = '/uploads/image/post/donation_post/';
       return $company_url.''.$base_path.''.$image;
     }
 }

@@ -16,7 +16,6 @@ class WebController extends Controller
 
     public function home()
     {
-         
         $categories = Category::where('status',1)->get();
             foreach($categories as $category){
               $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
@@ -34,6 +33,7 @@ class WebController extends Controller
         $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
         return view('web.page.home',compact('titles','categories'));
     }
+    //donation Form
     public function donationDetails(Request $request)
     {
         if (Auth::guard('user')->check()){
@@ -44,6 +44,7 @@ class WebController extends Controller
         }
         return redirect()->route('web.donation.DetailForm',$request->specification);
     }
+    //donation details form 
     public function donationDetailForm($key)
     {
         $specification = Specification::where('key',$key)->first();
@@ -52,6 +53,7 @@ class WebController extends Controller
         $user_types = DB::table('user_types')->select('name','key')->where('status',1)->get();
         return view('web.page.donation_detail',compact('specification','subcategory','category','user_types','key'));
     }
+    //store donation post
     public function store_donation_detail(StoreDonationDetailRequest $request)
     {
         if (Auth::guard('user')->check()){
@@ -115,6 +117,42 @@ class WebController extends Controller
       session()->flash('success','Donation Post Created Successfully.');
      return redirect('/user/dashboard');
     }
-
+    //get featured add by donation key
+    public function getDonationPost(Request $request)
+    {
+        $categories = Category::where('status',1)->where('key',$request->key)->first();
+        $results = array();
+        foreach($categories->subcategories as $subcategory){
+            $donations =   DB::table('donation_posts')
+                            ->where('specification_id',$subcategory->id)
+                            ->where('status',1)
+                            ->where('is_urgent',1)
+                            ->get ();
+            if(!empty($donations)){
+                foreach($donations as $donation){
+                    $donation_image = DB::table('donation_images')
+                                        ->where('donation_post_id',$donation->id)
+                                        ->where('status',1)
+                                        ->first();
+                    if(!empty($donation_image)){
+                        array_add((array)$subcategory,'image',DONATION_POST_IMAGE($donation_image->image));
+                    }else{
+                        array_add((array)$subcategory,'image','');
+                    }
+                    array_push($results,$donation);
+                }
+            }
+        }
+        $print ='';
+        if(!empty($results)){
+            foreach($results as $result){
+                $print .= '';
+            }
+        }else{
+            $print .= '<div class="alert alert-info">There is No Dontaion Post.</div>';
+        }
+        
+     echo $print;
+    }
    
 }

@@ -108,7 +108,7 @@ Route::get('/donation/form/{key}',     [  'uses' => 'Web\WebController@donationD
 Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donation_detail',          'as'=> 'web.donation.create']);
 
 
-
+Route::post('/get-featured',           [  'uses' => 'Web\WebController@getDonationPost',           'as' => 'web.home.getDonation' ]);
 
 
 
@@ -148,7 +148,6 @@ Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donat
 // Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 // Route::get('/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
 // Route::get('/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
-
 // Route::get('/published',['uses' =>'User\UserController@published','as'=>'user.published']);
 // Route::get('/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
 
