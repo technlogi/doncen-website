@@ -26,6 +26,10 @@
         <!--favicon-->
         <link rel="icon" href="{{ URL::asset('/uploads/images/favicon.png')}}" type="image/gif" sizes="16x16">
         <!--/favicon-->
+        
+        <style>
+      
+        </style>
     </head>
     <body>
     @include('user.layout.header')

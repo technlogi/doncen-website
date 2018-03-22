@@ -245,7 +245,7 @@ class WebController extends Controller
                     }
                         
                     $print .= '  <!-- ad-item -->
-                        <div class="row">
+                        <div class="category-item row">
                         <!-- item-image -->
                         <div class="item-image-box col-sm-3">
                             <div class="item-image">';
