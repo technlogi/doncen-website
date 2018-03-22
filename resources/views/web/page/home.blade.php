@@ -191,7 +191,19 @@
 
 <script>
 $(document).ready(function(){
-     $(document).on('click','.categoryTab',function(){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
+            success: function(data){
+                  $('.appendText').html(data);
+           }
+        });
+    $(document).on('click','.categoryTab',function(){
          key = $(this).attr('value');
          $.ajaxSetup({
                 headers: {
@@ -206,7 +218,7 @@ $(document).ready(function(){
                 $('.appendText').html(data);
            }
       });
-   });
+    });
     $("#search_text").autocomplete({
         source: function(request, response) {
             $.ajaxSetup({

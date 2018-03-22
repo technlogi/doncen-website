@@ -99,38 +99,27 @@ Route::get('/donation/form',      [  'uses' => 'Web\CategoryController@donationC
 Route::post('/getsubcatory',      [  'uses' => 'Web\SubcategoryController@getSubcategory',    'as' => 'web.categorie.subcategories'   ]);  
 Route::post('/getspecification',  [  'uses' => 'Web\SpecificationController@getSpecification','as' => 'web.categorie.specification'   ]);  
 Route::post('/donation/form',     [  'uses' => 'Web\WebController@donationDetails',           'as' => 'web.categorie.donationDetails' ]);
+Route::get('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
 
-Route::get('/search',         [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory'      ]);  
+Route::post('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
 
 
 
 Route::get('/donation/form/{key}',     [  'uses' => 'Web\WebController@donationDetailForm',           'as' => 'web.donation.DetailForm' ]);
 Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donation_detail',          'as'=> 'web.donation.create']);
 
-
 Route::post('/get-featured',           [  'uses' => 'Web\WebController@getDonationPost',           'as' => 'web.home.getDonation' ]);
+Route::post('/get-featured/list',      [  'uses' => 'Web\WebController@getItemOnLoad',           'as' => 'web.home.getItemOnLoad' ]);
 
 Route::get('/getcity', 'Web\CityController@getCity');
-
 
 Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@categoryDetail',     'as' => 'home.category.details' ]);
 
 
-
-
-
-
-
-
 Route::post('/search/city',    ['as'=>'home.search.city',    'uses'=>'Web\CityController@getCity']);
-
 Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=>'Web\WebController@getItem']);
-
 Route::post('/search/by-dorpdown',    ['as'=>'home.searchPage.dropDownSearchItem',    'uses'=>'Web\WebController@dropDownSearchItem']);
-
-
 Route::post('/search/category',['as'=>'home.search.category','uses'=>'Web\CategoryController@getCategory']);
-
 
 
 

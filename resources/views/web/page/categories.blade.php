@@ -253,7 +253,18 @@
 <script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
 <script>
 $(function(){
-    
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    });
+    $.ajax({
+        type        : 'POST',
+        url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
+        success: function(data){
+                $('.appendText').html(data);
+        }
+    });
   $("#city_search_box").autocomplete({
     source: function(request, response) {
         $.ajaxSetup({

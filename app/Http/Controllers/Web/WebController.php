@@ -219,7 +219,7 @@ class WebController extends Controller
             echo $this->printData($donation_posts,array(), array());
         }
     }
-
+    //rander a view to all request of ajax
     public function printData($results,$city,$category)
     {
          $print = '';
@@ -299,5 +299,16 @@ class WebController extends Controller
             $print .= '<div class="alert alert-info">There is No Dontaion Post.</div>'; 
         }
         return $print;
+    }
+
+    //on load of page call function to print table
+    public function getItemOnLoad()
+    {
+        $donation_posts =  DB::table('donation_posts')
+                            ->where('status',1)
+                            ->orderBy('created_at','desc')
+                            ->limit(10)
+                            ->get();
+        echo $this->printData($donation_posts,array(), array());
     }
 }
