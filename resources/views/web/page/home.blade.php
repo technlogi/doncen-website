@@ -244,7 +244,7 @@ $(document).ready(function(){
                     category : request.term
                 },
                 success: function(data) {
-                    response(data);
+                    console.log(data);
                 }
             });
         },

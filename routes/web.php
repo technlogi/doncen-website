@@ -109,6 +109,7 @@ Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donat
 
 
 Route::post('/get-featured',           [  'uses' => 'Web\WebController@getDonationPost',           'as' => 'web.home.getDonation' ]);
+
 Route::get('/getcity', 'Web\CityController@getCity');
 
 
@@ -122,6 +123,12 @@ Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@cat
 
 
 Route::post('/search/city',    ['as'=>'home.search.city',    'uses'=>'Web\CityController@getCity']);
+
+Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=>'Web\WebController@getItem']);
+
+Route::post('/search/by-dorpdown',    ['as'=>'home.searchPage.dropDownSearchItem',    'uses'=>'Web\WebController@dropDownSearchItem']);
+
+
 Route::post('/search/category',['as'=>'home.search.category','uses'=>'Web\CategoryController@getCategory']);
 
 

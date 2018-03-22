@@ -52,10 +52,7 @@ class CategoryController extends Controller
     }
 
 
-    public function categoryDetail($key)
-    {
   
-    }
 }
 
 
