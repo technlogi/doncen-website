@@ -1,12 +1,13 @@
 <?php
 
-Route::get('/dashboard', function () {
-    $users[] = Auth::user();
-    $users[] = Auth::guard()->user();
-    $users[] = Auth::guard('user')->user();
+// Route::get('/dashboard', function () {
+//     $users[] = Auth::user();
+//     $users[] = Auth::guard()->user();
+//     $users[] = Auth::guard('user')->user();
 
-    //dd($users);
+//     //dd($users);
 
-    return view('user.home');
-})->name('home');
+//     return view('user.home');
+// })->name('home');
 
+Route::get('/dashboard',['as' =>'home','uses'=> 'User\UserController@dashboard']);

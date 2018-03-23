@@ -53,8 +53,10 @@ class RegistrationController extends Controller
                 $user->is_verify = 1;
                 $user->status = 1;
                 $user->save();
-                  session()->flash('success','Registration Successfully.');
-                return redirect()->back()->with('success','Registration Successfully.');
+                //   session()->flash('success','Registration Successfully.');
+                // return redirect()->back()->with('success','Registration Successfully.');
+
+                return view('web.page.registrationSuccess');
             }else{
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');
             }

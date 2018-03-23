@@ -9,8 +9,8 @@
                             <div class="footer-widget">
                                 <h3>Quik Links</h3>
                                 <ul>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="contact-us.html">Contact Us</a></li>
+                                    <li><a href="{{ route('web.main.aboutUs') }}">About Us</a></li>
+                                    <li><a href="{{ route('web.main.contactUs') }}">Contact Us</a></li>
                                     <li><a href="#">Careers</a></li>
                                     <li><a href="#">All Cities</a></li>
                                     <li><a href="#">Help & Support</a></li>

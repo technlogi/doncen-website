@@ -7,7 +7,7 @@
                     <!-- user-login -->			
                     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                         <div class="user-account">
-                        @if (Session::has('error'))
+                          @if (Session::has('error'))
                                 <div class="alert alert-danger">{{ Session::get('error') }}</div>
                                 @endif
                             <h2>Login</h2>

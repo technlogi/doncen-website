@@ -311,4 +311,15 @@ class WebController extends Controller
                             ->get();
         echo $this->printData($donation_posts,array(), array());
     }
+
+    public function aboutUs()
+    {
+        return view('web.main.aboutUs');
+    }
+    public function contactUs()
+    {
+
+    }
+
+   
 }

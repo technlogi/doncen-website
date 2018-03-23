@@ -1499,11 +1499,11 @@ a.verified i {
     margin-bottom: 6px;
 }
 
-#accordion .panel-body label input[type="checkbox"] {
+/* #accordion .panel-body label input[type="checkbox"] {
     width: 0;
     height: 0;
     display: none;
-}
+} */
 
 #accordion .panel-body label:before, 
 .checkbox label:before {

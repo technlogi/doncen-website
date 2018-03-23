@@ -218,10 +218,10 @@
                                                     <input type="text" placeholder="Monetary" class="form-control" name="consideration_detail" id="txtMonetary" style="display: none"/>
                                                     <input type="text" placeholder="Non-Monetary" class="form-control" name="consideration_detail" id="txtNonMonetary" style="display: none"/>
                                                     @if ($errors->has('consideration'))
-                                                                <span class="help-block">
-                                                                    <strong>{{ $errors->first('consideration') }}</strong>
-                                                                </span>
-                                                            @endif
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('consideration') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="row form-group additional">

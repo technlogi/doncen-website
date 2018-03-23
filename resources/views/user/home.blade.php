@@ -1,10 +1,10 @@
 @extends('user.layout.master')
-
+@section('title',"Dashboard")
 @section('content')
-  <!-- ad-profile-page -->
-  <section id="main" class="clearfix  ad-profile-page">
-            <div class="container">
 
+   <!-- delete-page -->
+   <section id="main" class="clearfix delete-page">
+            <div class="container">
                 <div class="breadcrumb-section">
                     <!-- breadcrumb -->
                     <ol class="breadcrumb">
@@ -22,8 +22,8 @@
                             <img src="{{URL::asset('/uploads/images/user.jpg')}}" alt="User Images" class="img-responsive">
                         </div>
                         <div class="user">
-                            <h2>Hello, <a href="#">Jhon Doe</a></h2>
-                            <h5>You last logged in at: 14-01-2016 6:40 AM [ USA time (GMT + 6:00hrs)]</h5>
+                            <h2>Hello, <a href="#">{{ ucfirst($user->name) }}</a></h2>
+                            <!-- <h5>You last logged in at: 14-01-2016 6:40 AM [ USA time (GMT + 6:00hrs)]</h5> -->
                         </div>
 
                         <div class="favorites-user">
@@ -31,152 +31,129 @@
                                 <a href="my-ads.html">23<small>My ADS</small></a>
                             </div>
                             <div class="favorites">
-                                <a href="#">18<small>Favorites</small></a>
+                                <a href="#">{{ $total_post }}<small>Post By You</small></a>
                             </div>
                         </div>								
                     </div><!-- user-profile -->
-
-                    <ul class="user-menu">
-                        <li class="active"><a href="my-profile.html">Profile</a></li>
+                   <ul class="user-menu">
+                   <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="favourite-ads.html">Favourite donation</a></li>
                         <li><a href="my-ads.html">My donation</a></li>
                         <li><a href="urgent_requirement.html">Urgent requirement</a></li>
                         <li><a href="pending-ads.html">Pending approval</a></li>
                         <!--<li><a href="archived-ads.html">Archived ads </a></li>-->
-                        <li><a href="delete-account.html">Close account</a></li>
+                        <li  class="active"><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
-                </div><!-- ad-profile -->	
 
-                <div class="profile section">
+                </div><!-- ad-profile -->		
+
+                <div class="close-account">
                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="user-pro-section">
-                                <!-- profile-details -->
-                                <div class="profile-details section">
-                                    <h2>Profile Details</h2>
-                                    <!-- form -->
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" placeholder="Jhon Doe">
-                                    </div>
+                        <div class="col-sm-8 text-center">
+                            <div class="delete-account section">
+                                           <form action="{{ route('user.update.profile' )}}" method="POST">
+                                    <div class="profile-details section">
+                                        <h2>Profile Details</h2>
+                                        <!-- form -->
+                                        {{ csrf_field() }}
+                                        
+                                        <div class="form-group{{ $errors->has('user_name') ? ' has-error' : '' }}">
+                                            <label>Username</label>
+                                            <input type="text" name="user_name" value="{{ $user->name }}" class="form-control" placeholder="Enter Name">
+                                            @if ($errors->has('user_name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('user_name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label>Email ID</label>
-                                        <input type="email" class="form-control" placeholder="jhondoe@mail.com">
-                                    </div>
+                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                            <label>Email ID</label>
+                                            <input type="email" class="form-control" name="email" value="{{ $user->email }}" placeholder="Enter Your email" readonly>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="name-three">Mobile</label>
-                                        <input type="text" class="form-control" placeholder="+213 1234 56789">
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="name-three">Mobile</label>
+                                            <input type="text" class="form-control" name="mobile_no" value="{{ $user->contact }}" placeholder="Enter Contact no." readonly>
+                                            @if ($errors->has('mobile_no'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('mobile_no') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label>Your City</label>
-                                        <select class="form-control">
-                                            <option value="#">Los Angeles, USA</option>
-                                            <option value="#">Dhaka, BD</option>
-                                            <option value="#">Shanghai</option>
-                                            <option value="#">Karachi</option>
-                                            <option value="#">Beijing</option>
-                                            <option value="#">Lagos</option>
-                                            <option value="#">Delhi</option>
-                                            <option value="#">Tianjin</option>
-                                            <option value="#">Rio de Janeiro</option>
-                                        </select>
-                                    </div>	
+                                        <div class="form-group">
+                                            <label>Your City</label>
+                                            <select class="form-control">
+                                                <option value="#">Los Angeles, USA</option>
+                                                <option value="#">Dhaka, BD</option>
+                                                <option value="#">Shanghai</option>
+                                                <option value="#">Karachi</option>
+                                                <option value="#">Beijing</option>
+                                                <option value="#">Lagos</option>
+                                                <option value="#">Delhi</option>
+                                                <option value="#">Tianjin</option>
+                                                <option value="#">Rio de Janeiro</option>
+                                            </select>
+                                        </div>	
 
-                                    <div class="form-group">
-                                        <label>You are a</label>
-                                        <select class="form-control">
-                                            <option value="#">Dealer</option>
-                                            <option value="#">Individual Seller</option>
-                                        </select>
-                                    </div>					
-                                </div><!-- profile-details -->
+                                        <div class="form-group">
+                                            <label>You are a</label>
+                                            <select class="form-control">
+                                                <option value="#">Dealer</option>
+                                                <option value="#">Individual Seller</option>
+                                            </select>
+                                        </div>					
+                                    <button class="btn btn-primary" type="submit">update Profile</button>														
+                                    </div><!-- profile-details -->
+                                </form> 
 
-                                <!-- change-password -->
-                                <div class="change-password section">
-                                    <h2>Change password</h2>
-                                    <!-- form -->
-                                    <div class="form-group">
-                                        <label>Old Password</label>
-                                        <input type="password" class="form-control" >
-                                    </div>
+                                <form action="{{ route('user.change.password' )}}" method="POST">
+                                    <!-- change-password -->
+                                    <div class="change-password section">
+                                        <h2>Change password</h2>
+                                         {{ csrf_field() }}
+                                        <!-- form -->
+                                        <div class="form-group{{ $errors->has('old_password') ? ' has-error' : '' }}">
+                                            <label>Old Password</label>
+                                            <input type="password" name="old_password" class="form-control" >
+                                            @if ($errors->has('old_password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('old_password') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label>New password</label>
-                                        <input type="password" class="form-control">	
-                                    </div>
+                                        <div class="form-group{{ $errors->has('new_password') ? ' has-error' : '' }}">
+                                            <label>New password</label>
+                                            <input type="password"  name="new_password" class="form-control">	
+                                            @if ($errors->has('new_password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('new_password') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label>Confirm password</label>
-                                        <input type="password" class="form-control">
-                                    </div>															
-                                </div><!-- change-password -->
+                                        <div class="form-group">
+                                            <label>Confirm password</label>
+                                            <input type="password" name="new_password_confirmation" class="form-control">
+                                        </div>	
+                                        <button class="btn btn-primary" type="submit">Change Password</button>														
+                                    </div><!-- change-password -->
+                               </form> 
+                            </div>
+                        </div><!-- delete-account -->
 
-                                <!-- preferences-settings -->
-                                <div class="preferences-settings section">
-                                    <h2>Preferences Settings</h2>
-                                    <!-- checkbox -->
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" name="logged"> Comments are enabled on my ads </label>
-                                        <label><input type="checkbox" name="receive"> I want to receive newsletter.</label>
-                                        <label><input type="checkbox" name="want">I want to receive advice on buying and selling. </label>
-                                    </div><!-- checkbox -->						
-                                </div><!-- preferences-settings -->
-
-                                <a href="#" class="btn">Update Profile</a>
-                                <a href="#" class="btn cancle">Cancle</a>
-                            </div><!-- user-pro-edit -->
-                        </div><!-- profile -->
-
-                        <div class="col-sm-4 text-center">
-                            <div class="recommended-cta">					
-                                <div class="cta">
-                                    <!-- single-cta -->						
-                                    <div class="single-cta">
-                                        <!-- cta-icon -->
-                                        <div class="cta-icon icon-secure">
-                                            <img src="{{URL::asset('/uploads/images/icon/13.png')}}" alt="Icon" class="img-responsive">
-                                        </div><!-- cta-icon -->
-
-                                        <h4>Secure Trading</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    </div><!-- single-cta -->
-
-                                    <!-- single-cta -->
-                                    <div class="single-cta">
-                                        <!-- cta-icon -->
-                                        <div class="cta-icon icon-support">
-                                            <img src="{{URL::asset('/uploads/images/icon/14.png')}}" alt="Icon" class="img-responsive">
-                                        </div><!-- cta-icon -->
-
-                                        <h4>24/7 Support</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    </div><!-- single-cta -->
-
-
-                                    <!-- single-cta -->
-                                    <div class="single-cta">
-                                        <!-- cta-icon -->
-                                        <div class="cta-icon icon-trading">
-                                            <img src="{{URL::asset('/uploads/images/icon/15.png')}}" alt="Icon" class="img-responsive">
-                                        </div><!-- cta-icon -->
-
-                                        <h4>Easy Trading</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                    </div><!-- single-cta -->
-
-                                    <!-- single-cta -->
-                                    <div class="single-cta">
-                                        <h5>Need Help?</h5>
-                                        <p><span>Give a call on</span><a href="tellto:08048100000"> 08048100000</a></p>
-                                    </div><!-- single-cta -->
-                                </div>
-                            </div><!-- cta -->
-                        </div><!-- recommended-cta-->
-                    </div><!-- row -->	
-                </div>				
+                         @include('user.layout.rightsidebar')			
+                    </div><!-- row -->
+                </div>
             </div><!-- container -->
-        </section><!-- ad-profile-page -->
+        </section><!-- delete-page -->
+
+
 @endsection

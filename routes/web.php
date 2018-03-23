@@ -79,12 +79,18 @@ Route::group(['prefix' => 'user'], function () {
   Route::get('/register/otp/{key}', ['uses'=>'UserAuth\RegistrationController@showOtpForm','as'=>'user.registration.otpForm']);
   Route::post('/register/otp', ['uses'=>'UserAuth\RegistrationController@otpSubmit','as'=>'user.registration.otpSubmit']);
   
+  Route::get('/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
   
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
+
+
+  Route::post('/change/password', ['uses'=> 'User\UserController@changePassword', 'as' => 'user.change.password']);
+  Route::post('/update/profile', ['uses'=> 'User\UserController@updateProfile', 'as' => 'user.update.profile']);
+  
 });
 /** ============================================================================================================================================
  *                                                           Web Site
@@ -99,6 +105,9 @@ Route::get('/donation/form',      [  'uses' => 'Web\CategoryController@donationC
 Route::post('/getsubcatory',      [  'uses' => 'Web\SubcategoryController@getSubcategory',    'as' => 'web.categorie.subcategories'   ]);  
 Route::post('/getspecification',  [  'uses' => 'Web\SpecificationController@getSpecification','as' => 'web.categorie.specification'   ]);  
 Route::post('/donation/form',     [  'uses' => 'Web\WebController@donationDetails',           'as' => 'web.categorie.donationDetails' ]);
+
+
+
 Route::get('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
 
 Route::post('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
@@ -144,15 +153,15 @@ Route::post('/search/category',['as'=>'home.search.category','uses'=>'Web\Catego
 
 
 
-// Route::get('/aboutus',['uses' =>'User\UserController@aboutUs','as'=>'user.aboutUs']);
+Route::get('/about-us',['uses' =>'Web\WebController@aboutUs','as'=>'web.main.aboutUs']);
+Route::get('/contact-us',['uses' =>'Web\WebController@contactUs','as'=>'web.main.contactUs']);
+
+
 // Route::get('/index',['uses' =>'User\UserController@home','as'=>'user.home']);
-// Route::get('/categories',['uses' =>'User\UserController@categories','as'=>'user.categories']);
 // Route::get('/details',['uses' =>'User\UserController@details','as'=>'user.details']);
-// Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
+Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 // Route::get('/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
 // Route::get('/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
-// Route::get('/published',['uses' =>'User\UserController@published','as'=>'user.published']);
-// Route::get('/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
 
 
 
