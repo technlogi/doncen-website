@@ -55,14 +55,15 @@
                                         <div id="accordion-four" class="panel-collapse collapse in">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="donor"><input type="checkbox" name="dionner" id="donorCategory" > Donor</label>
-                                                <label for="helper-of-donor"><input type="checkbox" name="" id="helperOfDonorCategory" > Helper of Donor</label>
-                                                <label for="donee"><input type="checkbox" name="" id="donee"> Donee</label>
-                                                <label for="helper-of-donee"><input type="checkbox" name="" id="helperOfDoneeCategory" > Helper of Donee</label>
+                                                <label for="all"><input type="checkbox" name="all" id="allCategory" class="lookingFor[]" >All</label>
+                                                <label for="donor"><input type="checkbox" name="dionner" id="donorCategory" class="lookingFor[]" > Donor</label>
+                                                <label for="helper-of-donor"><input type="checkbox" name="" id="helperOfDonorCategory" class="lookingFor[]" > Helper of Donor</label>
+                                                <label for="donee"><input type="checkbox" name="" id="doneeCategory" class="lookingFor[]" > Donee</label>
+                                                <label for="helper-of-donee"><input type="checkbox" name="" id="helperOfDoneeCategory" class="lookingFor[]" > Helper of Donee</label>
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
-
+                                   
                                     <!-- panel -->
                                     <div class="panel-default panel-faq">                                        
                                         <!-- panel-heading -->
@@ -77,7 +78,10 @@
                                             <!-- panel-body -->
                                             <div class="panel-body">
                                                    @foreach($categories as $category)
-                                                     <label for="hospitals"><input type="checkbox" name="" >{{$category->name}} <span> ({{$category->total_post}})</span></label>
+                                                        <label for="hospitals">
+                                                            <input type="checkbox" name="" >{{$category->name}} 
+                                                            <span> ({{$category->total_post}})</span>
+                                                        </label>
                                                    @endforeach
                                             </div><!-- panel-body -->
                                         </div>
@@ -136,8 +140,8 @@
                                         <div id="accordion-two" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="new"><input type="checkbox" name="new" id="new"> New</label>
-                                                <label for="used"><input type="checkbox" name="used" id="used"> Used</label>
+                                                <label for="new"><input type="checkbox" name="new" id="newSearch"> New</label>
+                                                <label for="used"><input type="checkbox" name="used" id="usedSearch"> Used</label>
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -157,10 +161,10 @@
                                         <div id="accordion-three" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="any"><input type="checkbox" name="" id="any"> Any</label>
-                                                <label for="free"><input type="checkbox" name="used" id="free"> Free</label>
-                                                <label for="monetary"><input type="checkbox" name="" id="monetary"> Monetary</label>
-                                                <label for="non-monetary"><input type="checkbox" name="used" id="non-monetary"> Non-Monetary</label>
+                                                <label for="any"><input type="checkbox" name="" id="anyConsideration"> Any</label>
+                                                <label for="free"><input type="checkbox" name="used" id="freeConsideration"> Free</label>
+                                                <label for="monetary"><input type="checkbox" name="" id="monetaryConsideration"> Monetary</label>
+                                                <label for="non-monetary"><input type="checkbox" name="used" id="nonMonetaryConsideration"> Non-Monetary</label>
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -177,7 +181,7 @@
                                             <!-- panel-body -->
                                             <div class="panel-body">
                                             @foreach($donation_types as $donation_type)
-                                                <label for="other-type"><input type="checkbox" name="used" id="other-type"> {{$donation_type->name}}</label>
+                                                <label for="other-type"><input type="checkbox" name="used" id="other-type" value="{{$donation_type->id}}" class="donationTypeCategory"> {{$donation_type->name}}</label>
                                             @endforeach
                                             </div><!-- panel-body -->
                                         </div>
@@ -250,8 +254,10 @@
 @push('javaScript')
 <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
 <script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
+
 <script>
 $(function(){
+  function call_ajax(url,data){
     $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -259,11 +265,15 @@ $(function(){
         });
         $.ajax({
         type        : 'POST',
-        url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
+        url         : url, // the url where we want to POST
+        data        : {data: data},
         success: function(data){
                 $('.appendText').html(data);
         }
     });
+  }
+  call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",0);
+  
   $("#city_search_box").autocomplete({
     source: function(request, response) {
         $.ajaxSetup({
@@ -308,38 +318,39 @@ $(function(){
   });
   $("#search_form").submit(function(e){
     e.preventDefault();
-    var data = $(this).serializeArray();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-     });
-
-    $.ajax({
-        type: "POST",
-        url: "{{ route('home.searchPage.searchItem') }}",
-        data: data,
-        success: function(response){
-            $('.appendText').html(response);
-        }
-    });
+    call_ajax("{{ route('home.searchPage.searchItem') }}",$(this).serializeArray());
   });
+    //drop down search
   $("#dropdownSearch").on('click',function(){
-    var id = $(this).val();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-     });
-    $.ajax({
-        type: "POST",
-        url: "{{ route('home.searchPage.dropDownSearchItem') }}",
-        data: {id : id},
-        success: function(response){
-            $('.appendText').html(response);
-        }
-    });
-  }); 
+      call_ajax( "{{ route('search.dropdown.search') }}",$(this).val());
+  });
+
+       ///category wise search
+  $(".donationTypeCategory").on('click',function(){
+      call_ajax("{{ URL::route('search.categories.category')}}",$(this).val());
+  });
+        ///anyConsideration wise search
+  $("#anyConsideration").on('click',function(){
+    call_ajax("{{ URL::route('search.consideration.consideration')}}",5);
+  });
+  $("#freeConsideration").on('click',function(){
+    call_ajax("{{ URL::route('search.consideration.consideration')}}",0);
+  });
+  $("#monetaryConsideration").on('click',function(){
+    call_ajax("{{ URL::route('search.consideration.consideration')}}",1);
+  });
+  $("#nonMonetaryConsideration").on('click',function(){
+    call_ajax("{{ URL::route('search.consideration.consideration')}}",2);
+  });
+
+     //condition wise search
+  $("#newSearch").on('click',function(){
+    call_ajax("{{ URL::route('search.condition.condition')}}",1);
+  });
+  $("#usedSearch").on('click',function(){
+    call_ajax("{{ URL::route('search.condition.condition')}}",2);
+  });
+
 });
 </script>
 @endpush

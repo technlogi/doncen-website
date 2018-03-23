@@ -125,10 +125,32 @@ Route::get('/getcity', 'Web\CityController@getCity');
 Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@categoryDetail',     'as' => 'home.category.details' ]);
 
 
-Route::post('/search/city',    ['as'=>'home.search.city',    'uses'=>'Web\CityController@getCity']);
-Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=>'Web\WebController@getItem']);
-Route::post('/search/by-dorpdown',    ['as'=>'home.searchPage.dropDownSearchItem',    'uses'=>'Web\WebController@dropDownSearchItem']);
-Route::post('/search/category',['as'=>'home.search.category','uses'=>'Web\CategoryController@getCategory']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -165,4 +187,19 @@ Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 
 
 
+
+
+
+
+
+Route::post('/get/condition',['uses'=> 'Web\SearchController@condition','as'=> 'search.condition.condition']);
+Route::post('/get/consideration',['uses'=> 'Web\SearchController@consideration','as'=> 'search.consideration.consideration']);
+Route::post('/get/category',['uses'=> 'Web\SearchController@category','as'=> 'search.categories.category']);
+
+
+
+Route::post('/search/city',             ['as'=>'home.search.city',              'uses'=> 'Web\CityController@getCity']);
+Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=> 'Web\WebController@getItem']);
+Route::post('/search/by-dorpdown',      ['as'=>'search.dropdown.search',        'uses'=> 'Web\SearchController@dropDownSearchItem']);
+Route::post('/search/category',         ['as'=>'home.search.category',          'uses'=> 'Web\CategoryController@getCategory']);
 
