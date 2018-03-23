@@ -199,7 +199,7 @@ Route::post('/get/category',['uses'=> 'Web\SearchController@category','as'=> 'se
 
 
 Route::post('/search/city',             ['as'=>'home.search.city',              'uses'=> 'Web\CityController@getCity']);
-Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=> 'Web\WebController@getItem']);
+Route::post('/search/by-search-bar',    ['as'=>'home.searchPage.searchItem',    'uses'=> 'Web\SearchController@getItem']);
 Route::post('/search/by-dorpdown',      ['as'=>'search.dropdown.search',        'uses'=> 'Web\SearchController@dropDownSearchItem']);
 Route::post('/search/category',         ['as'=>'home.search.category',          'uses'=> 'Web\CategoryController@getCategory']);
 

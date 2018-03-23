@@ -60,21 +60,34 @@ class SearchController extends Controller
         echo $this->printData($donation_posts,array(), array());
     }
 
-     //consideration search 
+     //category search 
      public function category(Request $request)
      {
-         if($request->data == '1'){
-             $donation_posts =  DB::table('donation_posts')->where('status',1)->where('donation_type_id',1)->orderBy('created_at','desc')->limit(10)->get();
-         }else if($request->data == '2'){
-            $donation_posts =  DB::table('donation_posts')->where('status',1)->where('donation_type_id',2)->orderBy('created_at','desc')->limit(10)->get();
-         }else if($request->data == '3'){
-            $donation_posts =  DB::table('donation_posts')->where('status',1)->where('donation_type_id',3)->orderBy('created_at','desc')->limit(10)->get();
-         }else if($request->data == '4'){
-            $donation_posts =  DB::table('donation_posts')->where('status',1)->where('donation_type_id',4)->orderBy('created_at','desc')->limit(10)->get();
-         }else{
-            $donation_posts =  DB::table('donation_posts')->where('status',1)->orderBy('created_at','desc')->limit(10)->get();
-         }                        
-         echo $this->printData($donation_posts,array(), array());
+        $resutls = array();
+        if(!empty($request->data)){
+            $user_type_ids = explode("&ut=", $request->data);
+            $user_type_ids[0] = substr($user_type_ids[0], 3);
+            if(!empty($user_type_ids)){
+                foreach($user_type_ids as $user_type_id){
+                        $donation_posts =  DB::table('donation_posts')
+                                            ->where('status',1)
+                                            ->where('user_type_id',$user_type_id)
+                                            ->get();
+                        if(!empty($donation_posts)){
+                            foreach($donation_posts as $donation_post){
+                                if(!empty($donation_post)){
+                                    array_push($resutls,$donation_post);
+                                }                          
+                            }             
+                        }
+                }
+            } 
+        }else{
+            $resutls =  DB::table('donation_posts')
+                                            ->where('status',1)
+                                            ->get();
+        }
+        echo $this->printData($resutls,array(), array());
      }
 
     
@@ -93,6 +106,11 @@ class SearchController extends Controller
                         $subcategory = $specification->subcategory;
                         $category = $subcategory->category;
                     }
+                    
+                    $user_type = DB::table('user_types')
+                            ->where('id',$result->user_type_id)
+                            ->where('status',1)
+                            ->first();
                     $donation_image = DB::table('donation_images')
                         ->where('donation_post_id',$result->id)
                         ->where('status',1)
@@ -143,20 +161,20 @@ class SearchController extends Controller
                                 </div>									
                                 <!-- item-info-right -->
                                 <div class="user-option pull-right">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="'. $city->name .'"><i class="fa fa-map-marker"></i> </a>';
-                                    
+                                 '; 
+                                 if(($user_type->id == '3') || ($user_type == '1')){
+                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-user"></i> </a>';
+                                 }else{
+                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-users"></i> </a>';
+                                 }
                                     $print .=  '<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="Dealer"><i class="fa fa-suitcase"></i> </a>											
                                 </div><!-- item-info-right -->
                             </div><!-- ad-meta -->
                         </div><!-- item-info -->
                     </div><!-- ad-item -->';
-                }else{
-                    $print .= '<div class="alert alert-info">There is No Dontaion Post.</div>'; 
                 }
             }   
-        } else {
-            $print .= '<div class="alert alert-info">There is No Dontaion Post.</div>'; 
-        }
+        } 
         return $print;
     }
 
@@ -186,5 +204,59 @@ class SearchController extends Controller
                                     ->get();
               echo $this->printData($donation_posts,array(), array());
           }
+      }
+    //return search function data to screen
+      public function getItem(Request $request)
+        {
+            //'.$request->city_search_box.'
+        $city = \App\Models\City::where('name','LIKE','%indore%')->where('status',1)->first();
+        $category = \App\Models\Category::where('name','LIKE','%'.$request->category_box.'%')->where('status',1)->first();
+        if(!empty($category)){
+                $subcategories = $category->subcategories;
+        }else{
+                $subcategories ='';
+        }
+        $results = array();
+        if(!empty($subcategories))
+            {
+                foreach($subcategories as $subcategory)
+                {
+                    if(!empty($subcategory))
+                    {
+                        $specifications = $subcategory->specifications;
+                        foreach ($specifications as $specification)
+                        {
+                            $donation_posts =  DB::table('donation_posts')
+                                                ->where('status',1)
+                                                ->where('specification_id',$specification->id)
+                                                ->where('city_id',$city->id)
+                                                ->orWhere('title','LIKE','%'.$request->word_box .'%')
+                                                ->where('specification_id',$specification->id)
+                                                ->where('city_id',$city->id)
+                                                ->orWhere('description','LIKE','%'.$request->word_box .'%')
+                                                ->where('specification_id',$specification->id)
+                                                ->where('city_id',$city->id)
+                                                ->get();
+                            if(!empty($donation_posts))
+                            {
+                                foreach($donation_posts as $donation)
+                                {
+                                    $donation_image = DB::table('donation_images')
+                                                        ->where('donation_post_id',$donation->id)
+                                                        ->where('status',1)
+                                                        ->first();
+                                    if(!empty($donation_image)){
+                                        $donation->image = DONATION_POST_IMAGE($donation_image->image);
+                                    }else{
+                                        $donation->image = DONATION_POST_IMAGE('preview.jpg');
+                                    }
+                                    array_push($results,$donation);
+                                }
+                            }
+                        }
+                    } 
+                }
+            }  
+        echo $this->printData($results,$city, $category);
       }
 }

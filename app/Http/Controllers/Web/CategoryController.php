@@ -34,7 +34,8 @@ class CategoryController extends Controller
         $subcategories = \App\Models\Subcategory::where('status',1)->get();
         $specifications = \App\Models\Specification::where('status',1)->get();
         $donation_types = DB::table('donation_types')->where('status',1)->get();
-        return view('web.page.categories',compact('categories','subcategories','specifications','donation_types'));
+        $user_types = DB::table('user_types')->where('status',1)->get();
+        return view('web.page.categories',compact('categories','subcategories','specifications','donation_types','user_types'));
     }
    
     //for home search and get category

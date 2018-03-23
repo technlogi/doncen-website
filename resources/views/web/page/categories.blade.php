@@ -55,11 +55,11 @@
                                         <div id="accordion-four" class="panel-collapse collapse in">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="all"><input type="checkbox" name="all" id="allCategory" class="lookingFor[]" >All</label>
-                                                <label for="donor"><input type="checkbox" name="dionner" id="donorCategory" class="lookingFor[]" > Donor</label>
-                                                <label for="helper-of-donor"><input type="checkbox" name="" id="helperOfDonorCategory" class="lookingFor[]" > Helper of Donor</label>
-                                                <label for="donee"><input type="checkbox" name="" id="doneeCategory" class="lookingFor[]" > Donee</label>
-                                                <label for="helper-of-donee"><input type="checkbox" name="" id="helperOfDoneeCategory" class="lookingFor[]" > Helper of Donee</label>
+                                             <form method="post" id="myForm">
+                                            @foreach($user_types as $user_type)
+                                                   <label for="donor"><input type="checkbox" name="ut" class="categoryClass" value="{{ $user_type->id }}"> {{ $user_type->name}}</label>
+                                                @endforeach
+                                            </form> 
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -268,7 +268,7 @@ $(function(){
         url         : url, // the url where we want to POST
         data        : {data: data},
         success: function(data){
-                $('.appendText').html(data);
+            $('.appendText').html(data);
         }
     });
   }
@@ -350,6 +350,16 @@ $(function(){
   $("#usedSearch").on('click',function(){
     call_ajax("{{ URL::route('search.condition.condition')}}",2);
   });
+
+
+  //
+//   $('.categoryClass').on('click',function(){
+//     call_ajax("{{ URL::route('search.categories.category')}}",$(this).val());
+//   });
+    $('.categoryClass').click(function() {
+        call_ajax("{{ URL::route('search.categories.category')}}",$('#myForm').serialize());
+    });
+
 
 });
 </script>
