@@ -163,61 +163,44 @@
                                                 <label class="col-sm-3 label-title">Preference<span class="required">*</span></label>
                                                 <div class="col-sm-9 checkbox">
                                                     <div >
-                                                        <label>
+                                                        
                                                             <input type="checkbox" name="preference"  id="any-one" value="1"  checked>&nbsp; Any One
-                                                        </label>
                                                         <br>
-                                                        <label>
-                                                            <input type="checkbox"  onclick="chkshow();" id="gender">&nbsp; Gender
-                                                        </label>
+                                                            <input type="checkbox"  onclick="chkshow();" id="gender">&nbsp; Gender &nbsp; &nbsp; &nbsp; 
                                                        
-                                                        <label>
-                                                            <input type="checkbox" name="preference_gender[]" value="1" disabled="true" id="chkreadonly">&nbsp; Male
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="preference_gender[]" value="2" disabled="true" id="chkreadonly1">&nbsp; Female
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="preference_gender[]" value="3" disabled="true"  id="chkreadonly2">&nbsp; other
-                                                        </label>
+                                                            <input type="checkbox" name="preference_gender[]" value="1" disabled="true" id="chkreadonly">&nbsp; Male&nbsp; &nbsp; &nbsp; 
+                                                            <input type="checkbox" name="preference_gender[]" value="2" disabled="true" id="chkreadonly1">&nbsp; Female&nbsp; &nbsp; &nbsp; 
+                                                            <input type="checkbox" name="preference_gender[]" value="3" disabled="true"  id="chkreadonly2">&nbsp; other&nbsp; &nbsp; &nbsp; 
                                                         @if ($errors->has('preference_gender'))
                                                             <span class="help-block">
                                                                 <strong>{{ $errors->first('preference_gender') }}</strong>
                                                             </span>
                                                         @endif
                                                         <br>
-                                                        <label>
-                                                            <input type="checkbox"  onclick="chkshowage();">&nbsp;  Age
-                                                        </label>
                                                         
-                                                        <label>
-                                                            <input type="checkbox" name="preference_age[]"  disabled="true" value="1" id="chkreadonlyage">&nbsp;0-14
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="2" id="chkreadonlyage1">&nbsp;14-30
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="3" id="chkreadonlyage2">&nbsp;30-60
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="preference_age[]" disabled="true"  value="4" id="chkreadonlyage3">&nbsp;Above 60
-                                                        </label>
+                                                            <input type="checkbox"  onclick="chkshowage();">&nbsp;  Age&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
+                                                        
+                                                        
+                                                            <input type="checkbox" name="preference_age[]"  disabled="true" value="1" id="chkreadonlyage">&nbsp;0-14&nbsp; &nbsp; &nbsp; &nbsp;
+                                                        
+                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="2" id="chkreadonlyage1">&nbsp;14-30&nbsp; &nbsp; &nbsp; &nbsp;
+                                                        
+                                                            <input type="checkbox" name="preference_age[]" disabled="true" value="3" id="chkreadonlyage2">&nbsp;30-60&nbsp; &nbsp; &nbsp; &nbsp;
+                                                        
+                                                            <input type="checkbox" name="preference_age[]" disabled="true"  value="4" id="chkreadonlyage3">&nbsp;Above 60&nbsp; &nbsp; &nbsp; &nbsp;
                                                         @if ($errors->has('preference_age'))
                                                             <span class="help-block">
                                                                 <strong>{{ $errors->first('preference_age') }}</strong>
                                                             </span>
                                                         @endif
                                                         <br>
-                                                        <label>
+                                                      
                                                             <input type="checkbox" name="preference_is_handicap" value="1" id="3g">&nbsp; Handicaped
                                                             @if ($errors->has('preference_is_handicap'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('preference_is_handicap') }}</strong>
                                                                 </span>
                                                             @endif
-                                                            
-                                                        </label>
-
 
                                                     </div>
                                                 </div>

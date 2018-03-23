@@ -55,8 +55,8 @@
                                         <div id="accordion-four" class="panel-collapse collapse in">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="all"><input type="checkbox" name="" id="all"> All</label>
-                                                <label for="donor"><input type="checkbox" name="" id="donor"> Donor</label>
+                                                <label for="all"><input type="checkbox" name="all" id="all"> All</label>
+                                                <label for="donor"><input type="checkbox" name="dionner" id="donor"> Donor</label>
                                                 <label for="helper-of-donor"><input type="checkbox" name="" id="helper-of-donor"> Helper of Donor</label>
                                                 <label for="donee"><input type="checkbox" name="" id="donee"> Donee</label>
                                                 <label for="helper-of-donee"><input type="checkbox" name="" id="helper-of-donee"> Helper of Donee</label>
@@ -78,7 +78,7 @@
                                             <!-- panel-body -->
                                             <div class="panel-body">
                                                    @foreach($categories as $category)
-                                                     <label for="hospitals"><input type="checkbox" name="" >{{$category->name}}<span>({{$category->total_post}})</span></label>
+                                                     <label for="hospitals"><input type="checkbox" name="" >{{$category->name}} <span> ({{$category->total_post}})</span></label>
                                                    @endforeach
                                             </div><!-- panel-body -->
                                         </div>
