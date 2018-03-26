@@ -162,7 +162,7 @@ class SearchController extends Controller
                                 <!-- item-info-right -->
                                 <div class="user-option pull-right">
                                  '; 
-                                 if(($user_type->id == '3') || ($user_type == '1')){
+                                 if(($user_type->id == '3')  || ($user_type == '1')){
                                     $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-user"></i> </a>';
                                  }else{
                                     $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-users"></i> </a>';
