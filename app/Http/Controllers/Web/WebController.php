@@ -117,27 +117,9 @@ class WebController extends Controller
       session()->flash('success','Donation Post Created Successfully.');
      return redirect('/user/dashboard');
     }
-    //get featured add by donation key
-    public function getDonationPost(Request $request)
-    {
-        $categories = Category::where('status',1)->where('key',$request->key)->first();
-        $results = array();
-        foreach($categories->subcategories as $subcategory){
-            $donations =   DB::table('donation_posts')
-                            ->where('specification_id',$subcategory->id)
-                            ->where('status',1)
-                            ->where('is_urgent',1)
-                            ->get ();
-            if(!empty($donations)){
-                foreach($donations as $donation){
-                    array_push($results,$donation);
-                }
-            }
-        }
-        echo $this->printData($results,array(), $categories);
-    }
+  
 
-    
+
     
   
     //rander a view to all request of ajax
@@ -222,16 +204,6 @@ class WebController extends Controller
         return $print;
     }
 
-    //on load of page call function to print table
-    public function getItemOnLoad()
-    {
-        $donation_posts =  DB::table('donation_posts')
-                            ->where('status',1)
-                            ->orderBy('created_at','desc')
-                            ->limit(10)
-                            ->get();
-        echo $this->printData($donation_posts,array(), array());
-    }
 
     public function aboutUs()
     {

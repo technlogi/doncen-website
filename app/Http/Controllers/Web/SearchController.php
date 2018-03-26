@@ -89,8 +89,8 @@ class SearchController extends Controller
         }
         echo $this->printData($resutls,array(), array());
      }
-
     
+  
     //rander a view to all request of ajax
     public function printData($results,$city,$category)
     {
@@ -178,37 +178,38 @@ class SearchController extends Controller
         return $print;
     }
 
-      //return search function drop down serch item 
-      public function dropDownSearchItem(Request $request)
-      {
-          if($request->data == 2)
-          {
-              $donation_posts =  DB::table('donation_posts')
-                                  ->where('status',1)
-                                  ->orderBy('created_at','desc')
-                                  ->limit(5)
-                                  ->get();
-                                  
-              echo $this->printData($donation_posts,array(), array());
-          }elseif ($request->data == 3) { 
-                  $donation_posts =  DB::table('donation_posts')
-                                      ->where('status',1)
-                                      ->where('is_urgent',1)
-                                      ->orderBy('created_at','desc')
-                                      ->limit(10)
-                                      ->get();
-                  echo $this->printData($donation_posts,array(), array());
-          }else{
-              $donation_posts =  DB::table('donation_posts')
-                                    ->where('status',1)
-                                    ->get();
-              echo $this->printData($donation_posts,array(), array());
-          }
-      }
-    //return search function data to screen
-      public function getItem(Request $request)
+    //return search function drop down serch item 
+    public function dropDownSearchItem(Request $request)
+    {
+        if($request->data == 2)
         {
-            //'.$request->city_search_box.'
+            $donation_posts =  DB::table('donation_posts')
+                                ->where('status',1)
+                                ->orderBy('created_at','desc')
+                                ->limit(5)
+                                ->get();
+                                
+            echo $this->printData($donation_posts,array(), array());
+        }elseif ($request->data == 3) { 
+                $donation_posts =  DB::table('donation_posts')
+                                    ->where('status',1)
+                                    ->where('is_urgent',1)
+                                    ->orderBy('created_at','desc')
+                                    ->limit(10)
+                                    ->get();
+                echo $this->printData($donation_posts,array(), array());
+        }else{
+            $donation_posts =  DB::table('donation_posts')
+                                ->where('status',1)
+                                ->get();
+            echo $this->printData($donation_posts,array(), array());
+        }
+    }
+    
+    //return search function data to screen
+    public function getItem(Request $request)
+    {
+        //'.$request->city_search_box.'
         $city = \App\Models\City::where('name','LIKE','%indore%')->where('status',1)->first();
         $category = \App\Models\Category::where('name','LIKE','%'.$request->category_box.'%')->where('status',1)->first();
         if(!empty($category)){
@@ -258,5 +259,75 @@ class SearchController extends Controller
                 }
             }  
         echo $this->printData($results,$city, $category);
-      }
+    }
+
+    //get featured add by donation key
+    public function getDonationPost(Request $request)
+    {
+        $categories = Category::where('status',1)->where('key',$request->key)->first();
+        $results = array();
+        foreach($categories->subcategories as $subcategory){
+            $donations =   DB::table('donation_posts')
+                            ->where('specification_id',$subcategory->id)
+                            ->where('status',1)
+                            ->where('is_urgent',1)
+                            ->get ();
+            if(!empty($donations)){
+                foreach($donations as $donation){
+                    array_push($results,$donation);
+                }
+            }
+        }
+        echo $this->printData($results,array(), $categories);
+    }  
+    
+    //get and print of all category
+    public function getSpecificList(Request $request)
+    {
+        $resutls = array();
+        if(!empty($request->data)){
+            $specification_ids = explode("&sp=", $request->data);
+            $specification_ids[0] = substr($specification_ids[0], 3);
+            if(!empty($specification_ids)){
+                foreach($specification_ids as $specification_id){
+                        $donation_posts =  DB::table('donation_posts')
+                                            ->where('status',1)
+                                            ->where('specification_id',$specification_id)
+                                            ->get();
+                        if(!empty($donation_posts)){
+                            foreach($donation_posts as $donation_post){
+                                if(!empty($donation_post)){
+                                    array_push($resutls,$donation_post);
+                                }                          
+                            }             
+                        }
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
+    }
+    //donation type
+    public function donationType(Request $request)
+    {
+        $resutls = array();
+        if(!empty($request->data)){
+            $donation_ids = explode("&td=", $request->data);
+            $donation_ids[0] = substr($donation_ids[0], 3);
+            if(!empty($donation_ids)){
+                    foreach($donation_ids as $donation_id){
+                    $donation_posts =  DB::table('donation_posts')->where('donation_type_id',$donation_id)->where('status',1)->get();
+                    if(!empty($donation_posts)){
+                        foreach($donation_posts as $donation_post){
+                            if(!empty($donation_post)){
+                                array_push($resutls,$donation_post);
+                            }                          
+                        }             
+                    }
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
+    }
+
+   
 }

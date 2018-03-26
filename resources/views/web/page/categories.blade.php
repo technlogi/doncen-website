@@ -77,12 +77,14 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
+                                                <form method="post" id="categoryForm">
                                                    @foreach($categories as $category)
                                                         <label for="hospitals">
-                                                            <input type="checkbox" name="" >{{$category->name}} 
+                                                            <input type="checkbox" name="ct" class="selectCategory" value="{{$category->id}}">{{$category->name}} 
                                                             <span> ({{$category->total_post}})</span>
                                                         </label>
                                                    @endforeach
+                                                </form> 
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -99,11 +101,7 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                @foreach($subcategories as $subcategory)
-                                                      <label for="blood"><input type="checkbox" name="" id="blood">{{ $subcategory->name}}<span></span></label>
-                                                @endforeach
-
-
+                                                <div class="subcategories"></div>
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -120,10 +118,7 @@
 
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                @foreach($specifications as $specification)
-                                                    <label for="a+"><input type="checkbox" name="" id="a+">{{$specification->name }}<span></span></label>
-                                                @endforeach
-
+                                                <div class="specificationHtml"></div>
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -180,15 +175,17 @@
                                         <div id="type-of-donation" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                            @foreach($donation_types as $donation_type)
-                                                <label for="other-type"><input type="checkbox" name="used" id="other-type" value="{{$donation_type->id}}" class="donationTypeCategory"> {{$donation_type->name}}</label>
-                                            @endforeach
+                                                <form method="post" id="donationTypeForm">
+                                                    @foreach($donation_types as $donation_type)
+                                                        <label for="other-type"><input type="checkbox" name="td" value="{{$donation_type->id}}" class="donationTypeCategory"> {{$donation_type->name}}</label>
+                                                    @endforeach
+                                                </form>    
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
 
                                     <!-- panel -->
-                                    <div class="panel-default panel-faq">
+<div class="panel-default panel-faq">
                                         <!-- panel-heading -->
                                         <div class="panel-heading">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#preference">
@@ -204,7 +201,7 @@
                                                 <label for="age"><input type="checkbox" name="" id="age">  Age</label>
                                             </div><!-- panel-body -->
                                         </div>
-                                    </div><!-- panel -->
+                                    </div><!-- panel -->                                    
                                 </div><!-- panel-group -->
                             </div>
                         </div><!-- accordion-->
@@ -257,6 +254,11 @@
 
 <script>
 $(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
   function call_ajax(url,data){
     $.ajaxSetup({
             headers: {
@@ -326,8 +328,9 @@ $(function(){
   });
 
        ///category wise search
-  $(".donationTypeCategory").on('click',function(){
-      call_ajax("{{ URL::route('search.categories.category')}}",$(this).val());
+  $(".donationTypeCategory").click(function() {
+    //   console.log($('#donationTypeForm').serialize());
+      call_ajax("{{ URL::route('search.donationcategories.Type')}}",$('#donationTypeForm').serialize());
   });
         ///anyConsideration wise search
   $("#anyConsideration").on('click',function(){
@@ -352,15 +355,34 @@ $(function(){
   });
 
 
-  //
-//   $('.categoryClass').on('click',function(){
-//     call_ajax("{{ URL::route('search.categories.category')}}",$(this).val());
-//   });
     $('.categoryClass').click(function() {
         call_ajax("{{ URL::route('search.categories.category')}}",$('#myForm').serialize());
     });
 
+    $('.selectCategory').click(function() {
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ URL::route('search.category.subcategory') }}", // the url where we want to POST
+            data        : {data: $('#categoryForm').serialize()},
+            success: function(data){
+                $('.subcategories').html(data);
+            }
+        });
+    });
 
+    $(document).on('click','.selectSubCategory',function(){
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ URL::route('search.subcategory.specification') }}", // the url where we want to POST
+            data        : {data: $('#subCategoryForm').serialize()},
+            success: function(data){
+                $('.specificationHtml').html(data);
+            }
+        });
+    });
+    $(document).on('click','.selectSpecifiction',function(){
+        call_ajax("{{ URL::route('search.specification.list')}}",$('#specificationForm').serialize());
+    });
 });
 </script>
 @endpush

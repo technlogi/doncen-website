@@ -52,8 +52,32 @@ class CategoryController extends Controller
             return ['value'=>'No Result Found'];
     }
 
-
-  
+    public function getSubcategory(Request $request)
+    {
+        $resutls = array();
+        if(!empty($request->data)){
+            $category_ids = explode("&ct=", $request->data);
+            $category_ids[0] = substr($category_ids[0], 3);
+            if(!empty($category_ids)){
+                foreach($category_ids as $category_id){
+                    $category =  Category::where('id',$category_id)->where('status',1)->first();
+                    if(!empty($category->subcategories)){
+                        foreach($category->subcategories as $subcategory){
+                            if(!empty($subcategory)){
+                                array_push($resutls,$subcategory);
+                            }                          
+                        }             
+                    }
+                }
+            } 
+        }
+        $print = '<form method="post" id="subCategoryForm">';
+        foreach($resutls as $result){
+            $print .= '<label for="blood"><input type="checkbox" name="st" class="selectSubCategory" value="'. $result->id.'">'. $result->name .'<span></span></label>';
+        }
+        $print .= '</form>';
+        echo $print;
+    }    
 }
 
 

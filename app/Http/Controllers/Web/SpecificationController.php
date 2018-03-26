@@ -22,4 +22,6 @@ class SpecificationController extends Controller
         return $var.'</ul>' ;
     }
 
+    
+
 }
