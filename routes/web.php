@@ -94,6 +94,8 @@ Route::group(['prefix' => 'user'], function () {
 
   Route::post('/change/password', ['uses'=> 'User\UserController@changePassword', 'as' => 'user.change.password']);
   Route::post('/update/profile', ['uses'=> 'User\UserController@updateProfile', 'as' => 'user.update.profile']);
+  Route::post('/contact-us', ['uses'=> 'User\UserController@contactUs', 'as' => 'user.contact.us']);
+  
   
 });
 /** ============================================================================================================================================
@@ -184,7 +186,6 @@ Route::get('/contact-us',['uses' =>'Web\WebController@contactUs','as'=>'web.main
 // Route::get('/index',['uses' =>'User\UserController@home','as'=>'user.home']);
 Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 // Route::get('/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
-// Route::get('/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
 
 
 Route::get('/donation/detail/{key}',['uses' =>'Web\WebController@donationDetail','as'=>'search.donation.details']);

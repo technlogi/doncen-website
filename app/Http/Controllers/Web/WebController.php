@@ -209,6 +209,11 @@ class WebController extends Controller
     {
         return view('web.main.aboutUs');
     }
+    public function contactUs()
+    {
+        return view('web.main.contactUs');
+        
+    }
     public function donationDetail($key)
     {
         if(DB::table('donation_posts')->where('key',$key)->where('status',1)->count() > 0 ){

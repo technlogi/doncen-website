@@ -334,13 +334,12 @@ class SearchController extends Controller
     //get list of product 
     public function getMyDonation(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')
-                            ->where('status',1)
-                            ->where('user_id',Auth::guard('user')->user()->id)
-                            ->orderBy('created_at','desc')
-                            ->limit(10)
-                            ->get();
-        echo $this->printData($donation_posts,array(), array());
+        $donation_posts =  DB::table('donation_posts')    ->where('status',1)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        if(!empty($donation_posts[0])){                    
+            echo $this->printData($donation_posts,array(), array());
+        }else{
+            echo '<div class="alert alert-info">There is no Donation Post.</div>';
+        }
     }
 
    

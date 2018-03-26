@@ -16,6 +16,9 @@
                     @if (Session::has('success'))
                         <div class="alert alert-success">{{ Session::get('success') }}</div>
                     @endif
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                    @endif
                 <div class="ad-profile section">	
                     <div class="user-profile">
                         <div class="user-images">
@@ -154,11 +157,6 @@ $(function(){
         }
     });
   function call_ajax(url,data){
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $.ajax({
         type        : 'POST',
         url         : url, // the url where we want to POST
