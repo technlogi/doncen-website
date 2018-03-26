@@ -82,6 +82,9 @@ class CategoryController extends Controller
     {
        return  redirect()->route('web.categorie.searchCategory')->with('data',$request) ;
     }
+    public function  categoryDetail(){
+        
+    }
 }
 
 

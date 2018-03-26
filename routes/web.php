@@ -78,8 +78,12 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/register', 'UserAuth\RegistrationController@register');
   Route::get('/register/otp/{key}', ['uses'=>'UserAuth\RegistrationController@showOtpForm','as'=>'user.registration.otpForm']);
   Route::post('/register/otp', ['uses'=>'UserAuth\RegistrationController@otpSubmit','as'=>'user.registration.otpSubmit']);
-  
-  Route::get('/delete-account',['uses' =>'User\UserController@deleteAccount','as'=>'user.deleteAccount']);
+                            /////////////////////////
+                           //// User Controller ////
+                          /////////////////////////
+  Route::get('/delete-account',          [ 'uses' =>  'User\UserController@deleteAccount',     'as'=>'user.deleteAccount']);
+  Route::get('/my-donation',             [ 'uses' =>  'User\UserController@myDonation',        'as'=>'user.myDonation']);
+  Route::post('/get-donation/list',      [  'uses' => 'Web\SearchController@getMyDonation',    'as' => 'user.get.donationList' ]);
   
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
@@ -120,7 +124,7 @@ Route::post('/donation/form/{key}',    [ 'uses'=> 'Web\WebController@store_donat
 
 Route::get('/getcity', 'Web\CityController@getCity');
 
-Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@categoryDetail',     'as' => 'home.category.details' ]);
+Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@searchCategory',     'as' => 'home.category.details' ]);
 
 
 

@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-@section('title',"Deactive Account")
+@section('title',"My Donation")
 @section('content')
 
    <!-- delete-page -->
@@ -38,31 +38,54 @@
                    <ul class="user-menu">
                    <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="favourite-ads.html">Favourite donation</a></li>
-                        <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
+                        <li  class="active"><a href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="urgent_requirement.html">Urgent requirement</a></li>
                         <li><a href="pending-ads.html">Pending approval</a></li>
                         <!--<li><a href="archived-ads.html">Archived ads </a></li>-->
-                        <li  class="active"><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
+                        <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
 
                 </div><!-- ad-profile -->		
 
                 <div class="close-account">
-                    <div class="row">
-                        <div class="col-sm-8 text-center">
-                            <div class="delete-account section">
-                                <h2>Delete Your Account</h2>
-                                <h4>Are you sure, you want to delete your account?</h4>
-                                    <a href="#" class="btn">Delete Account</a>
-                                    <a href="{{ url('/user/dashboard')}}" class="btn cancle">Cancle</a>
+                        <div class="col-sm-8">
+                            <div class="section">
+                                <h2>My ads</h2>
+                                <div class="appendText"></div>
                             </div>
-                        </div><!-- delete-account -->
-
-                         @include('user.layout.rightsidebar')			
-                    </div><!-- row -->
-                </div>
+                        </div><!-- my-ads -->
+                @include('user.layout.rightsidebar')			
             </div><!-- container -->
         </section><!-- delete-page -->
-
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
+@push('javaScript')
+<script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
+
+<script>
+$(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+  function call_ajax(url,data){
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+        type        : 'POST',
+        url         : url, // the url where we want to POST
+        data        : {data: data},
+        success: function(data){
+            $('.appendText').html(data);
+        }
+    });
+  }
+  call_ajax("{{ URL::route('user.get.donationList')}}",0);
+});
+</script>
+@endpush

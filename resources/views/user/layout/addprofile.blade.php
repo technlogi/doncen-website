@@ -1,11 +1,4 @@
-@extends('user.layout.master')
-@section('title',"Deactive Account")
-@section('content')
-
-   <!-- delete-page -->
-   <section id="main" class="clearfix delete-page">
-            <div class="container">
-                <div class="breadcrumb-section">
+<div class="breadcrumb-section">
                     <!-- breadcrumb -->
                     <ol class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
@@ -19,7 +12,7 @@
                 <div class="ad-profile section">	
                     <div class="user-profile">
                         <div class="user-images">
-                            <img src="{{URL::asset('/uploads/images/user.jpg')}}" alt="User Images" class="img-responsive">
+                            <img src="{{URL::asset('/uploads/images/user.jpg')}}')}}" alt="User Images" class="img-responsive">
                         </div>
                         <div class="user">
                             <h2>Hello, <a href="#">{{ ucfirst($user->name) }}</a></h2>
@@ -38,31 +31,11 @@
                    <ul class="user-menu">
                    <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="favourite-ads.html">Favourite donation</a></li>
-                        <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
+                        <li class="active"><a href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="urgent_requirement.html">Urgent requirement</a></li>
                         <li><a href="pending-ads.html">Pending approval</a></li>
                         <!--<li><a href="archived-ads.html">Archived ads </a></li>-->
-                        <li  class="active"><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
+                        <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
 
                 </div><!-- ad-profile -->		
-
-                <div class="close-account">
-                    <div class="row">
-                        <div class="col-sm-8 text-center">
-                            <div class="delete-account section">
-                                <h2>Delete Your Account</h2>
-                                <h4>Are you sure, you want to delete your account?</h4>
-                                    <a href="#" class="btn">Delete Account</a>
-                                    <a href="{{ url('/user/dashboard')}}" class="btn cancle">Cancle</a>
-                            </div>
-                        </div><!-- delete-account -->
-
-                         @include('user.layout.rightsidebar')			
-                    </div><!-- row -->
-                </div>
-            </div><!-- container -->
-        </section><!-- delete-page -->
-
-
-@endsection

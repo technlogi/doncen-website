@@ -40,10 +40,30 @@ class UserController extends Controller
   {
     $this->validate($request,[
         'user_name' => 'required|min:3',
-        'email' => 'required|min:6',
+        'email' => 'required|email',
+        'city' => 'required'
     ]);
 
   }
+
+
+    public function deleteAccount()
+    {
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->count();
+        return view('user.page.deleteAccount',compact('user','total_post'));
+    } 
+   
+    public function myDonation()
+    {
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        return view('user.page.myDonation',compact('user','total_post'));
+    }
+
+
 
 
 
@@ -68,13 +88,4 @@ class UserController extends Controller
     {
         return view('web.published');
     }
-    public function deleteAccount()
-    {
-        $id = Auth::guard('user')->user()->id;
-        $user = User::where('id',$id)->first();
-        $total_post = DB::table('donation_posts')->where('user_id',$id)->count();
-        return view('user.page.deleteAccount',compact('user','total_post'));
-    } 
-   
-    
 }

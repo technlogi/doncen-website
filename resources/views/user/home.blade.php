@@ -36,15 +36,14 @@
                         </div>								
                     </div><!-- user-profile -->
                    <ul class="user-menu">
-                   <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
+                   <li  class="active"><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="favourite-ads.html">Favourite donation</a></li>
-                        <li><a href="my-ads.html">My donation</a></li>
+                        <li><a  href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="urgent_requirement.html">Urgent requirement</a></li>
                         <li><a href="pending-ads.html">Pending approval</a></li>
                         <!--<li><a href="archived-ads.html">Archived ads </a></li>-->
-                        <li  class="active"><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
+                        <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
-
                 </div><!-- ad-profile -->		
 
                 <div class="close-account">
@@ -77,7 +76,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group{{ $errors->has('mobile_no') ? ' has-error' : '' }}">
                                             <label for="name-three">Mobile</label>
                                             <input type="text" class="form-control" name="mobile_no" value="{{ $user->contact }}" placeholder="Enter Contact no." readonly>
                                             @if ($errors->has('mobile_no'))
@@ -87,28 +86,15 @@
                                             @endif
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                             <label>Your City</label>
-                                            <select class="form-control">
-                                                <option value="#">Los Angeles, USA</option>
-                                                <option value="#">Dhaka, BD</option>
-                                                <option value="#">Shanghai</option>
-                                                <option value="#">Karachi</option>
-                                                <option value="#">Beijing</option>
-                                                <option value="#">Lagos</option>
-                                                <option value="#">Delhi</option>
-                                                <option value="#">Tianjin</option>
-                                                <option value="#">Rio de Janeiro</option>
-                                            </select>
+                                                <input type="text" name="city" class="form-control" value="{{ old('city')}}" placeholder="Enter City" id="city_search_box">
+                                            @if ($errors->has('city'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('city') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>	
-
-                                        <div class="form-group">
-                                            <label>You are a</label>
-                                            <select class="form-control">
-                                                <option value="#">Dealer</option>
-                                                <option value="#">Individual Seller</option>
-                                            </select>
-                                        </div>					
                                     <button class="btn btn-primary" type="submit">update Profile</button>														
                                     </div><!-- profile-details -->
                                 </form> 
@@ -154,6 +140,57 @@
                 </div>
             </div><!-- container -->
         </section><!-- delete-page -->
-
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
+@push('javaScript')
+<script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
+
+<script>
+$(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+  function call_ajax(url,data){
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+        type        : 'POST',
+        url         : url, // the url where we want to POST
+        data        : {data: data},
+        success: function(data){
+            $('.appendText').html(data);
+        }
+    });
+  }
+  call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",0);
+  
+  $("#city_search_box").autocomplete({
+    source: function(request, response) {
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+           });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('home.search.city') }}",
+                dataType: "json",
+                data: {
+                    city : request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+    minLength: 2,
+  });
+});
+</script>
+@endpush

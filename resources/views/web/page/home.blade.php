@@ -14,7 +14,7 @@
                             <h3>DonCen! Donate anything, whatever you can think.</h3>
                             <!-- banner-form -->
                             <div class="banner-form">
-                                 <form method="post" action="#">
+                                 <form method="post" id="search_form" action="#">
                                      <!-- language-dropdown -->
                                     <div class="dropdown category-dropdown"> 						
                                         <input type="text" name="search_text" placeholder="Enter City" id='search_text'>
@@ -261,6 +261,9 @@ $(document).ready(function(){
             });
         },
       minLength: 1,
+    });
+    $("#search_form").submit(function(e){
+    e.preventDefault();
     });
 });
 </script>

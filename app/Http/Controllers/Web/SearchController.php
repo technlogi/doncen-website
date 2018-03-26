@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
 use \App\Models\City,\App\Models\Category,\App\Models\Specification;
+
 class SearchController extends Controller
 {
     //on load of page call function to print table
@@ -327,6 +329,18 @@ class SearchController extends Controller
             } 
         }
         echo $this->printData($resutls,array(), array());
+    }
+
+    //get list of product 
+    public function getMyDonation(Request $request)
+    {
+        $donation_posts =  DB::table('donation_posts')
+                            ->where('status',1)
+                            ->where('user_id',Auth::guard('user')->user()->id)
+                            ->orderBy('created_at','desc')
+                            ->limit(10)
+                            ->get();
+        echo $this->printData($donation_posts,array(), array());
     }
 
    
