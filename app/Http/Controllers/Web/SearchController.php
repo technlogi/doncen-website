@@ -127,9 +127,9 @@ class SearchController extends Controller
                         <div class="item-image-box col-sm-3">
                             <div class="item-image">';
                                 if(!empty($result->image)){
-                                $print .='<a href="details.html"><img src="'.$result->image.'" alt="Image" class="img-responsive"></a>';
+                                $print .='<a href="'. route("search.donation.details",$result->key).'"><img src="'.$result->image.'" alt="Image" class="img-responsive"></a>';
                                 }else{
-                                    $print .='<a href="details.html"><img src="/images/uploads/donation_post/preview.jpg" alt="Image" class="img-responsive"></a>';
+                                    $print .='<a href="'. route("search.donation.details",$result->key).'"><img src="/images/uploads/donation_post/preview.jpg" alt="Image" class="img-responsive"></a>';
                                 }    
                                 $print .= '<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="Verified"><i class="fa fa-check-square-o"></i></a>
                             </div><!-- item-image -->

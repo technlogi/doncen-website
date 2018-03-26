@@ -108,9 +108,8 @@ Route::post('/donation/form',     [  'uses' => 'Web\WebController@donationDetail
 
 
 
-Route::get('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
-
 Route::post('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
+Route::get('/search',             [  'uses' => 'Web\CategoryController@searchCategory',           'as' => 'web.categorie.searchCategory']);  
 
 
 
@@ -179,11 +178,12 @@ Route::get('/contact-us',['uses' =>'Web\WebController@contactUs','as'=>'web.main
 
 
 // Route::get('/index',['uses' =>'User\UserController@home','as'=>'user.home']);
-// Route::get('/details',['uses' =>'User\UserController@details','as'=>'user.details']);
 Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 // Route::get('/favourite-ads',['uses' =>'User\UserController@favourite_ads','as'=>'user.favourite_ads']);
 // Route::get('/my-profile',['uses' =>'User\UserController@myProfile','as'=>'user.myProfile']);
 
+
+Route::get('/donation/detail/{key}',['uses' =>'Web\WebController@donationDetail','as'=>'search.donation.details']);
 
                                               //////////////////////////////
                                              ////// Search Controller /////
@@ -191,7 +191,7 @@ Route::get('/faq',['uses' =>'User\UserController@faq','as'=>'user.faq']);
 
 
 
-Route::post('/get-featured',           [  'uses' => 'Web\SearchController@getDonationPost',           'as' => 'web.home.getDonation' ]);
+Route::post('/get-featured',           [  'uses' => 'Web\SearchController@getDonationPost',         'as' => 'web.home.getDonation' ]);
 Route::post('/get-featured/list',      [  'uses' => 'Web\SearchController@getItemOnLoad',           'as' => 'web.home.getItemOnLoad' ]);
 
 Route::post('/get/condition',          ['uses'=> 'Web\SearchController@condition',      'as'=> 'search.condition.condition'           ]);

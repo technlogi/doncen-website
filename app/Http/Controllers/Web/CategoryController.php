@@ -78,6 +78,10 @@ class CategoryController extends Controller
         $print .= '</form>';
         echo $print;
     }    
+    public function donationCategorySearch(Request $request)
+    {
+       return  redirect()->route('web.categorie.searchCategory')->with('data',$request) ;
+    }
 }
 
 

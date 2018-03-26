@@ -209,10 +209,31 @@ class WebController extends Controller
     {
         return view('web.main.aboutUs');
     }
-    public function contactUs()
+    public function donationDetail($key)
     {
+        if(DB::table('donation_posts')->where('key',$key)->where('status',1)->count() > 0 ){
+            $dontaion_post = DB::table('donation_posts')->where('key',$key)->where('status',1)->first();
+            $donation_images = DB::table('donation_images')->where('donation_post_id',$dontaion_post->id)->get();
+            $city = City::where('id',$dontaion_post->city_id)->first();
+            $state = $city->state;
+            $country = $state->country;
+            $spectification = Specification::where('id',$dontaion_post->specification_id)->first();
+            $subcategory = $spectification->subcategory;
+            $category = $subcategory->category;
+            $user_type = DB::table('user_types')->where('id',$dontaion_post->user_type_id)->first();
+            $user = DB::table('users')->where('id',$dontaion_post->user_id)->select('name')->first();
+            
 
+            return view('web.page.details',compact('dontaion_post',
+                                                   'donation_images',
+                                                   'city', 'user',
+                                                   'state',
+                                                   'country',
+                                                   'category',
+                                                   'subcategory',
+                                                   'spectification','user_type'));
+        }else{
+            return view('web.main.404');
+        }
     }
-
-   
 }

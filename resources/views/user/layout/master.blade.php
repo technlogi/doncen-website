@@ -8,7 +8,6 @@
         <meta name="author" content="Theme Region">
         <meta name="description" content="">
         <title>@yield('title')</title>
-        <!-- CSS -->
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/icofont.css')}}">

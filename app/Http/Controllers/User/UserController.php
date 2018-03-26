@@ -51,12 +51,7 @@ class UserController extends Controller
 
 
 
-    
-   
-    public function details()
-    {
-        return view('web.details');
-    }
+
     public function faq()
     {
         return view('web.faq');
