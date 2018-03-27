@@ -86,7 +86,16 @@
                         <!-- slider-text -->
                         <div class="col-md-5">
                             <div class="slider-text">
-                                <h2>{{ $dontaion_post->is_urgent ? 'Urgent': "" }}</h2>
+                                <h2>{{ $dontaion_post->is_urgent ? 'Urgent': "" }}<span class="pull-right">
+                                 @if($dontaion_post->consideration == '0')
+                                  {{ 'Free' }}
+                                 @elseif($dontaion_post->consideration == '1')
+                                  <div title="{{$dontaion_post->consideration_detail}}">Non-Monetary</div>
+                                 @else
+                                  <div title="{{$dontaion_post->consideration_detail}}">Monetary</div>
+                                 @endif 
+                                  
+                                </span></h2>
                                 <h3 class="title">{{$dontaion_post->title}}</h3>
                                 <p><span>Offered by: <a href="#">{{$user->name}}</a></span>
                                     <span> Ad ID:<a href="#" class="time"> {{$dontaion_post->post_no}}</a></span></p>

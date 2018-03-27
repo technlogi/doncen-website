@@ -216,4 +216,3 @@ Route::post('/subcategory/list',        ['as'=>'search.category.subcategory',   
 Route::post('/specification/list',        ['as'=>'search.subcategory.specification',   'uses'=> 'Web\SubcategoryController@getSpecification']);
 Route::post('/print/specific/list',        ['as'=>'search.specification.list',          'uses'=> 'Web\SearchController@getSpecificList']);
 
-

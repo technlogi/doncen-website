@@ -12,7 +12,7 @@ use \App\Models\User ,
     \App\Models\Subcategory ,
     \App\Models\Specification;
 use DB;
-use \Auth,\Hash;
+use \Auth,\Hash,\Mail;
 
 class UserController extends Controller
 {
@@ -80,10 +80,6 @@ class UserController extends Controller
     {
         
     }
-
-
-
-
 
 
 

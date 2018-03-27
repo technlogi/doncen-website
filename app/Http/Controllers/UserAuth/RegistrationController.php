@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRegistration;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use \Mail;
+
 class RegistrationController extends Controller
 {
     public function showRegistrationForm()
@@ -25,6 +27,10 @@ class RegistrationController extends Controller
             'is_verify'=> 0,
             'status' => 1
             ]);
+            Mail::send('emails.otp', ['user' => $user], function ($m) use ($user) {
+                $m->from('hello@app.com', 'Doncen.com');
+                $m->to($user->email, $user->name)->subject('Last step for registration!');
+            });
             return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP is send to Email Id provided.');   
        }catch (\Exception $e) {
         return redirect()->back()->with('error','User Alerady exist with this Email Id.');   
@@ -55,7 +61,10 @@ class RegistrationController extends Controller
                 $user->save();
                 //   session()->flash('success','Registration Successfully.');
                 // return redirect()->back()->with('success','Registration Successfully.');
-
+                Mail::send('emails.success', ['user' => $user], function ($m) use ($user) {
+                    $m->from('hello@app.com', 'Doncen.com');
+                    $m->to($user->email, $user->name)->subject('Registration Successfull on Doncen!');
+                });
                 return view('web.page.registrationSuccess');
             }else{
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');
