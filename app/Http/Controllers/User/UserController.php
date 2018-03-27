@@ -78,7 +78,16 @@ class UserController extends Controller
 
     public function contactUs(ContactUsRequest $request)
     {
-        
+      DB::table('contact_us')->insert([
+         'name' => $request->name,
+         'email' => $request->email,
+         'subject' => $request->subject,
+         'message' => $request->message,
+         'status' => 0,
+         'created_at' => new \DateTime(),
+         'updated_at' => new \DateTime(),
+      ]);
+      return redirect()->back()->with('success','Your Suggestion is submited We will contact You soon! Thank You.');   
     }
 
 
