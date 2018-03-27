@@ -139,8 +139,15 @@ class SearchController extends Controller
                         <!-- rending-text -->
                         <div class="item-info col-sm-9">
                             <!-- ad-info -->
-                            <div class="ad-info">
-                                <h3 class="item-price">'.$result->title .'</h3>
+                            <div class="ad-info">';
+                                if($result->consideration == '0'){
+                                $print .=   '<span class="pull-right">Free</span>' ;
+                                }else if ($result->consideration == '1'){
+                                    $print .= '<span class="pull-right" title="'.$result->consideration_detail.'">Non-Monetary</span>';
+                                }else{
+                                    $print .= '<span class="pull-right" title="'.$result->consideration_detail.'">Monetary</span>';
+                                }
+                                $print .= '<h3 class="item-price">'.$result->title .'</h3>
                                 <h4 class="item-title">'. $result->description.'</h4>
                                 <div class="item-cat">
                                     <span><a href="#">'.$category->name .'</a></span> 
@@ -211,9 +218,9 @@ class SearchController extends Controller
     //return search function data to screen
     public function getItem(Request $request)
     {
-        //'.$request->city_search_box.'
-        $city = \App\Models\City::where('name','LIKE','%indore%')->where('status',1)->first();
-        $category = \App\Models\Category::where('name','LIKE','%'.$request->category_box.'%')->where('status',1)->first();
+        $request->city_search_box = substr($request->city_search_box ,0,strpos($request->city_search_box,','));
+        $city = City::where('name','LIKE','%'.$request->city_search_box.'%')->where('status',1)->first();
+        $category = Category::where('name','LIKE','%'.$request->category_box.'%')->where('status',1)->first();
         if(!empty($category)){
                 $subcategories = $category->subcategories;
         }else{
