@@ -76,7 +76,7 @@ class AuthController extends Controller
                 // } 
                 
                 $user = User::where('contact',$request->contact)->first();
-                $message = "Hello".$user->name."! Your Verification OTP is".$user->otp;
+                $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
                 SMS_GATEWAY($request->contact,$message);
                 return response()->json([
                     'response' => 'success',
@@ -211,6 +211,8 @@ class AuthController extends Controller
             $user = User::Where('contact', $request->mobile_no)->where('status',1)->first();
             $user->otp = generateOTP();
             $user->save();
+            $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
+            SMS_GATEWAY($request->contact,$message);
             return response()->json([
                       'response' => 'success',
                       'message' => 'OTP sent.',
