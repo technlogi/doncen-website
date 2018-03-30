@@ -49,7 +49,7 @@
                 <div class="close-account">
                         <div class="col-sm-8">
                             <div class="section">
-                                <h2>My ads</h2>
+                                <h2>My Complete Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->
@@ -84,7 +84,7 @@ $(function(){
         }
     });
   }
-  call_ajax("{{ URL::route('user.get.donationList')}}",0);
+  call_ajax("{{ URL::route('user.get.completeDonation')}}",0);
 });
 </script>
 @endpush

@@ -27,9 +27,6 @@
                         </div>
 
                         <div class="favorites-user">
-                            <div class="my-ads">
-                                <a href="my-ads.html">23<small>My ADS</small></a>
-                            </div>
                             <div class="favorites">
                                 <a href="#">{{ $total_post }}<small>Post By You</small></a>
                             </div>
@@ -49,7 +46,7 @@
                 <div class="close-account">
                         <div class="col-sm-8">
                             <div class="section">
-                                <h2>My ads</h2>
+                                <h2>My All Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->

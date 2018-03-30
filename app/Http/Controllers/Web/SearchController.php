@@ -62,9 +62,9 @@ class SearchController extends Controller
         echo $this->printData($donation_posts,array(), array());
     }
 
-     //category search 
-     public function category(Request $request)
-     {
+    //category search 
+    public function category(Request $request)
+    {
         $resutls = array();
         if(!empty($request->data)){
             $user_type_ids = explode("&ut=", $request->data);
@@ -90,7 +90,7 @@ class SearchController extends Controller
                                             ->get();
         }
         echo $this->printData($resutls,array(), array());
-     }
+    }
     
   
     //rander a view to all request of ajax
@@ -348,7 +348,18 @@ class SearchController extends Controller
     //get list of product 
     public function getMyDonation(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')    ->where('status',1)->where('is_complete',0)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        if(!empty($donation_posts[0])){                    
+            echo $this->printData($donation_posts,array(), array());
+        }else{
+            echo '<div class="alert alert-info">There is no Donation Post.</div>';
+        }
+    }
+
+    //list of urgent donation of user by user id
+    public function getUrgentRequirement(Request $request)
+    {
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_urgent',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
@@ -356,9 +367,10 @@ class SearchController extends Controller
         }
     }
     
-    public function getUrgentRequirement(Request $request)
+    //list of all complete donation by user
+    public function getCompleteDonation(Request $requset)
     {
-        $donation_posts =  DB::table('donation_posts')->where('is_complete',0)    ->where('status',1)->where('is_urgent',1)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{

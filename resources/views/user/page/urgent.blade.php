@@ -49,7 +49,7 @@
                 <div class="close-account">
                         <div class="col-sm-8">
                             <div class="section">
-                                <h2>My ads</h2>
+                                <h2>My Urgent Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->
