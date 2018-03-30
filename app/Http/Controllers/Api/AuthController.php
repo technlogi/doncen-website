@@ -20,12 +20,49 @@ class AuthController extends Controller
     }
    
     /**
-     * Login ohter function 
+     * Login function 
       */
-      public function login(Request $request)
-      {
+    public function login(Request $request)
+    {
+        if($this->validate->validateLogin($request)) return $this->validate->validateLogin($request);
+        if (User::Where('contact', $request->mobile_no)->count() > 0) {
 
-      }
+            $user = User::Where('contact', $request->mobile_no)->first();
+            if (Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'response' => 'success',
+                    'result' => ['token' => $user->key]
+                ]);
+            }else{
+                return response()->json([
+                    'response_code' => 401,
+                    'response' => 'error',
+                    'message' => "Invalid credantials."
+                ]);
+            }
+        }    
+    }
+    /**
+     * Logout user  
+     */  
+    public function logout(Request $request)
+    {
+        try{
+            $user = User::Where('key', $request->token)->first();
+            $user->key =  generateKEY($user->id);
+            $user->save();
+            return response([
+                    'response' => 'success',
+                    'message' => 'Logged out Successfully.'
+            ]);
+        }catch(\Exception  $exception){
+            return response()->json([
+                    'response_code' => 401,
+                    'response' => 'error',
+                    'message' => 'Invalid token.',
+                ]);
+        }
+    }  
     /**
     * To Register a user and send otp to email and contact no 
     */

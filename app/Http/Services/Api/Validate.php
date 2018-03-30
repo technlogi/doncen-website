@@ -268,5 +268,49 @@
 
     }
 
+    /**
+     * Validate Login Credential for Login page
+     */
+    public function validateLogin($request)
+    {
+
+            $validator = Validator::make($request->all(), ['mobile_no'=> 'required']);
+            if ($validator->fails()) {
+                    return [ 'response_code' => 401 ,
+                            'response' => 'error',
+                            'message'=> "The mobile no field is required."
+                            ];            
+            }
+            $validator = Validator::make($request->all(), ['mobile_no' => 'regex:/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/']);
+            if ($validator->fails()) {
+                return [ 'response_code' => 401 ,
+                         'response' => 'error',
+                         'message'=> 'The Mobile Number must be 10 digit without country code.'
+                        ];            
+            }
+            $validator = Validator::make($request->all(), ['password'=> 'required']);
+            if ($validator->fails()) {
+                return ['response_code'=>401,
+                        'response' => 'error',
+                        'message'=>  "The password field is required."
+                        ];            
+            }
+            $validator = Validator::make($request->all(), ['password'=> 'min:6']);
+            if ($validator->fails()) {
+                return ['response_code'=>401,
+                        'response' => 'error',
+                        'message'=> "The password must be at least 6 characters."
+                        ];            
+            }
+            $validator = Validator::make($request->all(), ['password'=> 'max:20']);
+            if ($validator->fails()) {
+                return ['response_code'=>401,
+                        'response' => 'error',
+                        'message'=> "The password must less  then 20 characters."
+                        ];            
+            }
+
+    }
+
  }
  
