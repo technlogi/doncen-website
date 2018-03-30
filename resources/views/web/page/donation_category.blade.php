@@ -61,13 +61,7 @@
                             </div>
                         </div><!-- next-stap -->
                     </div>
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text-center">
-                            <div class="ad-section">
-                                <a href="#"><img src="images/ads/3.jpg" alt="Image" class="img-responsive"></a>
-                            </div>
-                        </div>
-                    </div><!-- row -->
+                   
                 </div>				
             </div><!-- container -->
         </section><!-- post-page -->

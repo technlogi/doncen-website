@@ -39,12 +39,11 @@
         <script src="{{ URL::asset('/js/user/js/bootstrap.min.js')}}"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script src="{{ URL::asset('/js/user/js/gmaps.min.js')}}"></script>
-        <script src="{{ URL::asset('/js/user/js/goMap.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/map.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/owl.carousel.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/scrollup.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/price-range.js')}}"></script>    
-        <script src="{{ URL::asset('/js/user/js/custom.js')}}"></script>
+        <!-- <script src="{{ URL::asset('/js/user/js/custom.js')}}"></script> -->
        <script src="{{ URL::asset('/js/user/js/switcher.js')}}"></script>
         @stack('javaScript')
         

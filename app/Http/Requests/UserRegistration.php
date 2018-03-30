@@ -27,7 +27,7 @@ class UserRegistration extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'mobile_no' => 'required|min:8'
+            'contact' => 'required|min:8|unique:users'
         ];
     }
 }

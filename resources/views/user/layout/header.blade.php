@@ -31,7 +31,7 @@
                         @if(!Auth::guard('user')->check())		
                         <ul class="sign-in">
                             <li><i class="fa fa-user"></i></li>
-                            <li><a href="{{ url('/user/login') }}"> Sign In </a></li>
+                            <li><a href="{{ url('/user/login') }}"> Log in </a></li>
                             <li><a href="{{ url('/user/register') }}">Register</a></li>
                         </ul><!-- sign-in -->					
                         @else

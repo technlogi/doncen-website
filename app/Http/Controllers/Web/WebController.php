@@ -39,7 +39,7 @@ class WebController extends Controller
         if (Auth::guard('user')->check()){
             $user = Auth::guard('user')->user()->id;
         }else{
-            session()->flash('error', 'You Must Login First For create Dontation.');
+            session()->flash('error', 'You must logged in before filling Dontation form.');
            return redirect('/user/login');
         }
         return redirect()->route('web.donation.DetailForm',$request->specification);
@@ -114,7 +114,7 @@ class WebController extends Controller
            }
         }
         
-      session()->flash('success','Donation Post Created Successfully.');
+      session()->flash('success','Donation form posted Successfully.');
      return redirect('/user/dashboard');
     }
   

@@ -83,6 +83,14 @@ class UserController extends Controller
         ]);
         return redirect()->back()->with('success','Donation Post is Completed');
     }
+    
+    public function completeDonation()
+    {
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+      return view('user.page.CompleteDonation',compact('user','total_post'));
+    }
 
     public function contactUs(ContactUsRequest $request)
     {

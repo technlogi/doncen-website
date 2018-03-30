@@ -9,7 +9,7 @@
                         <div class="congratulations">
                             <i class="fa fa-check-square-o"></i>
                             <h2>Congratulations!</h2>
-                            <h4>Your Registration Success !!!.</h4>
+                            <h4>Your have been registered successfully !!!.</h4>
                         </div><br><br>
                         <a href="{{ url('/user/login') }}"> <button class="btn btn-primary">Go To Login</button></a>
                     </div>

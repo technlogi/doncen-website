@@ -27,11 +27,11 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group{{ $errors->has('mobile_no') ? ' has-error' : '' }}">
-                                    <input type="text" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}" placeholder="Mobile Number">
-                                    @if ($errors->has('mobile_no'))
+                                <div class="form-group{{ $errors->has('contact') ? ' has-error' : '' }}">
+                                    <input type="text" class="form-control" name="contact" value="{{ old('contact') }}" placeholder="Mobile Number">
+                                    @if ($errors->has('contact'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('mobile_no') }}</strong>
+                                            <strong>{{ $errors->first('contact') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -51,8 +51,8 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="checkbox">
-                                    <label class="pull-left " for="signing"><input type="checkbox" name="signing" id="signing"> By signing up for an account you agree to our Terms and Conditions </label>
+                                     By cliking registration, you agree to our Terms and Conditions.
+                                <div class="checkbox ">
                                 </div><!-- checkbox -->	
                                 <button type="submit" class="btn">Registration</button>
                             </form>

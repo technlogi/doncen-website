@@ -211,8 +211,8 @@ class AuthController extends Controller
             $user = User::Where('contact', $request->mobile_no)->where('status',1)->first();
             $user->otp = generateOTP();
             $user->save();
-            $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
-            SMS_GATEWAY($request->contact,$message);
+            // $message = $user->otp." is your OTP for verification at the time of registration on Doncen.org";
+            // SMS_GATEWAY($request->contact,$message);
             return response()->json([
                       'response' => 'success',
                       'message' => 'OTP sent.',

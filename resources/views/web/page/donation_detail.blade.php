@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                          <div class="row form-group add-image">
-                                            <label class="col-sm-3 label-title">Photos for your ad <span>(This will be your cover photo )</span> </label>
+                                            <label class="col-sm-3 label-title">Photos for donation <span>(This will be your referance photo )</span> </label>
                                             <div class="col-sm-9">
                                                 <h5><i class="fa fa-upload" aria-hidden="true"></i>Select Files to Upload / Drag and Drop Files <span>You can add multiple images.</span></h5>
                                                 <div class="upload-section">
@@ -211,10 +211,10 @@
 
                                                     <input  type="radio" name="consideration" checked id="free"  value="0" onclick="Free()"/>
                                                     <label for="free">Free</label>
-                                                    <input  type="radio" name="consideration" id="monetary" value="1" onclick="Monetary()" />
-                                                    <label for="monetary">Monetary</label>
-                                                    <input type="radio" name="consideration" id="non-monetary" value="2" onclick="NonMonetary()"/>
+                                                    <input type="radio" name="consideration" id="non-monetary" value="1" onclick="NonMonetary()"/>
                                                     <label for="non-monetary">  Non-Monetary</label>
+                                                    <input  type="radio" name="consideration" id="monetary" value="2" onclick="Monetary()" />
+                                                    <label for="monetary">Monetary</label>
                                                     <input type="text" placeholder="Monetary" class="form-control" name="consideration_detail" id="txtMonetary" style="display: none"/>
                                                     <input type="text" placeholder="Non-Monetary" class="form-control" name="consideration_detail" id="txtNonMonetary" style="display: none"/>
                                                     @if ($errors->has('consideration'))
@@ -307,7 +307,7 @@
                                             <div class="row form-group">
                                                 <label class="col-sm-3 label-title">Status<span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="radio" name="sellerType" value="individual" id="individual">&nbsp;&nbsp;
+                                                    <input type="radio" name="sellerType" value="individual" checked id="individual">&nbsp;&nbsp;
                                                     <label for="individual">Individual</label>&nbsp;&nbsp;
                                                     <input type="radio" name="sellerType" value="dealer" id="dealer">&nbsp;&nbsp; 
                                                     <label for="dealer">Organization</label>&nbsp;&nbsp;
@@ -356,8 +356,8 @@
 
                                     <div class="checkbox section agreement">
                                         <label for="send">
-                                            <input type="checkbox" name="send" id="send">
-                                                By clicking "Post", you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> and acknowledge that you are the rightful owner of this donation.
+                                            <!-- <input type="checkbox" name="send" id="send"> -->
+                                                By clicking "Donate now", you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> and acknowledge that you are the rightful owner of this donation.
                                         </label>
                                         <button type="submit" class="btn btn-primary">Donate Now</button>
                                     </div><!-- section -->

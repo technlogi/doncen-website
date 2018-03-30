@@ -21,17 +21,19 @@ class RegistrationController extends Controller
             'key'=> generateKey(1),
             'name' => $request->name,
             'email' => $request->email,
-            'contact' => $request->mobile_no,
+            'contact' => $request->contact,
             'password' => bcrypt($request->password),
             'otp' => generateOtp(),
             'is_verify'=> 0,
             'status' => 1
             ]);
+            $message = $user->otp." is your OTP for verification at the time of registration on Doncen.org";
+            SMS_GATEWAY($user->contact,$message);
             Mail::send('emails.otp', ['user' => $user], function ($m) use ($user) {
                 $m->from('hello@app.com', 'Doncen.com');
                 $m->to($user->email, $user->name)->subject('Last step for registration!');
             });
-            return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP is send to Email Id provided.');   
+            return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP has been sent on your mobile.');   
        }catch (\Exception $e) {
         return redirect()->back()->with('error','User Alerady exist with this Email Id.');   
        }
@@ -70,7 +72,7 @@ class RegistrationController extends Controller
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');
             }
         }else{
-            return redirect()->back()->with('error','You are not valid User.Please Registration Again.');
+            return redirect()->back()->with('error','Something went wrong. Please register again.');
         }
         
     }

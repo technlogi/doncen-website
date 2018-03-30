@@ -16,9 +16,9 @@
                                   {{ csrf_field() }}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Mobile Number" >
+                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Mobile / Email" autofocus >
                                     @if ($errors->has('email'))
-                                        <span class="help-block">
+                                        <div class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
@@ -33,8 +33,8 @@
                                 </div>
                                 <!-- forgot-password -->
                                 <div class="user-option">
-                                    <div class="checkbox pull-left">
-                                        <label for="logged"><input type="checkbox" name="remeber" id="logged"> Keep me logged in </label>
+                                    <div class="checkbox">
+                                        <span for="logged"><input type="checkbox" name="remeber" id="logged"> Keep me logged in </span>
                                     </div>
                                     <div class="pull-right forgot-password">
                                         <a class="btn-link" href="{{ url('/user/password/reset') }}">

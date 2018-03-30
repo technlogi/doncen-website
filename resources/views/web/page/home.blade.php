@@ -82,14 +82,6 @@
                         </div><!-- tab-pane -->
                     </div>
                 </div><!-- trending-ads -->			
-
-              
-
-                <!-- ad-section -->						
-                <div class="ad-section text-center">
-                    <a href="#"><img src="{{ URL::asset('/uploads/images/ads/3.jpg')}}" alt="Image" class="img-responsive"></a>
-                </div><!-- ad-section -->
-
              
                 <!-- cta -->
                 <div class="cta text-center">

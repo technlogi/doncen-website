@@ -36,12 +36,11 @@
                         </div>								
                     </div><!-- user-profile -->
                    <ul class="user-menu">
-                   <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
-                        <li><a href="favourite-ads.html">Favourite donation</a></li>
                         <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="{{ route('user.urgent.requirement') }}">Urgent requirement</a></li>
-                        <li><a href="pending-ads.html">Pending approval</a></li>
-                        <!--<li><a href="archived-ads.html">Archived ads </a></li>-->
+                        <li><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
+                        <li><a href="favourite-ads.html">Favourite donation</a></li>
+                        <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li  class="active"><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
 

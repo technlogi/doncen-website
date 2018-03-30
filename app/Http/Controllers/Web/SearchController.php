@@ -148,7 +148,7 @@ class SearchController extends Controller
                                 }else{
                                     $print .= '<span class="text-color pull-right" title="'.$result->consideration_detail.'">Monetary</span>';
                                 }
-                                if(Auth::guest()){
+                                if(Auth::guard('user')->check()){
                                     if(Auth::guard('user')->user()->id == $result->user_id){
                                       $print .=   '<a href="'. route("user.donation.complete",[$result->key]) .'"><span class=" pull-right fa fa-edit" title="Make it complete"></span></a>' ;
                                     }
@@ -156,7 +156,7 @@ class SearchController extends Controller
                                 $print .= '<h3 class="item-price">'.$result->title .'</h3>
                                 <h4 class="item-title">'. $result->description.'</h4>
                                 <div class="item-cat">
-                                    <span><a href="#">'.$category->name .'</a></span> 
+                                    <span><a href="#">'.$category->name.', '.$subcategory->name.', '. $specification->name.'</a></span> 
                                 </div>	
                             </div><!-- ad-info -->
 
