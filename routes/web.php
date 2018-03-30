@@ -83,8 +83,11 @@ Route::group(['prefix' => 'user'], function () {
                           /////////////////////////
   Route::get('/delete-account',          [ 'uses' =>  'User\UserController@deleteAccount',     'as'=>'user.deleteAccount']);
   Route::get('/my-donation',             [ 'uses' =>  'User\UserController@myDonation',        'as'=>'user.myDonation']);
-  Route::post('/get-donation/list',      [  'uses' => 'Web\SearchController@getMyDonation',    'as' => 'user.get.donationList' ]);
-  
+  Route::get('/urgent-requirement',      [ 'uses' =>  'User\UserController@urgentRequirement', 'as'=>'user.urgent.requirement']);
+  Route::post('/get-donation/list',      [ 'uses' => 'Web\SearchController@getMyDonation',     'as' => 'user.get.donationList' ]);
+  Route::post('/get-urgent/list',        [ 'uses' => 'Web\SearchController@getUrgentRequirement',     'as' => 'user.get.urgentRequirement' ]);
+   
+  Route::get('/complete-dontation/{key}', [ 'uses' => 'User\UserController@donationComplete',     'as' => 'user.donation.complete' ] );
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');

@@ -226,7 +226,7 @@ class WebController extends Controller
             $subcategory = $spectification->subcategory;
             $category = $subcategory->category;
             $user_type = DB::table('user_types')->where('id',$dontaion_post->user_type_id)->first();
-            $user = DB::table('users')->where('id',$dontaion_post->user_id)->select('name')->first();
+            $user = DB::table('users')->where('id',$dontaion_post->user_id)->select('name','contact','email')->first();
             
 
             return view('web.page.details',compact('dontaion_post',

@@ -42,7 +42,7 @@
                                 <li><a href="{{ route('user.home') }}">Profile</a></li>
                                 <li><a href="#">My Favourite</a></li>
                                 <li><a href="{{ route('user.myDonation') }}">My Donation</a></li>
-                                <li><a href="#">My Urgency</a></li>
+                                <li><a href="{{ route('user.urgent.requirement') }}">My Urgency</a></li>
                                 
                                 <li><a class="nav-link" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">

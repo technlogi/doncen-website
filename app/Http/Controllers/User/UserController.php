@@ -74,7 +74,15 @@ class UserController extends Controller
         $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
         return view('user.page.myDonation',compact('user','total_post'));
     }
-
+    public function  donationComplete($key)
+    {
+        $id = Auth::guard('user')->user()->id;
+        DB::table('donation_posts')->where('key',$key)->where('user_id',$id)->update([
+            'is_complete' => 1,
+            'updated_at' => new \DateTime(),
+        ]);
+        return redirect()->back()->with('success','Donation Post is Completed');
+    }
 
     public function contactUs(ContactUsRequest $request)
     {
@@ -90,6 +98,13 @@ class UserController extends Controller
       return redirect()->back()->with('success','Your Suggestion is submited We will contact You soon! Thank You.');   
     }
 
+    public function  urgentRequirement()
+    { 
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+      return view('user.page.urgent',compact('user','total_post'));
+    }
 
 
     public function faq()

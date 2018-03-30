@@ -88,11 +88,11 @@
                             <div class="slider-text">
                                 <h2>{{ $dontaion_post->is_urgent ? 'Urgent': "" }}<span class="pull-right">
                                  @if($dontaion_post->consideration == '0')
-                                  {{ 'Free' }}
+                                  <div class="text-color">{{ 'Free' }} </div>
                                  @elseif($dontaion_post->consideration == '1')
-                                  <div title="{{$dontaion_post->consideration_detail}}">Non-Monetary</div>
+                                  <div title="{{$dontaion_post->consideration_detail}}" class="text-color">Non-Monetary</div>
                                  @else
-                                  <div title="{{$dontaion_post->consideration_detail}}">Monetary</div>
+                                  <div title="{{$dontaion_post->consideration_detail}}" class="text-color">Monetary</div>
                                  @endif 
                                   
                                 </span></h2>
@@ -117,10 +117,10 @@
                                     <h4>Contact with </h4>
                                     <span class="btn btn-red show-number">
                                         <i class="fa fa-phone-square"></i>
-                                        <span class="hide-text">Click to show phone number </span> 
-                                        <span class="hide-number">012-1234567890</span>
+                                        <span class="hide-text">{{ $user->contact }}</span> 
+                                        <span class="hide-number"></span>
                                     </span>
-                                    <a href="#" class="btn"><i class="fa fa-envelope-square"></i>Reply by email</a>
+                                    <a href="#" class="btn"><i class="fa fa-envelope-square"></i>{{ $user->email }}</a>
                                 </div><!-- contact-with -->
 
                                 <!-- social-links -->

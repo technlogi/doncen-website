@@ -140,13 +140,19 @@ class SearchController extends Controller
                         <div class="item-info col-sm-9">
                             <!-- ad-info -->
                             <div class="ad-info">';
+                          
                                 if($result->consideration == '0'){
-                                $print .=   '<span class="pull-right">Free</span>' ;
+                                $print .=   '<span class="text-color pull-right">Free</span>' ;
                                 }else if ($result->consideration == '1'){
-                                    $print .= '<span class="pull-right" title="'.$result->consideration_detail.'">Non-Monetary</span>';
+                                    $print .= '<span class="text-color pull-right" title="'.$result->consideration_detail.'">Non-Monetary</span>';
                                 }else{
-                                    $print .= '<span class="pull-right" title="'.$result->consideration_detail.'">Monetary</span>';
+                                    $print .= '<span class="text-color pull-right" title="'.$result->consideration_detail.'">Monetary</span>';
                                 }
+                                if(Auth::guest()){
+                                    if(Auth::guard('user')->user()->id == $result->user_id){
+                                      $print .=   '<a href="'. route("user.donation.complete",[$result->key]) .'"><span class=" pull-right fa fa-edit" title="Make it complete"></span></a>' ;
+                                    }
+                                  }
                                 $print .= '<h3 class="item-price">'.$result->title .'</h3>
                                 <h4 class="item-title">'. $result->description.'</h4>
                                 <div class="item-cat">
@@ -171,6 +177,7 @@ class SearchController extends Controller
                                 <!-- item-info-right -->
                                 <div class="user-option pull-right">
                                  '; 
+                              
                                  if(($user_type->id == '3')  || ($user_type == '1')){
                                     $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-user"></i> </a>';
                                  }else{
@@ -341,13 +348,22 @@ class SearchController extends Controller
     //get list of product 
     public function getMyDonation(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')    ->where('status',1)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')    ->where('status',1)->where('is_complete',0)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
             echo '<div class="alert alert-info">There is no Donation Post.</div>';
         }
     }
-
+    
+    public function getUrgentRequirement(Request $request)
+    {
+        $donation_posts =  DB::table('donation_posts')->where('is_complete',0)    ->where('status',1)->where('is_urgent',1)    ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        if(!empty($donation_posts[0])){                    
+            echo $this->printData($donation_posts,array(), array());
+        }else{
+            echo '<div class="alert alert-info">There is no Donation Post.</div>';
+        }
+    }
    
 }

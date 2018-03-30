@@ -45,6 +45,7 @@ class CreateDonationPostsTable extends Migration
             $table->string('helper_contact')->nullable();
             $table->string('helper_address')->nullable();
             $table->tinyInteger('status')->default(1)->comment('0-deactive | 1-active');
+            $table->tinyInteger('is_complete')->default(0)->comment('0-pandding | 1-complete');
             $table->timestamps();
         });
     }

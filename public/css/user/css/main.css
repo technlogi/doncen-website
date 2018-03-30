@@ -3363,4 +3363,8 @@ input, select, a, .transition,
     display: block !important;
 } */
 
-
+.text-color
+{
+    color: green;
+    font-size: 14px;
+}
