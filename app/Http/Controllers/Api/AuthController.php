@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\Api\Validate;
 use App\Http\Services\Api\AuthServices;
 use App\Models\User;
-
+use Hash;
 class AuthController extends Controller
 {
     protected $validate;
@@ -127,9 +127,11 @@ class AuthController extends Controller
     */
     public function changePassword(Request $request)
     {
+        if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
+        if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
         if($this->validate->validatechangePassword($request)) return $this->validate->validatechangePassword($request);
         try{
-            $user =\App\User::Where('key', $request->key)->where('status',1)->first();
+            $user =  User::Where('key', $request->key)->where('status',1)->first();
              if (!(Hash::check($request->old_password, $user->password))) {
                 return response()->json([
                         'response' => 'error',
@@ -214,7 +216,7 @@ class AuthController extends Controller
       if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
       
       try{
-        $user = User::where('key',$request->token)->select('name','email','contact as mobile_no')->where('is_verify',1)->where('status',1)->first();
+        $user = User::where('key',$request->key)->select('name','email','contact as mobile_no')->where('is_verify',1)->where('status',1)->first();
         // $user_info =     DB::table('users as u')
         //                     ->select('u.first_name','u.referral_code as ref_code','u.last_name','u.key','u.contact AS mobile','u.account_no AS wallet_no','u.email','LT.login_type_name AS user_type','u.user_name')
         //                     ->join('login_types as LT','u.user_types_id','=','LT.id')
@@ -228,7 +230,6 @@ class AuthController extends Controller
         //     $profile_url = profile_pic().'preview.jpg';
         // }
         // $user_data_image = array_add((array)$user_info, 'profile_pic', $profile_url);
-        // $user_data       = array_add((array)$user_data_image, 'available_balance', $this->availableBalance($request->token));
         return response()->json([
                'response' => 'success',
                'result' => $user
