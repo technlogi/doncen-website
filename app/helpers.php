@@ -126,3 +126,42 @@ if(! function_exists('DONATION_POST_IMAGE')){
       return $base_path;
     }
 }
+
+
+
+if(! function_exists('SMS_GATEWAY')){
+    function SMS_GATEWAY($mobileNumber,$message){
+        $SenderID = "DEMOOS";
+        $routeId  = 1;
+        $smsContentType = "english";
+        $authKey = "94f09dc41b59fdc6cd7fe5d6aad2537";
+        $postData = array(
+            'mobileNumbers' => $mobileNumber,        
+            'smsContent' => $message,
+            'senderId' => $SenderID,
+            'routeId' => $routeId,       
+            "smsContentType" =>'english'
+        );
+        $data_json = json_encode($postData);
+        $url="http://msg.msgclub.net/rest/services/sendSMS/sendGroupSms?AUTH_KEY=".$authKey;
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => array('Content-Type: application/json','Content-Length: ' . strlen($data_json)),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $data_json,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0
+        ));
+        //get response
+        $output = curl_exec($ch);
+        //Print error if any
+        if(curl_errno($ch))
+        {
+            echo 'error:' . curl_error($ch);
+        }
+        curl_close($ch);
+        return $output;
+    }
+}

@@ -74,7 +74,10 @@ class AuthController extends Controller
                 // if(!empty($request->email)){
                 //     Mail::to($request->email)->send(new RegistrationOTP($user));
                 // } 
+                
                 $user = User::where('contact',$request->contact)->first();
+                $message = "Hello".$user->name."! Your Verification OTP is".$user->otp;
+                SMS_GATEWAY($request->contact,$message);
                 return response()->json([
                     'response' => 'success',
                     'message' => ['success' => "OTP has been sent." ,'otp' =>$user->otp, 'key' =>$user->key  ]
@@ -139,6 +142,8 @@ class AuthController extends Controller
                     $user->status = 1;
                     $user->is_verify = 1;
                     $user->save();
+                    $message = "OTP matched. Your Registration is Completed.";
+                    SMS_GATEWAY($user->contact,$message);
                     return response()->json([
                             'response' => 'success',
                             'message' => 'OTP matched. Your Registration is Completed.',
