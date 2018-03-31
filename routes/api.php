@@ -34,7 +34,7 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('auth/changePassword',         'Api\AuthController@changePassword');
     
     Route::post('auth/resetPassword',   'Api\AuthController@resetPassword');
-    Route::post('auth/getAuthUser ',   'Api\AuthController@getAuthUser');
+    Route::post('auth/getAuthUser',   'Api\AuthController@getAuthUser');
                ////////////////////////
               //// Api Controller ////
              ////////////////////////
