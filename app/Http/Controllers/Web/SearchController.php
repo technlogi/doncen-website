@@ -107,6 +107,9 @@ class SearchController extends Controller
                         $specification =  Specification::where('id',$result->specification_id)->where('status',1)->first();
                         $subcategory = $specification->subcategory;
                         $category = $subcategory->category;
+                    }else {
+                        $specification =  Specification::where('id',$result->specification_id)->where('status',1)->first();
+                        $subcategory = $specification->subcategory;
                     }
                     
                     $user_type = DB::table('user_types')
@@ -190,7 +193,9 @@ class SearchController extends Controller
                     </div><!-- ad-item -->';
                 }
             }   
-        } 
+        }else{
+            $print = '<div class="alert alert-info"><center>There is no donation post related to your search.</center></div>';
+        }
         return $print;
     }
 

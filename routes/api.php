@@ -19,34 +19,35 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => ['api','cors']], function () {
-    //Route::post('auth/register/success','UserAuth\ApiRegisterController@registrationSuccess');
                       ///////////////////////////
                      /// Api/Auth Controller ///
                     ///////////////////////////
-    Route::post('auth/login',            'Api\AuthController@login');
-    Route::post('auth/logout',            'Api\AuthController@logout');
-    
-    Route::post('auth/registration',     'Api\AuthController@register');
-    Route::post('auth/getOtp',           'Api\AuthController@getOtp');
-    Route::post('auth/submitOtp',        'Api\AuthController@submitOtp');
-
-    Route::post('auth/forgotPassword',   'Api\AuthController@forgotPassword');
-    Route::post('auth/changePassword',         'Api\AuthController@changePassword');
-    
-    Route::post('auth/resetPassword',   'Api\AuthController@resetPassword');
-    Route::post('auth/getAuthUser',   'Api\AuthController@getAuthUser');
-               ////////////////////////
-              //// Api Controller ////
-             ////////////////////////
-    Route::post('/categories',     'Api\ApiController@category');
-    Route::post('/subcategories',  'Api\ApiController@subCategory');
-    Route::post('/specifications', 'Api\ApiController@specification');
-
-    Route::post('/category-to-subcategory', 'Api\ApiController@categoryTosubcategory');
+                            /* Login */
+    Route::post('auth/login',                   'Api\AuthController@login'                     );
+    Route::post('auth/logout',                  'Api\AuthController@logout'                    );
+                            /* Registration */
+    Route::post('auth/registration',            'Api\AuthController@register'                  );
+    Route::post('auth/getOtp',                  'Api\AuthController@getOtp'                    );
+    Route::post('auth/submitOtp',               'Api\AuthController@submitOtp'                 );
+                            /* Forgot Password */
+    Route::post('auth/forgotPassword',          'Api\AuthController@forgotPassword'            );
+                            /* Change Password */
+    Route::post('auth/changePassword',          'Api\AuthController@changePassword'            );
+                            /* Reset Password */
+    Route::post('auth/resetPassword',           'Api\AuthController@resetPassword'             );
+                        /*  Authanticate User Info */
+    Route::post('auth/getAuthUser',             'Api\AuthController@getAuthUser'               );
+                       ////////////////////////
+                      //// Api Controller ////
+                     ////////////////////////
+                        /* List of All */
+    Route::post('/categories',                   'Api\ApiController@category'                  );
+    Route::post('/subcategories',                'Api\ApiController@subCategory'               );
+    Route::post('/specifications',               'Api\ApiController@specification'             );
+                            /* Forward RelationShip */
+    Route::post('/category-to-subcategory',      'Api\ApiController@categoryTosubcategory'     );
     Route::post('/subcategory-to-specification', 'Api\ApiController@subcategoryToSpecification');
-
-    Route::post('/subcategory-to-category', 'Api\ApiController@subcategoryToCategory');
-    Route::post('/specification-to-subcategory', 'Api\ApiController@subcategoryToSpecification');
-    
-    
+                            /* Backward RelationShiop */
+    Route::post('/subcategory-to-category',      'Api\ApiController@subcategoryToCategory'     );
+    Route::post('/specification-to-subcategory', 'Api\ApiController@specificationToSubcategory');
 });    

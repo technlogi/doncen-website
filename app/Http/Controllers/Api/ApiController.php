@@ -46,10 +46,16 @@ class ApiController extends Controller
     public function categoryTosubcategory(Request $request)
     {
         $category = Category::where('key',$request->key)->where('status',1)->first();
+        $results = array();
+        foreach($category->subcategories as $subCategory)
+        {
+            $sub = array('key'=> $subCategory->key,'name' =>$subCategory->name);
+            array_push($results,$sub);
+        }
         return response()->json([
             'response' => 'success',
             'message' => "List of All Subcategories!",
-            'result' => $category->subcategories
+            'result' => $results
         ]);
     }  
     /**
@@ -58,10 +64,16 @@ class ApiController extends Controller
     public function subcategoryToSpecification(Request $request)
     {
         $subcategory = Subcategory::where('key',$request->key)->where('status',1)->first();
+        $results = array();
+        foreach($subcategory->specifications as $specification)
+        {
+            $specific = array('key'=> $specification->key,'name' =>$specification->name);
+            array_push($results,$specific);
+        }
         return response()->json([
             'response' => 'success',
             'message' => "Specification of subcategory!",
-            'result' => $subcategory->specifications
+            'result' => $results
         ]);
     }
     /**
@@ -73,7 +85,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "detail of category!",
-            'result' => $subcategory->category
+            'result' => array('key'=>$subcategory->category->key ,'name'=>$subcategory->category->name)
         ]);
     }  
     /**
@@ -85,7 +97,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "detail of subcategory!",
-            'result' => $specifications->subcategory
+            'result' => array('key'=>$specifications->subcategory->key,'name' => $specifications->subcategory->name)
         ]);
     }
 }
