@@ -42,7 +42,7 @@
                         <li><a  href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="{{ route('user.urgent.requirement') }}">Urgent requirement</a></li>
                         <li><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
-                        <li><a href="favourite-ads.html">Favourite donation</a></li>
+                        <li><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
                         <li class="active"><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
@@ -165,8 +165,9 @@ $(function(){
         }
     });
   }
+  setInterval(function(){
   call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",0);
-  
+}, 10000);
   $("#city_search_box").autocomplete({
     source: function(request, response) {
         $.ajaxSetup({

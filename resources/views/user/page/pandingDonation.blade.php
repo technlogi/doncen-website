@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-@section('title',"My Donation")
+@section('title',"Panding Donation")
 @section('content')
 
    <!-- delete-page -->
@@ -27,16 +27,19 @@
                         </div>
 
                         <div class="favorites-user">
+                            <div class="my-ads">
+                                <a href="my-ads.html">23<small>My ADS</small></a>
+                            </div>
                             <div class="favorites">
                                 <a href="#">{{ $total_post }}<small>Post By You</small></a>
                             </div>
                         </div>								
                     </div><!-- user-profile -->
                    <ul class="user-menu">
-                        <li  class="active"><a href="{{ route('user.myDonation') }}">My donation</a></li>
+                        <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="{{ route('user.urgent.requirement') }}">Urgent requirement</a></li>
                         <li><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
-                        <li><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
+                        <li  class="active"><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
                         <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
                     </ul>
@@ -46,7 +49,7 @@
                 <div class="close-account">
                         <div class="col-sm-8">
                             <div class="section">
-                                <h2>My All Donation</h2>
+                                <h2>My Panding Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->
@@ -81,9 +84,9 @@ $(function(){
         }
     });
   }
-  call_ajax("{{ URL::route('user.get.completeDonation')}}",0);
-  setInterval(function(){
-  call_ajax("{{ URL::route('user.get.donationList')}}",0);
+    call_ajax("{{ URL::route('user.panding.donation')}}",0);
+   setInterval(function(){
+    call_ajax("{{ URL::route('user.panding.donation')}}",0);
 }, 10000);
 });
 </script>

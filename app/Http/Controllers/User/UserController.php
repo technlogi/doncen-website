@@ -61,6 +61,9 @@ class UserController extends Controller
     //request for delete account of user
     public function deleteAccount()
     {
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
         $total_post = DB::table('donation_posts')->where('user_id',$id)->count();
@@ -69,13 +72,31 @@ class UserController extends Controller
     //for specific user donation for logged in user only
     public function myDonation()
     {
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
         $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
         return view('user.page.myDonation',compact('user','total_post'));
     }
+
+    public function pandingDonation()
+    {
+        if(!Auth::guard('user')->check()){
+          return redirect()->route('login')->with('error','You must login first.');
+        }
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        return view('user.page.pandingDonation',compact('user','total_post'));
+    }
+
     public function  donationComplete($key)
     {
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
         $id = Auth::guard('user')->user()->id;
         DB::table('donation_posts')->where('key',$key)->where('user_id',$id)->update([
             'is_complete' => 1,
@@ -86,6 +107,9 @@ class UserController extends Controller
     
     public function completeDonation()
     {
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
         $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
@@ -108,6 +132,9 @@ class UserController extends Controller
 
     public function  urgentRequirement()
     { 
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
         $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();

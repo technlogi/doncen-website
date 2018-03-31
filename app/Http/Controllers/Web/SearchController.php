@@ -374,8 +374,17 @@ class SearchController extends Controller
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
-            echo '<div class="alert alert-info">There is no Donation Post.</div>';
+            echo '<div class="alert alert-info">There is no Complete Donation Post.</div>';
         }
     }
-   
-}
+    
+    public function getpandingDonation(Request $request)
+    {
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',0) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        if(!empty($donation_posts[0])){                    
+            echo $this->printData($donation_posts,array(), array());
+        }else{
+            echo '<div class="alert alert-info">There is no Panding Donation Post.</div>';
+        }
+    }
+} 
