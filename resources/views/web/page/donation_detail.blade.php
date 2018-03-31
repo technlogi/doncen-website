@@ -123,7 +123,7 @@
                                         <div class="row form-group ">
                                             <label class="col-sm-3 label-title">City<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                               <input type="text" name="city" class="form-control" id="text" value="{{ old('city') }}" placeholder="ex, Enter City">
+                                               <input type="text" id="searchTextField"  placeholder="ex, Enter City" autocomplete="on">
                                                @if ($errors->has('city'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('city') }}</strong>
@@ -395,3 +395,15 @@
 
                                         </script>
 @endsection
+@push('javaScript')
+<script type="text/javascript">
+   function initialize() {
+      var input = document.getElementById('searchTextField');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+   }
+   google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+@endpush

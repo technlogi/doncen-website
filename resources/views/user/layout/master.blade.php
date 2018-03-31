@@ -37,7 +37,7 @@
         <!-- JS -->
         <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/bootstrap.min.js')}}"></script>
-        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=your_api_key_here"" type="text/javascript"></script>
         <script src="{{ URL::asset('/js/user/js/gmaps.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/map.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/owl.carousel.min.js')}}"></script>
