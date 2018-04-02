@@ -10,12 +10,15 @@ use \App\Models\Subcategory;
 use \App\Models\Specification;
 use \App\Models\City;
 use DB;
-use \Auth;
+use \Auth,\Session;
 class WebController extends Controller
 {
-
+    //home  
     public function home()
     {
+        if (Session::has('specification')) {
+			return redirect()->route('web.donation.DetailForm',Session::get('specification'));
+		}
         $categories = Category::where('status',1)->get();
             foreach($categories as $category){
               $count =  DB::select("SELECT  COUNT(donation_posts.id) as total_count                    
@@ -33,26 +36,34 @@ class WebController extends Controller
         $titles = DB::table('donation_posts')->where('status',1)->select('title')->get();
         return view('web.page.home',compact('titles','categories'));
     }
+   
     //donation Form
     public function donationDetails(Request $request)
     {
+       
         if (Auth::guard('user')->check()){
             $user = Auth::guard('user')->user()->id;
         }else{
+            session(['specification' => $request->specification]);
             session()->flash('error', 'You must logged in before filling Dontation form.');
            return redirect('/user/login');
         }
         return redirect()->route('web.donation.DetailForm',$request->specification);
     }
+   
     //donation details form 
     public function donationDetailForm($key)
     {
+        if (Session::has('specification')) {
+            Session::forget('specification');
+		}
         $specification = Specification::where('key',$key)->first();
         $subcategory = $specification->subcategory;
         $category = $subcategory->category;
         $user_types = DB::table('user_types')->select('name','key')->where('status',1)->get();
         return view('web.page.donation_detail',compact('specification','subcategory','category','user_types','key'));
     }
+   
     //store donation post
     public function store_donation_detail(StoreDonationDetailRequest $request)
     {
@@ -121,10 +132,6 @@ class WebController extends Controller
       session()->flash('success','Donation form posted Successfully.');
      return redirect('/user/dashboard');
     }
-  
-
-
-    
   
     //rander a view to all request of ajax
     public function printData($results,$city,$category)
