@@ -29,10 +29,10 @@ class RegistrationController extends Controller
             ]);
             $message = $user->otp." is your OTP for verification at the time of registration on Doncen.org";
             SMS_GATEWAY($user->contact,$message);
-            Mail::send('emails.otp', ['user' => $user], function ($m) use ($user) {
-                $m->from('hello@app.com', 'Doncen.com');
-                $m->to($user->email, $user->name)->subject('Last step for registration!');
-            });
+                // Mail::send('emails.otp', ['user' => $user], function ($m) use ($user) {
+                //     $m->from('hello@app.com', 'Doncen.com');
+                //     $m->to($user->email, $user->name)->subject('Last step for registration!');
+                // });
             return redirect()->route('user.registration.otpForm',$user->key)->with('success','OTP has been sent on your mobile.');   
        }catch (\Exception $e) {
         return redirect()->back()->with('error','User Alerady exist with this Email Id.');   
@@ -63,10 +63,10 @@ class RegistrationController extends Controller
                 $user->save();
                 //   session()->flash('success','Registration Successfully.');
                 // return redirect()->back()->with('success','Registration Successfully.');
-                Mail::send('emails.success', ['user' => $user], function ($m) use ($user) {
-                    $m->from('hello@app.com', 'Doncen.com');
-                    $m->to($user->email, $user->name)->subject('Registration Successfull on Doncen!');
-                });
+                // Mail::send('emails.success', ['user' => $user], function ($m) use ($user) {
+                //     $m->from('hello@app.com', 'Doncen.com');
+                //     $m->to($user->email, $user->name)->subject('Registration Successfull on Doncen!');
+                // });
                 return view('web.page.registrationSuccess');
             }else{
                 return redirect()->back()->with('error','Invalid OTP. Please try again.');

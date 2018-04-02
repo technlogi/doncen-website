@@ -81,7 +81,7 @@ $(function(){
         }
     });
   }
-  call_ajax("{{ URL::route('user.get.completeDonation')}}",0);
+  call_ajax("{{ URL::route('user.get.donationList')}}",0);
   setInterval(function(){
   call_ajax("{{ URL::route('user.get.donationList')}}",0);
 }, 10000);

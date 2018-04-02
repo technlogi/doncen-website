@@ -19,8 +19,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href="{{ URL::asset('/css/user/css/jquery.ui.autocomplete.css')}}" rel="stylesheet">
         <!-- font -->
-        <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'> -->
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'>
 
         <!--favicon-->
         <link rel="icon" href="{{ URL::asset('/uploads/images/favicon.png')}}" type="image/gif" sizes="16x16">
@@ -37,7 +37,7 @@
         <!-- JS -->
         <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/bootstrap.min.js')}}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=your_api_key_here"" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAQsVSjofHfiWHWqai-0shuFexPke1-NEQ" type="text/javascript"></script>
         <script src="{{ URL::asset('/js/user/js/gmaps.min.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/map.js')}}"></script>
         <script src="{{ URL::asset('/js/user/js/owl.carousel.min.js')}}"></script>
