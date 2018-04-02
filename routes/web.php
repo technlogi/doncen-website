@@ -81,10 +81,15 @@ Route::group(['prefix' => 'user'], function () {
                             /////////////////////////
                            //// User Controller ////
                            /////////////////////////
-  Route::post('/password/email',        'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset',        'UserAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset',         'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
+                              /* reset passowrd */                     
+  Route::get('/password/reset',             ['uses'=>'UserAuth\RegistrationController@resetPasswordForm',  'as'=>'user.auth.passwords.resetPassword']);
+  Route::post('/cheak/contact',             ['uses'=>'UserAuth\RegistrationController@cheakContact',       'as'=>'user.resetpassword.cheakContact']);
+  Route::get('/password/reset/{token}',     ['uses'=>'UserAuth\RegistrationController@ResetOtpForm',       'as'=>'user.resetpassword.OtpForm']);
+  Route::post('/password/reset/{token}',    ['uses'=>'UserAuth\RegistrationController@ResetCheckOtp',      'as'=>'user.resetpassword.cheakOtp']);
+  
+  Route::get('/reset/password/{key}',       ['uses'=>'UserAuth\RegistrationController@showResetPasswordForm', 'as'=>'user.resetpassword.resetPasswordForm']);
+  Route::post('/reset/password/{key}',      ['uses'=>'UserAuth\RegistrationController@resetPassword',   'as'=>'user.resetpassword.resetpassword']);
+  
 
   Route::get('/delete-account',                   [ 'uses' =>  'User\UserController@deleteAccount',           'as' => 'user.deleteAccount'       ]);
   Route::get('/my-donation',                      [ 'uses' =>  'User\UserController@myDonation',              'as' => 'user.myDonation'          ]);

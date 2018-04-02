@@ -5,8 +5,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Theme Region">
-        <meta name="description" content="">
+        <meta name="description" content="Doncen is the next generation Donation Center which is running online on www.doncen.org i.e. world's largest donation portal. Here you may donate anything, whatever you can think at any time any where world wide. You may become a Donor , Helper of Donor , Donee , Helper of Donee. You can give or take anything as donation which might be other than money like related to Hospital , Food ,  Cloth Accessory , Residence , Education , Litrature , Toys Sports , FMCG , Agriculture , Service Time , Tours Traveling , Helpline and many more... Indore, Madhya Pradesh MP 452001 India Asia.">
+        <meta name="keywords" content="Doncen is the next generation Donation Center which is running online on www.doncen.org i.e. world's largest donation portal. Here you may donate anything, whatever you can think at any time any where world wide. You may become a Donor , Helper of Donor , Donee , Helper of Donee. You can give or take anything as donation which might be other than money like related to Hospital , Food ,  Cloth Accessory , Residence , Education , Litrature , Toys Sports , FMCG , Agriculture , Service Time , Tours Traveling , Helpline and many more... Indore, Madhya Pradesh MP 452001 India Asia.">
+        <meta name="author" content="Doncen Indore Madhya Pradesh India">
         <title>@yield('title')</title>
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('/css/user/css/font-awesome.min.css')}}">
@@ -21,6 +22,7 @@
         <!-- font -->
         <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'>
+
 
         <!--favicon-->
         <link rel="icon" href="{{ URL::asset('/uploads/images/favicon.png')}}" type="image/gif" sizes="16x16">
@@ -45,6 +47,15 @@
         <script src="{{ URL::asset('/js/user/js/price-range.js')}}"></script>    
         <!-- <script src="{{ URL::asset('/js/user/js/custom.js')}}"></script> -->
        <script src="{{ URL::asset('/js/user/js/switcher.js')}}"></script>
+       <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116748240-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116748240-1');
+        </script>
         @stack('javaScript')
         
     </body>

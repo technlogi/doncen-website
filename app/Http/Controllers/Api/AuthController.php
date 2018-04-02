@@ -35,7 +35,7 @@ class AuthController extends Controller
                 }
                 return response()->json([
                     'response' => 'success',
-                    'result' => ['token' => $user->key]
+                    'result' => ['key' => $user->key]
                 ]);
             }else{
                 return response()->json([
@@ -180,15 +180,17 @@ class AuthController extends Controller
             $user =  User::Where('key', $request->key)->where('status',1)->first();
              if (!(Hash::check($request->old_password, $user->password))) {
                 return response()->json([
+                        'response_code' => 401,
                         'response' => 'error',
                         'message' => "Your current password does not matches with the password you provided. Please try again.",
-                 ], 401);
+                 ]);
             }
             if(strcmp($request->old_password, $request->new_password) == 0){
                 return response()->json([
+                        'response_code' => 401,
                         'response' => 'error',
                         'message' => "New Password cannot be same as your current password. Please choose a different password.",
-                 ], 401);
+                 ]);
             }
                 $user->password = bcrypt($request->new_password);
                 $user->save();
@@ -199,10 +201,11 @@ class AuthController extends Controller
              
            } catch(\Exception  $exception){
                  return response()->json([
+                        'error_code' => 401,
                         'response' => 'error',
                         'message' => 'Invalid request.',
-                 ], 401);
-                }
+                 ]);
+           }
     }
 
     /**

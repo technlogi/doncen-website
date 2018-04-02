@@ -19,26 +19,26 @@
                                     </div>
                                 @endif
                             <h2>Reset Password</h2>
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/password/email') }}">
+                            <form class="form-horizontal" role="form" method="POST" action="{{ route('user.resetpassword.cheakContact') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="control-label pull-left">E-Mail Address:-</label><br>
+                        <div class="form-group{{ $errors->has('mobile_no') ? ' has-error' : '' }}">
+                            <label for="mobile_no" class="control-label pull-left">Mobile No :-</label><br>
 
                             <div class="">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-                                @if ($errors->has('email'))
+                                <input id="mobile_no" type="mobile_no" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}">
+                                @if ($errors->has('mobile_no'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('mobile_no') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-9 col-md-offset-2">
+                            <div class="col-md-7 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
+                                    Next
                                 </button>
                             </div>
                         </div>

@@ -10,6 +10,9 @@
                           @if (Session::has('error'))
                                 <div class="alert alert-danger">{{ Session::get('error') }}</div>
                                 @endif
+                                @if (Session::has('success'))
+                                <div class="alert alert-success">{{ Session::get('success') }}</div>
+                                @endif
                             <h2>Login</h2>
                             <!-- form -->
                             <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/login') }}">
