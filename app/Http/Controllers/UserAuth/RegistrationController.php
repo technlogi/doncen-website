@@ -21,12 +21,16 @@ class RegistrationController extends Controller
     public function register(UserRegistration $request)
     {
       try{
+        $city_name = explode(', ',$request->address);
+        $city = \App\Models\City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
        $user = User::create([
             'key'=> generateKey(1),
             'name' => $request->name,
             'email' => $request->email,
             'contact' => $request->contact,
             'password' => bcrypt($request->password),
+            'address' => $request->address,
+            'city_id' => $city->id,
             'otp' => generateOtp(),
             'is_verify'=> 0,
             'status' => 1

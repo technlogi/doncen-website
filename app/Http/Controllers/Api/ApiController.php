@@ -100,4 +100,6 @@ class ApiController extends Controller
             'result' => array('key'=>$specifications->subcategory->key,'name' => $specifications->subcategory->name)
         ]);
     }
+
+ 
 }

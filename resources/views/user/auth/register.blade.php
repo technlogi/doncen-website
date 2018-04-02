@@ -8,6 +8,12 @@
                     <!-- user-login -->			
                     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                         <div class="user-account">
+                                @if (Session::has('error'))
+                                      <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                                @endif
+                                @if (Session::has('success'))
+                                   <div class="alert alert-success">{{ Session::get('success') }}</div>
+                                @endif
                             <h2>Create  Account</h2>
                             <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/register') }}">
                                  {{ csrf_field() }}
@@ -24,6 +30,14 @@
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                    <input type="text" id="searchTextField" class="form-control" name="address" value="{{ old('address') }}" placeholder="Address">
+                                    @if ($errors->has('address'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('address') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -64,3 +78,15 @@
             </div><!-- container -->
         </section><!-- signup-page -->
 @endsection
+@push('javaScript')
+<script type="text/javascript">
+   function initialize() {
+      var input = document.getElementById('searchTextField');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+   }
+   google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+@endpush

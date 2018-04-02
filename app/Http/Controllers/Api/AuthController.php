@@ -29,6 +29,10 @@ class AuthController extends Controller
 
             $user = User::Where('contact', $request->mobile_no)->first();
             if (Hash::check($request->password, $user->password)) {
+                if($request->fcm_id){
+                    $user->fcm_id = $request->fcm_id;
+                    $user->save();
+                }
                 return response()->json([
                     'response' => 'success',
                     'result' => ['token' => $user->key]
@@ -285,5 +289,29 @@ class AuthController extends Controller
                     'message' => 'Invalid token.',
                 ]);
         }
+    }
+
+    /**
+     * Update FCM id 
+    */
+    public function updateFcmId(Request $request)
+    {
+        if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
+        if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key); 
+        try{
+            $user =  User::Where('key', $request->key)->where('status',1)->first();
+            $user->fcm_id = $request->fcm_id;
+            $user->save();
+            return response()->json([
+                    'response' => 'success',
+                    'message' => "FCM Id update successfully !",
+            ]);
+            } catch(\Exception  $exception){
+                return response()->json([
+                    'response_code' => 401,
+                        'response' => 'error',
+                        'message' => 'Invalid request.',
+                ]);
+            }
     }
 }

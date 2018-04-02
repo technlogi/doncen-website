@@ -131,10 +131,10 @@ if(! function_exists('DONATION_POST_IMAGE')){
 
 if(! function_exists('SMS_GATEWAY')){
     function SMS_GATEWAY($mobileNumber,$message){
-        $SenderID = "DEMOOS";
+        $SenderID = "DonCen";
         $routeId  = 1;
         $smsContentType = "english";
-        $authKey = "94f09dc41b59fdc6cd7fe5d6aad2537";
+        $authKey = "c69dc2e355aff96fd734ccf11c43869";
         $postData = array(
             'mobileNumbers' => $mobileNumber,        
             'smsContent' => $message,
@@ -165,3 +165,6 @@ if(! function_exists('SMS_GATEWAY')){
         return $output;
     }
 }
+
+
+

@@ -35,8 +35,10 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('auth/changePassword',          'Api\AuthController@changePassword'            );
                             /* Reset Password */
     Route::post('auth/resetPassword',           'Api\AuthController@resetPassword'             );
-                        /*  Authanticate User Info */
+                            /*  Authanticate User Info */
     Route::post('auth/getAuthUser',             'Api\AuthController@getAuthUser'               );
+                            /* Update Fcm Id */
+    Route::post('auth/updateFcmId',             'Api\AuthController@updateFcmId'               );
                        ////////////////////////
                       //// Api Controller ////
                      ////////////////////////
