@@ -90,7 +90,7 @@
 
                                         <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                             <label>Your City</label>
-                                                <input type="text" name="city" class="form-control" value="{{ old('city')}}" placeholder="Enter City" id="city_search_box">
+                                                <input type="text" id="searchTextField" name="city" class="form-control" value="{{ $user->address }}" placeholder="Enter City" id="city_search_box">
                                             @if ($errors->has('city'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('city') }}</strong>
@@ -147,7 +147,16 @@
 @push('javaScript')
 <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
 <script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
-
+<script type="text/javascript">
+   function initialize() {
+      var input = document.getElementById('searchTextField');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+   }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 <script>
 $(function(){
     $.ajaxSetup({

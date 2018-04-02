@@ -134,44 +134,6 @@ Route::get('/donation/category/{key}',  [  'uses' => 'Web\CategoryController@sea
 
 
 
-// Route::get('/getcity', 'Web\CityController@getCity');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

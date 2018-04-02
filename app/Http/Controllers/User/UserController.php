@@ -50,12 +50,17 @@ class UserController extends Controller
     //request for update profile of user
     public function updateProfile(UpdateProfileRequest $request)
     {
-        // $request->city = substr($request->city ,0,strpos($request->city,','));
-        //  User::where('id',Auth::guard('user')->user()->id)
-        //  ->update([
-        //         'city' => $request->city
-        //      ]);
-      
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
+        $city_name = explode(', ',$request->city);
+        $city = \App\Models\City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
+         User::where('id',Auth::guard('user')->user()->id)
+         ->update([
+             'city_id' => $city->id,
+             'address' => $request->city
+             ]);
+        return redirect()->back()->with('success','Your profile update successfully.');   
     }
 
     //request for delete account of user
