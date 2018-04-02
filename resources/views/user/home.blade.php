@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-sm-8 text-center">
                             <div class="delete-account section">
-                                           <form action="{{ route('user.update.profile' )}}" method="POST">
+                                <form action="{{ route('user.update.profile' )}}" method="POST">
                                     <div class="profile-details section">
                                         <h2>Profile Details</h2>
                                         <!-- form -->
@@ -136,7 +136,6 @@
                                </form> 
                             </div>
                         </div><!-- delete-account -->
-
                          @include('user.layout.rightsidebar')			
                     </div><!-- row -->
                 </div>

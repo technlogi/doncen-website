@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRegistration;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use \Mail;
+use \Mail,\Auth;
 
 class RegistrationController extends Controller
 {
     public function showRegistrationForm()
     {
+        if (Auth::guard('user')->check()){
+            session()->flash('error', 'You be logout for regirstration.');
+           return redirect('/user/dashboard');
+        }
         return view('user.auth.register');
     }
     public function register(UserRegistration $request)

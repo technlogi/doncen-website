@@ -49,6 +49,10 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
+        if (Auth::guard('user')->check()){
+            session()->flash('error', 'You be logout for regirstration.');
+           return redirect('/user/dashboard');
+        }
         return view('user.auth.login');
     }
 
