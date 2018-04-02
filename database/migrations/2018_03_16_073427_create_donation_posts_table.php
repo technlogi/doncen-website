@@ -24,6 +24,9 @@ class CreateDonationPostsTable extends Migration
             $table->string('description');
             $table->tinyInteger('condition')->comment('1-new | 2-old');
             $table->integer('city_id')->comment('FK_cities');
+            $table->string('address')->nullable();
+            $table->decimal('lat', 10, 7)->nullable();
+            $table->decimal('long', 10, 7)->nullable();
             $table->integer('donation_type_id')->comment('FK_donation_types');
             $table->integer('donation_type_other')->nullable();
             $table->tinyInteger('preference')->default(1)->comment('0-new | 1-anyone');

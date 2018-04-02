@@ -63,7 +63,8 @@ class WebController extends Controller
            return redirect('/user/login');
         }
         
-        $city = City::where('name','LIKE','%'.$request->city.'%')->first();
+        $e = explode(', ',$request->city);
+        $city = City::where('name','LIKE','%'.$e[2].'%')->first();
         $specification = Specification::where('key',$request->key)->first();
         $id =  DB::table('donation_posts')->insertGetId([
             'key'=> generateKey(14),
@@ -75,6 +76,9 @@ class WebController extends Controller
             'description'=> $request->description,
             'condition' => $request->condition,
             'city_id' =>$city->id ,
+            'address' => $request->city,
+            'lat' => '',
+            'long' => '',
             'donation_type_id' => $request->donation_type,
             'donation_type_other' => $request->donation_type_other,
             'preference' =>$request->preference,                              //0-new | 1-anyone	

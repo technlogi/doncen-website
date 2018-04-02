@@ -1,6 +1,6 @@
  
 @extends('user.layout.master')
-
+@section('title','Donation Detail')
 @section('content')
  <!-- main -->
  <section id="main" class="clearfix ad-details-page">
@@ -123,7 +123,7 @@
                                         <div class="row form-group ">
                                             <label class="col-sm-3 label-title">City<span class="required">*</span></label>
                                             <div class="col-sm-9">
-                                               <input type="text" id="searchTextField"  placeholder="ex, Enter City" autocomplete="on">
+                                               <input type="text" id="searchTextField" name="city" placeholder="ex, Enter City" autocomplete="on">
                                                @if ($errors->has('city'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('city') }}</strong>
