@@ -88,8 +88,8 @@ class WebController extends Controller
             'condition' => $request->condition,
             'city_id' =>$city->id ,
             'address' => $request->city,
-            'lat' => '',
-            'long' => '',
+            'lat' => 10.78845,
+            'long' => 10.78845,
             'system_code' =>$request->ip(),
             'donation_type_id' => $request->donation_type,
             'donation_type_other' => $request->donation_type_other,
@@ -115,23 +115,20 @@ class WebController extends Controller
             'created_at'=> new \DateTime(),
             'updated_at'=> new \DateTime()
       ]);
-      if ($request->hasFile('image_file')) {
-        $files = $request->file('image_file');
-            foreach($files as $file){
-                $extension = $file->getClientOriginalExtension();
-                $fileName = $id."-".date('ymdhis')."-".str_random(4).".".$extension;
-                $folderpath  = base_path('images/uploads/donation_post/');
-                $file->move($folderpath , $fileName);
+        if(!empty($request->image_file)){
+           foreach($request->image_file as $image_file){
+                $imageName = uniqid('img_').time().'.'.$image_file->getClientOriginalExtension();
+                $image_file->move(public_path('images/uploads/donation_post/'), $imageName);
                 DB::table('donation_images')->insert([
-                    'donation_post_id' => $id ,
+                    'donation_post_id' => 9,
                     'key' => generateKey(12),
-                    'image' => $fileName,
+                    'image' => $imageName,
                     'status' =>1 ,
                     'created_at'=> new \DateTime(),
                     'updated_at'=> new \DateTime()
                 ]);
-            }
-    }
+           }
+        }
         
       session()->flash('success','Donation form posted Successfully.');
      return redirect('/user/dashboard');
