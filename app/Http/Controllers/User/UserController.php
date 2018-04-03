@@ -57,17 +57,42 @@ class UserController extends Controller
         // // ===============================================================================================
         // print_r($city_name);
         // $length = sizeof($city_name);
-        // $country_name = $city_name[$length -1 ];
-        //   $country = DB::table('countries')->where('name','LIKE',$country_name)->first();
-        //   if(empty($country)){
-        //       $state = DB::table('states')->where('name','LIKE',$country_name)->first();
-        //       if(empty($state)){
-        //         $city = DB::table('cities')->where('name','LIKE',$country_name)->first();
-        //          if(empty($city)){
-        //             $id = DB::table('countries')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
-        //          }
-        //       }
+        //  if($length >= 1){       
+        //     $country_name = $city_name[$length -1 ];
+        //     $country = DB::table('countries')->where('name','LIKE',$country_name)->first();
+        //     if(empty($country)){
+        //         $state = DB::table('states')->where('name','LIKE',$country_name)->first();
+        //         if(empty($state)){
+        //             $city = DB::table('cities')->where('name','LIKE',$country_name)->first();
+        //             if(empty($city)){
+        //                 $id = DB::table('countries')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+        //                 $id = DB::table('states')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+                        
+        //             }else{
+        //                 return $city;
+        //             }
+        //         }
+        //     }
         //   }
+        //   if($length >= 2){
+        //     $state_name = $city_name[$length - 2 ];
+        //     $country = DB::table('countries')->where('name','LIKE',$city_name[$length -1 ])->first();
+        //     $state = DB::table('states')->where('name','LIKE',$state_name)->first();
+        //     if(empty($state)){
+        //         $city = DB::table('cities')->where('name','LIKE',$state_name)->first();
+        //         if(empty($city)){
+        //             $id = DB::table('state')->insertGetId(['name' =>$state_name,'key'=>generateKey(8),'country_id'=>$country->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+        //         }
+        //     }
+        //  }
+        //  if($length >= 3){
+        //     $state_name = $city_name[$length - 3 ];
+        //     $state = DB::table('states')->where('name','LIKE',$city_name[$length - 2 ])->first();
+        //     $city = DB::table('cities')->where('name','LIKE',$state_name)->first();
+        //     if(empty($city)){
+        //         $id = DB::table('state')->insertGetId(['name' =>$state_name,'key'=>generateKey(8),'country_id'=>$state->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+        //     }
+        //  }
         //   echo $country_name;
 
 
