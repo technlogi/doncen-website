@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="align-item-center">
                                 <button type="submit" class="btn btn-primary">
-                                Add to Favoriate
+                                     Add to Favoriate
                                 </button>
                             </div>
                         </div>

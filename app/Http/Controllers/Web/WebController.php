@@ -250,8 +250,33 @@ class WebController extends Controller
     
     public function addToFavoriate($key)
     {
-        $user_identity = $key;
-        return view('web.main.add_to_favoriate',compact('user_identity'));
+        if (Auth::guard('user')->check()){
+            $user = Auth::guard('user')->user()->id;
+        }else{
+            session()->flash('error', 'You must logged in before add favoriate donation post.');
+            return redirect('/user/login');
+        }
+        $id = DB::table('donation_posts')->where('key',$key)->select('key','id')->first();
+        if(DB::table('favorite_posts')->where('user_id',$user)->where('donation_post_id',$id->id)->count() > 0){
+            $status = DB::table('favorite_posts')->where('user_id',$user)->where('donation_post_id',$id->id)->first()->status;
+            DB::table('favorite_posts')->where('user_id',$user)
+                                       ->where('donation_post_id',$id->id)
+                                       ->update(['status' => !$status ]);     
+            if($status){
+                return redirect()->back()->with('success',"This donation is remove from your favoriate list!");
+            }                                   
+        }else{
+            DB::table('favorite_posts')->insert([
+            'user_id' => $user,
+            'donation_post_id' => $id->id,
+            'status' => 1,
+            'created_at' => new \DateTime(),
+            'updated_at' => new \DateTime()
+            ]);
+        }
+        return redirect()->back()->with('success',"This donation is add to your favoriate list!");
+        // $user_identity = $key;
+        // return view('web.main.add_to_favoriate',compact('user_identity'));
     }
     public function aboutUs()
     {

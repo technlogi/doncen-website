@@ -38,7 +38,13 @@
                 <div class="section slider">					
                     <div class="row">
                         <!-- carousel -->
-                        <div class="col-md-7">
+                        @if (Session::has('error'))
+                         <div class="alert alert-danger"><center>{{ Session::get('error') }}</center></div>
+                       @endif
+                       @if (Session::has('success'))
+                          <div class="alert alert-success"><center>{{ Session::get('success') }}</center></div>
+                       @endif
+                         <div class="col-md-7">
                             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators">
@@ -228,7 +234,7 @@ $(function(){
         }
     });
   }
-  call_ajax("{{ URL::route('web.detail.getRecomandatePost')}}","{{ $spectification->id }}");
+  call_ajax("{{ URL::route('web.detail.getRecomandatePost')}}",{ specification:"{{ $spectification->id }}",id:"{{ $dontaion_post->city_id }}" });
   
   $("#city_search_box").autocomplete({
     source: function(request, response) {

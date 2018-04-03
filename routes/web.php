@@ -176,9 +176,9 @@ Route::post('/get-featured',           [  'uses' => 'Web\SearchController@getDon
 Route::post('/get-featured/list',      [  'uses' => 'Web\SearchController@getItemOnLoad',           'as' => 'web.home.getItemOnLoad' ]);
 Route::post('/get-recomanded/list',    [  'uses' => 'Web\SearchController@getRecomandatePost',      'as' => 'web.detail.getRecomandatePost' ]);
 
-Route::get('/donation/report/{key}',   [  'uses' => 'Web\WebController@reportForm',          'as' => 'web.donation.reprot' ]);
-Route::post('/donation/report/{key}',   [  'uses' => 'Web\WebController@storeReport',        'as' => 'web.donation.storereprot' ]);
-Route::get('/donation/favoriate/{key}',   [  'uses' => 'Web\WebController@addToFavoriate',        'as' => 'web.donation.favoriate' ]);
+Route::get('/donation/report/{key}',      [  'uses' => 'Web\WebController@reportForm',          'as' => 'web.donation.reprot' ]);
+Route::post('/donation/report/{key}',     [  'uses' => 'Web\WebController@storeReport',         'as' => 'web.donation.storereprot' ]);
+Route::get('/donation/favoriate/{key}',   [  'uses' => 'Web\WebController@addToFavoriate',      'as' => 'web.donation.favoriate' ]);
 
 
 Route::post('/get/condition',          ['uses'=> 'Web\SearchController@condition',      'as'=> 'search.condition.condition'           ]);

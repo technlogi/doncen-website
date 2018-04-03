@@ -26,7 +26,8 @@ class SearchController extends Controller
     {
         $donation_posts =  DB::table('donation_posts')
                             ->where('status',1)
-                            ->where('specification_id',$request->data)
+                            ->where('specification_id',$request->data['specification'])
+                            ->orWhere('city_id',$request->data['id'])
                             ->orderBy('created_at','desc')
                             ->limit(10)
                             ->get();
