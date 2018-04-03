@@ -78,6 +78,14 @@
                                                 </div><!-- item -->
                                             @endif
                                         @endforeach
+                                        @if($k == 0) 
+                                            <div class="item active">
+                                                <div class="carousel-image">
+                                                    <!-- image-wrapper -->
+                                                    <img src="{{ DONATION_POST_IMAGE('preview.jpg')}}" alt="Featured Image" class="img-responsive">
+                                                </div>
+                                            </div><!-- item -->
+                                        @endif
                                     </div><!-- carousel-inner -->
 
                                 <!-- Controls -->
