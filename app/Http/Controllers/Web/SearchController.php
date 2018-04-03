@@ -21,6 +21,18 @@ class SearchController extends Controller
         echo $this->printData($donation_posts,array(), array());
     }
 
+    //on load of page call function to print table
+    public function getRecomandatePost(Request $request)
+    {
+        $donation_posts =  DB::table('donation_posts')
+                            ->where('status',1)
+                            ->where('specification_id',$request->data)
+                            ->orderBy('created_at','desc')
+                            ->limit(10)
+                            ->get();
+        echo $this->printData($donation_posts,array(), array());
+    }
+
     //condition search 
     public function condition(Request $request)
     {

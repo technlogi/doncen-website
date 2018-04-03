@@ -242,12 +242,11 @@ class WebController extends Controller
             $category = $subcategory->category;
             $user_type = DB::table('user_types')->where('id',$dontaion_post->user_type_id)->first();
             $user = DB::table('users')->where('id',$dontaion_post->user_id)->select('name','contact','email')->first();
-            
-
+            $donation_type = DB::table('donation_types')->where('id',$dontaion_post->donation_type_id)->first();
             return view('web.page.details',compact('dontaion_post',
                                                    'donation_images',
                                                    'city', 'user',
-                                                   'state',
+                                                   'state', 'donation_type',
                                                    'country',
                                                    'category',
                                                    'subcategory',

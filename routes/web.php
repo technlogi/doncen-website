@@ -174,6 +174,7 @@ Route::get('/donation/detail/{key}',['uses' =>'Web\WebController@donationDetail'
 
 Route::post('/get-featured',           [  'uses' => 'Web\SearchController@getDonationPost',         'as' => 'web.home.getDonation' ]);
 Route::post('/get-featured/list',      [  'uses' => 'Web\SearchController@getItemOnLoad',           'as' => 'web.home.getItemOnLoad' ]);
+Route::post('/get-recomanded/list',    [  'uses' => 'Web\SearchController@getRecomandatePost',      'as' => 'web.detail.getRecomandatePost' ]);
 
 Route::post('/get/condition',          ['uses'=> 'Web\SearchController@condition',      'as'=> 'search.condition.condition'           ]);
 Route::post('/get/consideration',      ['uses'=> 'Web\SearchController@consideration',  'as'=> 'search.consideration.consideration'   ]);
