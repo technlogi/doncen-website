@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-@section('title','About Us')
+@section('title','Report Donation')
 @section('content')<!-- main -->  <!-- main -->
         <section id="main" class="clearfix contact-us">
             <div class="container">

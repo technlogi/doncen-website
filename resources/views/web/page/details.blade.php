@@ -166,7 +166,7 @@
                                     <li><i class="fa fa-print"></i><a href="#">Print this ad</a></li>
                                     <!-- <li><i class="fa fa-reply"></i><a href="#">Send to a friend</a></li> -->
                                     <li><i class="fa fa-heart-o"></i><a href="#">Save ad as Favorite</a></li>
-                                    <li><i class="fa fa-exclamation-triangle"></i><a href="{{ route('web.donation.reprot',$dontaion_post->key) }}">Report this ad</a></li>
+                                    <li><i class="fa fa-exclamation-triangle"></i><a href="{{ route('web.donation.reprot',$dontaion_post->key) }}">Report this Donation post</a></li>
                                 </ul><!-- social-icon -->
                             </div>
                         </div>
