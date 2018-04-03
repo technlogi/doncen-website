@@ -34,6 +34,26 @@ class SearchController extends Controller
         echo $this->printData($donation_posts,array(), array());
     }
 
+    //favoriate donation
+    public function getfavoriateDonation(Request $request)
+    {
+        $posts =  DB::table('favorite_posts')->where('user_id',Auth::guard('user')->user()->id)->where('status',1)->get();
+        $results = array();
+        foreach($posts as $post){
+            $donation_post = DB::table('donation_posts')
+                                    ->where('status',1)
+                                    ->where('id',$post->id)->first();
+            if(!empty($donation_post)){
+               array_push($results,$donation_post);
+            }
+        }
+        if(!empty($results)){                    
+            echo $this->printData($results,array(), array());
+        }else{
+            echo '<div class="alert alert-info">There is no favoriate Donation Post.</div>';
+        }
+    }
+
     //condition search 
     public function condition(Request $request)
     {

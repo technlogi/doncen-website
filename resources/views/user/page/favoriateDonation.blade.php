@@ -1,5 +1,5 @@
 @extends('user.layout.master')
-@section('title',"Panding Donation")
+@section('title',"Complete Donation")
 @section('content')
 
    <!-- delete-page -->
@@ -36,10 +36,10 @@
                         </div>								
                     </div><!-- user-profile -->
                    <ul class="user-menu">
-                        <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
+                        <li ><a href="{{ route('user.myDonation') }}">My donation</a></li>
                         <li><a href="{{ route('user.urgent.requirement') }}">Urgent requirement</a></li>
-                        <li><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
-                        <li  class="active"><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
+                        <li  class="active"><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
+                        <li><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
                         <li><a href="{{ route('user.favoriateDonation')}}">Favoriate donation</a></li>
                         <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
                         <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
@@ -50,7 +50,7 @@
                 <div class="close-account">
                         <div class="col-sm-8">
                             <div class="section">
-                                <h2>My Panding Donation</h2>
+                                <h2>My Favoriate Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->
@@ -85,9 +85,10 @@ $(function(){
         }
     });
   }
-    call_ajax("{{ URL::route('user.panding.donation')}}",0);
-   setInterval(function(){
-    call_ajax("{{ URL::route('user.panding.donation')}}",0);
+  call_ajax("{{ URL::route('user.favoriate.donation')}}",0);
+  
+  setInterval(function(){
+  call_ajax("{{ URL::route('user.favoriate.donation')}}",0);
 }, 10000);
 });
 </script>

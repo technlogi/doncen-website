@@ -98,7 +98,8 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/get-complete/donation/list',      [ 'uses' => 'Web\SearchController@getCompleteDonation',     'as' => 'user.get.completeDonation']);
   Route::get('/panding-donation',                 [ 'uses' =>  'User\UserController@pandingDonation',         'as' => 'user.pandingDonation'    ]);
   Route::post('/panding/donation/list',           [ 'uses' => 'Web\SearchController@getpandingDonation',      'as' => 'user.panding.donation']);
-  
+  Route::get('/favoriate-donation',               [ 'uses' =>  'User\UserController@favoriateDonation',       'as' => 'user.favoriateDonation'    ]);
+  Route::post('/favoriate/donation/list',         [ 'uses' => 'Web\SearchController@getfavoriateDonation',    'as' => 'user.favoriate.donation']);
   
   Route::get('/complete-donation',        [ 'uses' =>  'User\UserController@completeDonation',      'as'=> 'user.complete.donation'      ]);
   Route::post('/get-urgent/list',         [ 'uses' => 'Web\SearchController@getUrgentRequirement',  'as' => 'user.get.urgentRequirement' ]);

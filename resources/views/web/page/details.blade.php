@@ -179,7 +179,7 @@
                                     <li><i class="fa fa-user-plus"></i><a href="#">More post by <span>{{$user->name}}</span></a></li>
                                     <li><i class="fa fa-print"></i><a href="#">Print this ad</a></li>
                                     <!-- <li><i class="fa fa-reply"></i><a href="#">Send to a friend</a></li> -->
-                                    <li><i class="fa fa-heart-o"></i><a href="{{ route('web.donation.favoriate',$dontaion_post->key) }}">Save ad as Favorite</a></li>
+                                    <li><i class="fa fa-heart-o"></i><a href="{{ route('web.donation.favoriate',$dontaion_post->key) }}">Save post as Favorite</a></li>
                                     <li><i class="fa fa-exclamation-triangle"></i><a href="{{ route('web.donation.reprot',$dontaion_post->key) }}">Report this Donation post</a></li>
                                 </ul><!-- social-icon -->
                             </div>

@@ -105,7 +105,7 @@ class UserController extends Controller
              ]);
         return redirect()->back()->with('success','Your profile update successfully.');   
     }
-
+ 
     //request for delete account of user
     public function deleteAccount()
     {
@@ -189,6 +189,16 @@ class UserController extends Controller
       return view('user.page.urgent',compact('user','total_post'));
     }
 
+    public function favoriateDonation()
+    {
+        if(!Auth::guard('user')->check()){
+            return redirect()->route('login')->with('error','You must login first.');
+        }
+        $id = Auth::guard('user')->user()->id;
+        $user = User::where('id',$id)->first();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+      return view('user.page.favoriateDonation',compact('user','total_post'));
+    }
 
     public function faq()
     {
