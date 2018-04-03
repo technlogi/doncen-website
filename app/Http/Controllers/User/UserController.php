@@ -54,6 +54,24 @@ class UserController extends Controller
             return redirect()->route('login')->with('error','You must login first.');
         }
         $city_name = explode(', ',$request->city);
+        // // ===============================================================================================
+        // print_r($city_name);
+        // $length = sizeof($city_name);
+        // $country_name = $city_name[$length -1 ];
+        //   $country = DB::table('countries')->where('name','LIKE',$country_name)->first();
+        //   if(empty($country)){
+        //       $state = DB::table('states')->where('name','LIKE',$country_name)->first();
+        //       if(empty($state)){
+        //         $city = DB::table('cities')->where('name','LIKE',$country_name)->first();
+        //          if(empty($city)){
+        //             $id = DB::table('countries')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+        //          }
+        //       }
+        //   }
+        //   echo $country_name;
+
+
+        // ===============================================================================================
         $city = \App\Models\City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
          User::where('id',Auth::guard('user')->user()->id)
          ->update([

@@ -218,8 +218,36 @@ class WebController extends Controller
         }
         return $print;
     }
+    
+    public function reportForm($key)
+    { 
+        $user_identity = $key;
+        return view('web.main.reportForm',compact('user_identity'));
+    }
 
-
+    public function storeReport(Request $request)
+    { 
+        if (Auth::guard('user')->check()){
+            $user = Auth::guard('user')->user()->id;
+        }else{
+            session()->flash('error', 'You must logged in before report against any donation post.');
+           return redirect('/user/login');
+        }
+        $this->validate($request , [
+            'report' => 'required|min:10'
+        ]);
+        $id = DB::table('donation_posts')->where('key',$request->key)->select('key','id')->first();
+        DB::table('donation_post_reports')->insert([
+           'report' => $request->report,
+           'user_id' => $user,
+           'donation_post_id' => $id->id,
+           'created_at' => new \DateTime(),
+           'updated_at' => new \DateTime()
+        ]);
+        session()->flash('success','We will resolve your issue as soon as possible. Thank you for your feed back.');
+        return redirect('/user/dashboard');
+    }
+    
     public function aboutUs()
     {
         return view('web.main.aboutUs');
