@@ -180,7 +180,7 @@
                                     <li><i class="fa fa-print"></i><a href="#">Print this ad</a></li>
                                     <!-- <li><i class="fa fa-reply"></i><a href="#">Send to a friend</a></li> -->
                                     <li><i class="fa fa-heart-o"></i><a href="{{ route('web.donation.favoriate',$dontaion_post->key) }}">Save post as Favorite</a></li>
-                                    <li><i class="fa fa-exclamation-triangle"></i><a href="{{ route('web.donation.reprot',$dontaion_post->key) }}">Report this Donation post</a></li>
+                                    <li><i class="fa fa-exclamation-triangle"></i><a href="#" data-toggle="modal" data-target="#myModal">Report this Donation post</a></li>
                                 </ul><!-- social-icon -->
                             </div>
                         </div>
@@ -214,6 +214,55 @@
                 </div><!-- row -->
             </div><!-- contaioner -->
         </section><!-- download -->
+         <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Report this Donation post</h4>
+        </div>
+        <form id="contact-form" class="contact-form" name="contact-form" method="post" action="{{ route('web.donation.storereprot',$user_identity)}}">
+            <div class="modal-body">
+                <div class="row">
+                    {{csrf_field()}}
+                    <input type="hidden" name="key" value="{{$user_identity}}"/>
+                    <div class="col-sm-12">
+                        <div class="form-group{{ $errors->has('report_subject') ? ' has-error' : '' }}">
+                            <input name="report_subject" id="report_subject" name="report_subject" class="form-control" value="{{old('report_subject')}}" placeholder="Report Subject"/>
+                            @if ($errors->has('report_subject'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('report_subject') }}</strong>
+                            </span>
+                        @endif
+                        </div>             
+                    </div>     
+                    <div class="col-sm-12">
+                        <div class="form-group{{ $errors->has('report') ? ' has-error' : '' }}">
+                            <textarea name="report" id="report" name="report" class="form-control" value="{{old('report')}}" rows="7" placeholder="Report message ?"></textarea>
+                            @if ($errors->has('report'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('report') }}</strong>
+                            </span>
+                        @endif
+                        </div>             
+                    </div>     
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary pull-right">Submit Your Report</button>
+                </div>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
         <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @push('javaScript')

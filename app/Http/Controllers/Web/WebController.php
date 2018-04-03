@@ -234,11 +234,13 @@ class WebController extends Controller
            return redirect('/user/login');
         }
         $this->validate($request , [
+            'report_subject' => 'required|min:5',
             'report' => 'required|min:10'
         ]);
         $id = DB::table('donation_posts')->where('key',$request->key)->select('key','id')->first();
         DB::table('donation_post_reports')->insert([
            'report' => $request->report,
+           'report_subject' => $request->report_subject,
            'user_id' => $user,
            'donation_post_id' => $id->id,
            'created_at' => new \DateTime(),
@@ -263,7 +265,7 @@ class WebController extends Controller
                                        ->where('donation_post_id',$id->id)
                                        ->update(['status' => !$status ]);     
             if($status){
-                return redirect()->back()->with('success',"This donation is remove from your favoriate list!");
+                return redirect()->back()->with('error',"This donation is remove from your favoriate list!");
             }                                   
         }else{
             DB::table('favorite_posts')->insert([
@@ -278,6 +280,7 @@ class WebController extends Controller
         // $user_identity = $key;
         // return view('web.main.add_to_favoriate',compact('user_identity'));
     }
+    
     public function aboutUs()
     {
         return view('web.main.aboutUs');
@@ -301,11 +304,12 @@ class WebController extends Controller
             $user_type = DB::table('user_types')->where('id',$dontaion_post->user_type_id)->first();
             $user = DB::table('users')->where('id',$dontaion_post->user_id)->select('name','contact','email')->first();
             $donation_type = DB::table('donation_types')->where('id',$dontaion_post->donation_type_id)->first();
+            $user_identity  = $key;
             return view('web.page.details',compact('dontaion_post',
                                                    'donation_images',
                                                    'city', 'user',
                                                    'state', 'donation_type',
-                                                   'country',
+                                                   'country','user_identity',
                                                    'category',
                                                    'subcategory',
                                                    'spectification','user_type'));

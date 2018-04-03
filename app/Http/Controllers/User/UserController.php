@@ -136,7 +136,7 @@ class UserController extends Controller
         }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
-        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('is_complete',0)->where('status',1)->count();
         return view('user.page.pandingDonation',compact('user','total_post'));
     }
 
@@ -160,7 +160,7 @@ class UserController extends Controller
         }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
-        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('is_complete',1)->where('status',1)->count();
       return view('user.page.CompleteDonation',compact('user','total_post'));
     }
 
@@ -185,7 +185,7 @@ class UserController extends Controller
         }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
-        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('is_urgent',1)->where('status',1)->count();
       return view('user.page.urgent',compact('user','total_post'));
     }
 
@@ -196,7 +196,7 @@ class UserController extends Controller
         }
         $id = Auth::guard('user')->user()->id;
         $user = User::where('id',$id)->first();
-        $total_post = DB::table('donation_posts')->where('user_id',$id)->where('status',1)->count();
+        $total_post = DB::table('favourite_posts')->where('user_id',$id)->where('status',1)->count();
       return view('user.page.favoriateDonation',compact('user','total_post'));
     }
 

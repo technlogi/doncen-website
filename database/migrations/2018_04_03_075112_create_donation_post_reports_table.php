@@ -17,6 +17,7 @@ class CreateDonationPostReportsTable extends Migration
             $table->increments('id');
             $table->integer('donation_post_id')->comment('FK_donation_posts');
             $table->integer('user_id')->comment('FK_users');
+            $table->string('report_subject');
             $table->string('report');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

@@ -30,7 +30,7 @@
                                     <!--<li><a href="#">Banner Advertising</a></li>-->
                                     <li><a href="#">Urgent Requirement</a></li>
                                     <!--<li><a href="#">Trade Delivers</a></li>-->
-                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="{{  route('user.faq')}}">FAQ</a></li>
                                 </ul>
                             </div>
                         </div><!-- footer-widget -->

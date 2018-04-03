@@ -21,7 +21,12 @@
                                     </div><!-- language-dropdown -->
     
                                     <div class="dropdown category-dropdown">		
-                                        <input type="text" name="category_box" placeholder="Enter Category" id='category_box'>
+                                        <input type="text"  list="browsers" name="category_box" placeholder="Enter Category" id='category_box'>
+                                        <datalist id="browsers">
+                                            @foreach($categories as $category)
+                                            <option value="{{$category->name}}">
+                                            @endforeach
+                                        </datalist>
                                     </div> 
                                     <div class="dropdown category-dropdown">
                                         <input type="text" name="word_box" placeholder="Type Your key word">
