@@ -15,6 +15,7 @@
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
+                                
                             </div>
                         @endif
                     <h2>Add To Faviorate</h2>
