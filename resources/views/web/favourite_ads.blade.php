@@ -146,7 +146,4 @@
                 </div><!-- row -->
             </div><!-- container -->
         </section><!-- myads-page -->
-
-
-
 @endsection

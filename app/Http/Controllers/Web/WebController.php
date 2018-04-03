@@ -248,6 +248,11 @@ class WebController extends Controller
         return redirect('/user/dashboard');
     }
     
+    public function addToFavoriate($key)
+    {
+        $user_identity = $key;
+        return view('web.main.add_to_favoriate',compact('user_identity'));
+    }
     public function aboutUs()
     {
         return view('web.main.aboutUs');

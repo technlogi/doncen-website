@@ -67,7 +67,7 @@
                         <h4>Urgent Donation</h4>
                         <!-- Nav tabs -->      
                         <ul class="nav nav-tabs" role="tablist">
-
+                        <li role="presentation" value="1" class="categoryTab"><a href="#1" data-toggle="tab">All</a></li>
                         @foreach($categories as $category)
                             <li role="presentation" value="{{ $category->key}}" class="categoryTab"><a href="#{{ $category->key}}"  data-toggle="tab">{{ $category->name }}</a></li>
                         @endforeach
@@ -195,6 +195,7 @@ $(document).ready(function(){
                   $('.appendText').html(data);
            }
         });
+       
     $(document).on('click','.categoryTab',function(){
          key = $(this).attr('value');
          $.ajaxSetup({

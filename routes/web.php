@@ -178,6 +178,8 @@ Route::post('/get-recomanded/list',    [  'uses' => 'Web\SearchController@getRec
 
 Route::get('/donation/report/{key}',   [  'uses' => 'Web\WebController@reportForm',          'as' => 'web.donation.reprot' ]);
 Route::post('/donation/report/{key}',   [  'uses' => 'Web\WebController@storeReport',        'as' => 'web.donation.storereprot' ]);
+Route::get('/donation/favoriate/{key}',   [  'uses' => 'Web\WebController@addToFavoriate',        'as' => 'web.donation.favoriate' ]);
+
 
 Route::post('/get/condition',          ['uses'=> 'Web\SearchController@condition',      'as'=> 'search.condition.condition'           ]);
 Route::post('/get/consideration',      ['uses'=> 'Web\SearchController@consideration',  'as'=> 'search.consideration.consideration'   ]);

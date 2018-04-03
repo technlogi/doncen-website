@@ -297,17 +297,28 @@ class SearchController extends Controller
     //get featured add by donation key
     public function getDonationPost(Request $request)
     {
-        $categories = Category::where('status',1)->where('key',$request->key)->first();
         $results = array();
-        foreach($categories->subcategories as $subcategory){
-            $donations =   DB::table('donation_posts')
-                            ->where('specification_id',$subcategory->id)
+        if($request->key == 1){
+            $results =  DB::table('donation_posts')
                             ->where('status',1)
-                            ->where('is_urgent',1)
-                            ->get ();
-            if(!empty($donations)){
-                foreach($donations as $donation){
-                    array_push($results,$donation);
+                            ->orderBy('created_at','desc')
+                            ->limit(10)
+                            ->get();
+            $categories = array();
+        }else{
+            $categories = Category::where('status',1)->where('key',$request->key)->first();
+        }
+        if(!empty($categories)){
+            foreach($categories->subcategories as $subcategory){
+                $donations =   DB::table('donation_posts')
+                                ->where('specification_id',$subcategory->id)
+                                ->where('status',1)
+                                ->where('is_urgent',1)
+                                ->get ();
+                if(!empty($donations)){
+                    foreach($donations as $donation){
+                        array_push($results,$donation);
+                    }
                 }
             }
         }
