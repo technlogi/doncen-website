@@ -426,7 +426,7 @@ class SearchController extends Controller
     public function getScrollData(Request $request)
     {
         $page = $request->data['page'];
-        $perPage = 1;
+        $perPage = 2;
         $offset = ($page * $perPage) - $perPage;
         $query = DB::table('donation_posts')
                 ->where('status',1)
