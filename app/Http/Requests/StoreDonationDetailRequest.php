@@ -32,14 +32,27 @@ class StoreDonationDetailRequest extends FormRequest
             'condition' =>'required',
             'title' =>'required',
             'description' => 'required',
-            'city' => 'required',
+            'city' => 'required|min:5|regex:/(.*[,]){3}/u',
             'name' =>'required',
             'email' => 'required|email',
             'mobile_no' => 'required|min:9',
-            'address' => 'required|min:5',
+            'address' => 'required|min:5|regex:/(.*[,]){3}/u',
             'helper_email' => 'nullable|email',
             'helper_mobile_no' => 'nullable|min:8',
-            'helper_address'=> 'nullable|min:5'
+            'helper_address'=> 'nullable|min:5|regex:/(.*[,]){3}/u'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'city.required' => 'City filed is required',
+            'city.min' => 'City name must be min 5 character',
+            'city.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)',
+            'address.required' => 'City filed is required',
+            'address.min' => 'City name must be min 5 character',
+            'address.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)',
+            'helper_address.min' => 'City name must be min 5 character',
+            'helper_address.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)',
         ];
     }
 }

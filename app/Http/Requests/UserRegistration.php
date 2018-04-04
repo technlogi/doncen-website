@@ -28,7 +28,15 @@ class UserRegistration extends FormRequest
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'contact' => 'required|min:8|unique:users',
-            'address' => 'required'
+            'address' => 'required|min:5|regex:/(.*[,]){3}/u'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'address.required' => 'Address filed is required',
+            'address.min' => 'Address name must be min 5 character',
+            'address.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)'
         ];
     }
 }

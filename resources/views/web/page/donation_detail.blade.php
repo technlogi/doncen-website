@@ -118,9 +118,9 @@
                                     </div>
                                 </div>
                                 <div class="row form-group ">
-                                    <label class="col-sm-3 label-title">Address<span class="required">*</span></label>
+                                    <label class="col-sm-3 label-title">Donation Address<span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="searchTextField" class="form-control" name="city" placeholder="ex, Enter Address" autocomplete="on">
+                                        <input type="text" id="searchTextField" class="form-control" name="city" placeholder="Ex: (Address, City, State, Country)" autocomplete="on">
                                         @if ($errors->has('city'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('city') }}</strong>
@@ -255,7 +255,7 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Name<span class="required">*</span></label>
+                                        <label class="col-sm-3 label-title">Name<span class="required">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="text" name="name" class="form-control" placeholder="ex, Donecn/Donee">
                                             @if ($errors->has('name'))
@@ -266,7 +266,7 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Email ID</label>
+                                        <label class="col-sm-3 label-title">Email ID</label>
                                         <div class="col-sm-9">
                                             <input type="email" name="email" class="form-control" placeholder="ex, doncen@mail.com" >
                                             @if ($errors->has('email'))
@@ -302,7 +302,7 @@
                                 <div class="section seller-info" id='helper' style='display: none;'>
                                     <h4>Helper Info</h4>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Status<span class="required">*</span></label>
+                                        <label class="col-sm-3 label-title">Status</label>
                                         <div class="col-sm-9">
                                             <input type="radio" name="sellerType" value="individual" checked id="individual">&nbsp;&nbsp;
                                             <label for="individual">Individual</label>&nbsp;&nbsp;
@@ -311,13 +311,13 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Name<span class="required">*</span></label>
+                                        <label class="col-sm-3 label-title">Name</span></label>
                                         <div class="col-sm-9">
                                             <input type="text" name="HFullName" class="form-control" placeholder="ex, Helpar Donecn/Donee">
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Email ID</label>
+                                        <label class="col-sm-3 label-title">Email ID</label>
                                         <div class="col-sm-9">
                                             <input type="email" name="helper_email" class="form-control" placeholder="ex, doncen@mail.com">
                                             @if ($errors->has('helper_email'))
@@ -328,7 +328,7 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Mobile Number<span class="required">*</span></label>
+                                        <label class="col-sm-3 label-title">Mobile Number</span></label>
                                         <div class="col-sm-9">
                                             <input type="text" name="helper_mobile_no" class="form-control" placeholder="ex, +91 000 0000 000">
                                             @if ($errors->has('helper_mobile_no'))

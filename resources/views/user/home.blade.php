@@ -90,8 +90,8 @@
                                         </div>
 
                                         <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                                            <label>Your City</label>
-                                                <input type="text" id="searchTextField" name="city" class="form-control" value="{{ $user->address }}" placeholder="Enter City" id="city_search_box">
+                                            <label>Your Full Address</label>
+                                                <input type="text" id="searchTextField" name="city" class="form-control" value="{{ $user->address }}" placeholder="Ex: (Address, City, State, Country)" id="city_search_box">
                                             @if ($errors->has('city'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('city') }}</strong>

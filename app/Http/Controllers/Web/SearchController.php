@@ -240,13 +240,30 @@ class SearchController extends Controller
                                 <div class="user-option pull-right">
                                  '; 
                               
-                                 if(($user_type->id == '3')  || ($user_type == '1')){
-                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-user"></i> </a>';
-                                 }else{
-                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-users"></i> </a>';
+                                 if($user_type->id == '1'){
+                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-share-square-o"></i> </a>';
+                                 }else if($user_type->id == '3'){
+                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-shopping-basket"></i> </a>';
+                                 }else {
+                                    $print .=  ' <a href="#" data-toggle="tooltip" data-placement="top" title="'. $user_type->name .'"><i class="fa fa-handshake-o"></i> </a>';
                                  }
-                                    $print .=  '<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="Dealer"><i class="fa fa-suitcase"></i> </a>											
-                                </div><!-- item-info-right -->
+
+                                 if(!empty($result->helper_status)){
+                                    if($result->helper_status){
+                                        $print .=  '<a  href="#" data-toggle="tooltip" data-placement="top" title="Organization"><i class="fa fa-building"></i> </a>';
+                                    }else {
+                                        $print .=  '<a  href="#" data-toggle="tooltip" data-placement="top" title="Individual"><i class="fa fa-user-secret"></i> </a>';
+                                    }
+                                }else{
+                                    if($result->d_status){
+                                        $print .=  '<a  href="#" data-toggle="tooltip" data-placement="top" title="Organization"><i class="fa fa-building"></i> </a>';
+                                    }else {
+                                        $print .=  '<a  href="#" data-toggle="tooltip" data-placement="top" title="Individual"><i class="fa fa-user-secret"></i> </a>';
+                                    }
+                                }
+                                 
+                                    
+                                    $print .=  '</div><!-- item-info-right -->
                             </div><!-- ad-meta -->
                         </div><!-- item-info -->
                     </div><!-- ad-item -->';

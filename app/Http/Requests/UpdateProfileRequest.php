@@ -26,7 +26,15 @@ class UpdateProfileRequest extends FormRequest
         return [
             'user_name' => 'required|min:3',
             'email' => 'required|email',
-            'city' => 'required'
+            'city' => 'required|min:5|regex:/(.*[,]){3}/u'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'city.required' => 'City filed is required',
+            'city.min' => 'City name must be min 5 character',
+            'city.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)'
         ];
     }
 }

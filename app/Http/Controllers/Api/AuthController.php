@@ -44,6 +44,12 @@ class AuthController extends Controller
                     'message' => "Invalid credantials."
                 ]);
             }
+        }else{
+            return response()->json([
+                'response_code' => 401,
+                'response' => 'error',
+                'message' => "Contact no not found in database."
+            ]);
         }    
     }
     /**
