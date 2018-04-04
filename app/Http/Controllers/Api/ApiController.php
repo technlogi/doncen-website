@@ -15,7 +15,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "List of All Categories!",
-            'result' => Category::where('status',1)->select('key','name')->get()
+            'result' => Category::where('status',1)->select('key as category_key','name','image')->get()
         ]);
     }
    /**
@@ -26,7 +26,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "List of All Categories!",
-            'result' => Subcategory::where('status',1)->select('key','name')->get()
+            'result' => Subcategory::where('status',1)->select('key as subcategory_key','name')->get()
         ]);
     }
    /**
@@ -37,7 +37,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "List of All Categories!",
-            'result' => Specification::where('status',1)->select('key','name')->get()
+            'result' => Specification::where('status',1)->select('key as specification_key','name')->get()
         ]);
     }
     /**
@@ -45,11 +45,11 @@ class ApiController extends Controller
      */
     public function categoryTosubcategory(Request $request)
     {
-        $category = Category::where('key',$request->key)->where('status',1)->first();
+        $category = Category::where('key',$request->category_key)->where('status',1)->first();
         $results = array();
         foreach($category->subcategories as $subCategory)
         {
-            $sub = array('key'=> $subCategory->key,'name' =>$subCategory->name);
+            $sub = array('subcategory_key'=> $subCategory->key,'name' =>$subCategory->name);
             array_push($results,$sub);
         }
         return response()->json([
@@ -63,11 +63,11 @@ class ApiController extends Controller
      */
     public function subcategoryToSpecification(Request $request)
     {
-        $subcategory = Subcategory::where('key',$request->key)->where('status',1)->first();
+        $subcategory = Subcategory::where('key',$request->subcategory_key)->where('status',1)->first();
         $results = array();
         foreach($subcategory->specifications as $specification)
         {
-            $specific = array('key'=> $specification->key,'name' =>$specification->name);
+            $specific = array('specification_key'=> $specification->key,'name' =>$specification->name);
             array_push($results,$specific);
         }
         return response()->json([
@@ -81,11 +81,11 @@ class ApiController extends Controller
      */
     public function subcategoryToCategory(Request $request)
     {
-        $subcategory = Subcategory::where('key',$request->key)->where('status',1)->first();
+        $subcategory = Subcategory::where('key',$request->subcategory_key)->where('status',1)->first();
         return response()->json([
             'response' => 'success',
             'message' => "detail of category!",
-            'result' => array('key'=>$subcategory->category->key ,'name'=>$subcategory->category->name)
+            'result' => array('category_key'=>$subcategory->category->key ,'name'=>$subcategory->category->name)
         ]);
     }  
     /**
@@ -97,7 +97,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => "detail of subcategory!",
-            'result' => array('key'=>$specifications->subcategory->key,'name' => $specifications->subcategory->name)
+            'result' => array('subcategory_key'=>$specifications->subcategory->key,'name' => $specifications->subcategory->name)
         ]);
     }
 

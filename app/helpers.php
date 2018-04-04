@@ -126,6 +126,13 @@ if(! function_exists('DONATION_POST_IMAGE')){
       return $base_path;
     }
 }
+//return full url for svg images
+if(! function_exists('SVG_IMAGE')){
+    function SVG_IMAGE($image){
+      $base_path = URL::asset('uploads/svg/'.$image);
+      return $base_path;
+    }
+}
 
 
 

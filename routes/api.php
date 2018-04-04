@@ -53,3 +53,4 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('/subcategory-to-category',      'Api\ApiController@subcategoryToCategory'     );
     Route::post('/specification-to-subcategory', 'Api\ApiController@specificationToSubcategory');
 });    
+

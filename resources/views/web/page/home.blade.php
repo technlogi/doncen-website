@@ -55,7 +55,7 @@
                                 <a href="{{ route('home.category.details', $category->key ) }}">
                                     <div class="category-icon">
                                     @if($category->image != '')
-                                        <img src="{{ URL::asset('/uploads/svg/'.$category->image.'') }}" alt="{{$category->name}}">  
+                                        <img src="{{ $category->image }}" alt="{{$category->name}}">  
                                     @endif
                                     </div>
                                     <span class="category-title">{{$category->name}}</span>
@@ -188,18 +188,18 @@
 
 <script>
 $(document).ready(function(){
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-        });
-        $.ajax({
-            type        : 'POST',
-            url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
-            success: function(data){
-                  $('.appendText').html(data);
-           }
-        });
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    });
+    $.ajax({
+        type        : 'POST',
+        url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
+        success: function(data){
+                $('.appendText').html(data);
+        }
+    });
        
     $(document).on('click','.categoryTab',function(){
          key = $(this).attr('value');

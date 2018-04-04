@@ -11,12 +11,12 @@ use \App\Models\City,\App\Models\Category,\App\Models\Specification;
 class SearchController extends Controller
 {
     //on load of page call function to print table
-    public function getItemOnLoad()
+    public function getItemOnLoad(Request $request)
     {
         $donation_posts =  DB::table('donation_posts')
                             ->where('status',1)
                             ->orderBy('created_at','desc')
-                            ->limit(10)
+                            ->limit(2)
                             ->get();
         echo $this->printData($donation_posts,array(), array());
     }
@@ -29,7 +29,7 @@ class SearchController extends Controller
                             ->where('specification_id',$request->data['specification'])
                             ->orWhere('city_id',$request->data['id'])
                             ->orderBy('created_at','desc')
-                            ->limit(10)
+                            ->limit(2)
                             ->get();
         echo $this->printData($donation_posts,array(), array());
     }
@@ -57,42 +57,67 @@ class SearchController extends Controller
     //condition search 
     public function condition(Request $request)
     {
-        if($request->data == '1'){
-            $donation_posts =  DB::table('donation_posts')
-                                ->where('status',1)
-                                ->where('condition',1)
-                                ->orderBy('created_at','desc')
-                                ->limit(10)
-                                ->get();
-        }else{
-            $donation_posts =  DB::table('donation_posts')
-                                ->where('status',1)
-                                ->where('condition',2)
-                                ->orderBy('created_at','desc')
-                                ->limit(10)
-                                ->get();
-        }                   
-        echo $this->printData($donation_posts,array(), array());
+        $resutls = array();
+        if(!empty($request->data)){
+            $condition_ids = explode("&cd=", $request->data);
+            $condition_ids[0] = substr($condition_ids[0], 3);
+            print_r($condition_ids);
+            if(!empty($condition_ids)){
+                session(['scroll.condition_ids' => $condition_ids]);
+                foreach($condition_ids as $condition){
+                    $donation_posts =  DB::table('donation_posts')
+                                        ->where('status',1)
+                                        ->where('condition',$condition)
+                                        ->orderBy('created_at','desc')
+                                        ->get();
+                            if(!empty($donation_posts)){
+                                foreach($donation_posts as $donation_post){
+                                    if(!empty($donation_post)){
+                                        array_push($resutls,$donation_post);
+                                    }                          
+                                }             
+                            }
+                              
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
     }
 
     //consideration search 
     public function consideration(Request $request)
     {
-        if($request->data == '5'){
-            $donation_posts =  DB::table('donation_posts')
+        $resutls = array();
+        if(!empty($request->data)){
+            $considaration_ids = explode("&cs=", $request->data);
+            $considaration_ids[0] = substr($considaration_ids[0], 3);
+            if(!empty($considaration_ids)){
+                session(['scroll.considaration_ids' => $considaration_ids]);
+                foreach($considaration_ids as $considaration_id){
+                        if($considaration_id == 5 ){
+                            $resutls =  DB::table('donation_posts')
+                                        ->where('status',1)
+                                        ->orderBy('created_at','desc')
+                                        ->get();
+                                         break;
+                        }else{
+                            $donation_posts =  DB::table('donation_posts')
                                 ->where('status',1)
+                                ->where('consideration',$considaration_id)
                                 ->orderBy('created_at','desc')
-                                ->limit(10)
                                 ->get();
-        }else{
-            $donation_posts =  DB::table('donation_posts')
-            ->where('status',1)
-            ->where('consideration',$request->data)
-            ->orderBy('created_at','desc')
-            ->limit(10)
-            ->get();
-        }                        
-        echo $this->printData($donation_posts,array(), array());
+                            if(!empty($donation_posts)){
+                                foreach($donation_posts as $donation_post){
+                                    if(!empty($donation_post)){
+                                        array_push($resutls,$donation_post);
+                                    }                          
+                                }             
+                            }
+                        }        
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
     }
 
     //category search 
@@ -103,6 +128,7 @@ class SearchController extends Controller
             $user_type_ids = explode("&ut=", $request->data);
             $user_type_ids[0] = substr($user_type_ids[0], 3);
             if(!empty($user_type_ids)){
+                session(['scroll.user_type_ids' => $user_type_ids]);
                 foreach($user_type_ids as $user_type_id){
                         $donation_posts =  DB::table('donation_posts')
                                             ->where('status',1)
@@ -249,7 +275,7 @@ class SearchController extends Controller
                                     ->where('status',1)
                                     ->where('is_urgent',1)
                                     ->orderBy('created_at','desc')
-                                    ->limit(10)
+                                    ->limit(2)
                                     ->get();
                 echo $this->printData($donation_posts,array(), array());
         }else{
@@ -323,13 +349,14 @@ class SearchController extends Controller
             $results =  DB::table('donation_posts')
                             ->where('status',1)
                             ->orderBy('created_at','desc')
-                            ->limit(10)
+                            ->limit(2)
                             ->get();
             $categories = array();
         }else{
             $categories = Category::where('status',1)->where('key',$request->key)->first();
         }
         if(!empty($categories)){
+            session(['scroll.categories' => $categories]);
             foreach($categories->subcategories as $subcategory){
                 $donations =   DB::table('donation_posts')
                                 ->where('specification_id',$subcategory->id)
@@ -354,6 +381,7 @@ class SearchController extends Controller
             $specification_ids = explode("&sp=", $request->data);
             $specification_ids[0] = substr($specification_ids[0], 3);
             if(!empty($specification_ids)){
+                session(['scroll.specification_ids' => $specification_ids]);
                 foreach($specification_ids as $specification_id){
                         $donation_posts =  DB::table('donation_posts')
                                             ->where('status',1)
@@ -379,6 +407,7 @@ class SearchController extends Controller
             $donation_ids = explode("&td=", $request->data);
             $donation_ids[0] = substr($donation_ids[0], 3);
             if(!empty($donation_ids)){
+                session(['scroll.donation_ids' => $donation_ids]);
                     foreach($donation_ids as $donation_id){
                     $donation_posts =  DB::table('donation_posts')->where('donation_type_id',$donation_id)->where('status',1)->get();
                     if(!empty($donation_posts)){
@@ -394,10 +423,49 @@ class SearchController extends Controller
         echo $this->printData($resutls,array(), array());
     }
 
+    public function getScrollData(Request $request)
+    {
+        $page = $request->data['page'];
+        $perPage = 1;
+        $offset = ($page * $perPage) - $perPage;
+        $query = DB::table('donation_posts')
+                ->where('status',1)
+                ->orderBy('created_at','desc');
+
+        if ($request->session()->has('scroll.donation_ids')){
+            foreach($request->session()->get('scroll.donation_ids') as $donation_id){
+                $query->orWhere('donation_type_id', '=', $donation_id);
+            }
+        }
+        if ($request->session()->has('scroll.specification_ids')){
+            foreach($request->session()->get('scroll.specification_ids') as $specification_id){
+                $query->orWhere('specification_id', '=', $specification_id);
+            }
+        }
+        if ($request->session()->has('scroll.considaration_ids')){
+            foreach($request->session()->get('scroll.considaration_ids') as $considaration_id){
+                $query->orWhere('consideration', '=', $considaration_id);
+            }
+        }
+        if ($request->session()->has('scroll.condition_id')){
+            foreach($request->session()->get('scroll.condition_id') as $condition_id){
+                $query->orWhere('condition', '=',  $condition_id);
+            }
+        }
+        if ($request->session()->has('scroll.user_type_ids')){
+            foreach($request->session()->get('scroll.user_type_ids') as $user_type_id){
+                $query->orWhere('donation_type_id', '=', $user_type_id);
+            }
+        }
+        $donation_posts = $query->get();
+        $dontion = $donation_posts->slice($offset,$perPage); 
+        echo $this->printData($dontion,array(), array());
+    }
+
     //get list of product 
     public function getMyDonation(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')->where('status',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(2)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
@@ -408,7 +476,7 @@ class SearchController extends Controller
     //list of urgent donation of user by user id
     public function getUrgentRequirement(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_urgent',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_urgent',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(2)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
@@ -419,7 +487,7 @@ class SearchController extends Controller
     //list of all complete donation by user
     public function getCompleteDonation(Request $requset)
     {
-        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',1) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(2)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{
@@ -429,7 +497,7 @@ class SearchController extends Controller
     
     public function getpandingDonation(Request $request)
     {
-        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',0) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(10)    ->get();
+        $donation_posts =  DB::table('donation_posts')->where('status',1)->where('is_complete',0) ->where('user_id',Auth::guard('user')->user()->id)    ->orderBy('created_at','desc')    ->limit(2)    ->get();
         if(!empty($donation_posts[0])){                    
             echo $this->printData($donation_posts,array(), array());
         }else{

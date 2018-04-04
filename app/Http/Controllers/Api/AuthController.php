@@ -80,8 +80,8 @@ class AuthController extends Controller
                 // } 
                 
                 $user = User::where('contact',$request->contact)->first();
-                $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
-                SMS_GATEWAY($request->contact,$message);
+                // $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
+                // SMS_GATEWAY($request->contact,$message);
                 return response()->json([
                     'response' => 'success',
                     'message' => ['success' => "OTP has been sent." ,'otp' =>$user->otp, 'key' =>$user->key  ]

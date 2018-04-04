@@ -54,7 +54,7 @@ class UserController extends Controller
             return redirect()->route('login')->with('error','You must login first.');
         }
         $city_name = explode(', ',$request->city);
-        // // ===============================================================================================
+        // ===============================================================================================
         // print_r($city_name);
         // $length = sizeof($city_name);
         //  if($length >= 1){       
@@ -66,8 +66,7 @@ class UserController extends Controller
         //             $city = DB::table('cities')->where('name','LIKE',$country_name)->first();
         //             if(empty($city)){
         //                 $id = DB::table('countries')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
-        //                 $id = DB::table('states')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
-                        
+        //                 $state_id = DB::table('states')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'country_id'=>$id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
         //             }else{
         //                 return $city;
         //             }

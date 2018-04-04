@@ -176,6 +176,7 @@ Route::get('/donation/detail/{key}',['uses' =>'Web\WebController@donationDetail'
 Route::post('/get-featured',           [  'uses' => 'Web\SearchController@getDonationPost',         'as' => 'web.home.getDonation' ]);
 Route::post('/get-featured/list',      [  'uses' => 'Web\SearchController@getItemOnLoad',           'as' => 'web.home.getItemOnLoad' ]);
 Route::post('/get-recomanded/list',    [  'uses' => 'Web\SearchController@getRecomandatePost',      'as' => 'web.detail.getRecomandatePost' ]);
+Route::post('/get-scrollData',         [  'uses' => 'Web\SearchController@getScrollData',           'as' => 'web.home.getScrollData' ]);
 
 Route::get('/donation/report/{key}',      [  'uses' => 'Web\WebController@reportForm',          'as' => 'web.donation.reprot' ]);
 Route::post('/donation/report/{key}',     [  'uses' => 'Web\WebController@storeReport',         'as' => 'web.donation.storereprot' ]);

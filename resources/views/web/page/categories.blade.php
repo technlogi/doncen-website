@@ -135,8 +135,10 @@
                                         <div id="accordion-two" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="new"><input type="checkbox" name="new" id="newSearch"> New</label>
-                                                <label for="used"><input type="checkbox" name="used" id="usedSearch"> Used</label>
+                                            <form method="post" id="conditionForm">
+                                                <label for="new"><input type="checkbox" class="conditionInput" name="cd" id="newSearch" value="1"> New</label>
+                                                <label for="used"><input type="checkbox" class="conditionInput" name="cd" id="usedSearch" value="2"> Used</label>
+                                            </form>     
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -156,10 +158,12 @@
                                         <div id="accordion-three" class="panel-collapse collapse">
                                             <!-- panel-body -->
                                             <div class="panel-body">
-                                                <label for="any"><input type="checkbox" name="" id="anyConsideration"> Any</label>
-                                                <label for="free"><input type="checkbox" name="used" id="freeConsideration"> Free</label>
-                                                <label for="monetary"><input type="checkbox" name="" id="monetaryConsideration"> Monetary</label>
-                                                <label for="non-monetary"><input type="checkbox" name="used" id="nonMonetaryConsideration"> Non-Monetary</label>
+                                            <form method="post" id="considerationTypeForm">
+                                                <label for="any"><input type="checkbox" name="cs" id="anyConsideration" value="5"> Any</label>
+                                                <label for="free"><input type="checkbox" name="cs" id="freeConsideration" value="0"> Free</label>
+                                                <label for="monetary"><input type="checkbox" name="cs" id="monetaryConsideration" value="2"> Monetary</label>
+                                                <label for="non-monetary"><input type="checkbox" name="cs" id="nonMonetaryConsideration" value="1"> Non-Monetary</label>
+                                            </form>    
                                             </div><!-- panel-body -->
                                         </div>
                                     </div><!-- panel -->
@@ -185,7 +189,7 @@
                                     </div><!-- panel -->
 
                                     <!-- panel -->
-<div class="panel-default panel-faq">
+                                    <div class="panel-default panel-faq">
                                         <!-- panel-heading -->
                                         <div class="panel-heading">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#preference">
@@ -227,6 +231,7 @@
                                     </div>							
                                 </div><!-- featured-top -->	
                              <div class="appendText"></div>
+                             <div class="ajax-loading"><img src="{{ asset('images/uploads/loading.gif') }}" /></div>
                             </div>
                         </div><!-- recommended-ads -->
                     </div>	
@@ -251,110 +256,113 @@
 @push('javaScript')
 <script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
 <script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
-
 <script>
+
 $(function(){
+    var page = 1; //track user scroll as page number, right now page number is 1
+    $(window).scroll(function() { //detect page scroll
+        if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
+            page++; //page number increment
+            append_html("{{ URL::route('web.home.getScrollData')}}",{page: page});
+        }
+    });         
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-  function call_ajax(url,data){
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    function append_html(url,data){
+            $.ajax({
+            type        : 'POST',
+            url         : url, // the url where we want to POST
+            data        : {data: data},
+            beforeSend: function()
+            {
+                $('.ajax-loading').show();
+            },
+            success: function(data){
+                if(data.length == 0){
+                    $('.ajax-loading').html("<div class='alert alert-info'><center>No more records!</center></div>");
+                    return;
+                }
+                $('.ajax-loading').hide(); 
+                $('.appendText').append(data);
             }
         });
-        $.ajax({
-        type        : 'POST',
-        url         : url, // the url where we want to POST
-        data        : {data: data},
-        success: function(data){
-            $('.appendText').html(data);
-        }
-    });
-  }
-  call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",0);
-  
-  $("#city_search_box").autocomplete({
-    source: function(request, response) {
+    }
+    function call_ajax(url,data){
         $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-           });
-            $.ajax({
-                type: "POST",
-                url: "{{ route('home.search.city') }}",
-                dataType: "json",
-                data: {
-                    city : request.term
-                },
-                success: function(data) {
-                    response(data);
-                }
             });
-        },
-    minLength: 2,
-  });
-  $("#category_box").autocomplete({
+            $.ajax({
+            type        : 'POST',
+            url         : url, // the url where we want to POST
+            data        : {data: data},
+            beforeSend: function()
+            {
+                $('.ajax-loading').show();
+            },
+            success: function(data){
+                if(data.length == 0){
+                    $('.ajax-loading').html("<div class='alert alert-info'><center>No more records!</center></div>");
+                    return;
+                }
+                $('.ajax-loading').hide(); 
+                $('.appendText').html(data);
+            }
+        });
+    }
+    call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",{page: 0});
+  
+    $("#city_search_box").autocomplete({
         source: function(request, response) {
             $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-           });
-            $.ajax({
-                type: "POST",
-                url: "{{ route('home.search.category') }}",
-                dataType: "json",
-                data: {
-                    category : request.term
-                },
-                success: function(data) {
-                    response(data);
-                }
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
             });
-        },
-      minLength: 1,
-  });
-  $("#search_form").submit(function(e){
-    e.preventDefault();
-    call_ajax("{{ route('home.searchPage.searchItem') }}",$(this).serializeArray());
-  });
-    //drop down search
-  $("#dropdownSearch").on('click',function(){
-      call_ajax( "{{ route('search.dropdown.search') }}",$(this).val());
-  });
-
-       ///category wise search
-  $(".donationTypeCategory").click(function() {
-    //   console.log($('#donationTypeForm').serialize());
-      call_ajax("{{ URL::route('search.donationcategories.Type')}}",$('#donationTypeForm').serialize());
-  });
-        ///anyConsideration wise search
-  $("#anyConsideration").on('click',function(){
-    call_ajax("{{ URL::route('search.consideration.consideration')}}",5);
-  });
-  $("#freeConsideration").on('click',function(){
-    call_ajax("{{ URL::route('search.consideration.consideration')}}",0);
-  });
-  $("#monetaryConsideration").on('click',function(){
-    call_ajax("{{ URL::route('search.consideration.consideration')}}",1);
-  });
-  $("#nonMonetaryConsideration").on('click',function(){
-    call_ajax("{{ URL::route('search.consideration.consideration')}}",2);
-  });
-
-     //condition wise search
-  $("#newSearch").on('click',function(){
-    call_ajax("{{ URL::route('search.condition.condition')}}",1);
-  });
-  $("#usedSearch").on('click',function(){
-    call_ajax("{{ URL::route('search.condition.condition')}}",2);
-  });
-
-
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('home.search.city') }}",
+                    dataType: "json",
+                    data: {
+                        city : request.term
+                    },
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+        minLength: 2,
+    });
+    $("#category_box").autocomplete({
+            source: function(request, response) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('home.search.category') }}",
+                    dataType: "json",
+                    data: {
+                        category : request.term
+                    },
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+        minLength: 1,
+    });
+    $("#search_form").submit(function(e){
+        e.preventDefault();
+        call_ajax("{{ route('home.searchPage.searchItem') }}",$(this).serializeArray());
+    });
+    //Get list of category and subcateegory
     $('.categoryClass').click(function() {
         call_ajax("{{ URL::route('search.categories.category')}}",$('#myForm').serialize());
     });
@@ -370,6 +378,26 @@ $(function(){
         });
     });
 
+    //drop down search
+    $("#dropdownSearch").on('click',function(){
+        call_ajax( "{{ route('search.dropdown.search') }}",$(this).val());
+    });
+
+    //category wise search
+    $(".donationTypeCategory").click(function() {
+        call_ajax("{{ URL::route('search.donationcategories.Type')}}",$('#donationTypeForm').serialize());
+    });
+
+    //anyConsideration wise search
+    $("#considerationTypeForm").click(function() {
+        call_ajax("{{ URL::route('search.consideration.consideration')}}",$('#considerationTypeForm').serialize());
+    });
+
+    //condition wise search
+    $(".conditionInput").click(function() {
+         call_ajax("{{ URL::route('search.condition.condition')}}",$('#conditionForm').serialize());
+    });
+   
     $(document).on('click','.selectSubCategory',function(){
         $.ajax({
             type        : 'POST',
