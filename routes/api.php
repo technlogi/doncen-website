@@ -57,10 +57,11 @@ Route::group(['middleware' => ['api','cors']], function () {
                    ///// Dontation Deatils/////
                   ////////////////////////////
     Route::post('/submit/donation',           'Api\ApiController@submitDonationForm');
-    Route::post('/donations',                 'Api\ApiController@getAllDonation');
+    Route::post('/donations',                 'Api\ApiController@donations');
     
-    Route::post('/get-donation',                 'Api\ApiController@getDonation');
+    // Route::post('/get-donation',                 'Api\ApiController@getDonation');
     
+    // Route::post('/list/donations' , 'Api\ApiController@donations');
      
 });    
 

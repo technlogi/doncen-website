@@ -126,6 +126,14 @@ if(! function_exists('DONATION_POST_IMAGE')){
       return $base_path;
     }
 }
+//user image
+if(! function_exists('USER_IMAGE')){
+    function USER_IMAGE($image){
+      $company_url =  env('COMPANY_URL');
+      $base_path = URL::asset('images/uploads/users/'.$image);
+      return $base_path;
+    }
+}
 //return full url for svg images
 if(! function_exists('SVG_IMAGE')){
     function SVG_IMAGE($image){

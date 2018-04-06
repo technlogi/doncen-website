@@ -351,5 +351,145 @@ class ApiController extends Controller
             ];
         }  
     }
+    /**
+     * Document of all post and formate 
+     * make image url and give full detail 
+     * also give all empty result
+      */
+    public function searchPost($donation_posts)
+    {
+        $results = array();
+        if(!empty($donation_posts)){
+            foreach($donation_posts as $donation_post){
+                //$donation_posts = DB::table('donation_posts')->where('status',1)->get();
+                $user = User::where('id',$donation_post->user_id)->where('status',1)->first();
+                $specifications = Specification::where('id',$donation_post->specification_id)->first();
+                $subcategory = $specifications->subcategory;
+                $category = $subcategory->category;
+                $user_type = DB::table('user_types')->where('id',$donation_post->user_type_id)->first();
+                $donation_type = DB::table('donation_types')->where('id',$donation_post->donation_type_id)->first();
+                $condition = $donation_post->condition == 1 ? "New" : "old";
+                $is_complete = $donation_post->is_complete ? "Complete" : "Pandding" ;
+                $status = $donation_post->status ? "Active" : "Deactive" ;
+                $helper_status = $donation_post->helper_status ? "Organization" : "Individual" ;
+                $d_status = $donation_post->d_status ? "Organization" : "Individual" ;
+                $is_urgent = $donation_post->is_urgent ? "Urgent" : "" ;
+                $urgent_reason =  $donation_post->urgent_reason ? $donation_post->urgent_reason : "" ;
+                $consideration = $donation_post->consideration ? $donation_post->consideration ==1 ? "Non-Monetary" : "Monetary" : "Free" ;
+                $urgent_reason =  $donation_post->urgent_reason ? $donation_post->urgent_reason : "" ;
+                $donation_image = DB::table('donation_images')->where('donation_post_id',$donation_post->id)->where('status',1)->first();
+                    if(!empty($donation_image)){
+                        $image = DONATION_POST_IMAGE($donation_image->image);
+                    }else{
+                        $image = DONATION_POST_IMAGE('preview.jpg');
+                    }
+                    if(!empty($user->profile_pic)){
+                        $user_image = USER_IMAGE($user->profile_pic);
+                    }else{
+                        $user_image = USER_IMAGE('preview.jpg');
+                    }
+                    $donation_posts =  DB::table('donation_posts')
+                                        ->select('key','post_no','title','description','address','lat',
+                                                    'long','helper_name',
+                                                    'helper_email',
+                                                    'helper_contact',
+                                                    'helper_address','d_name',
+                                                    'd_email',
+                                                    'd_contact',
+                                                    'd_address')
+                                        ->where('id',$donation_post->id)
+                                        ->first();
+                array_push($results,
+                    array(
+                        'key' =>$donation_post->key,
+                        'post_no' =>$donation_post->post_no,
+                        'donation_image' => $image,
+                        'donation_title' =>$donation_post->title,
+                        'donation_description' =>$donation_post->description,
+                        'donation_address' =>$donation_post->address,
+                        'donation_latitude' =>$donation_post->lat,
+                        'donation_longitude' =>$donation_post->long,
+                        'helper_name' =>$donation_post->helper_name,
+                        'helper_email' =>$donation_post->helper_email,
+                        'helper_contact' =>$donation_post->helper_contact,
+                        'helper_address' =>$donation_post->helper_address,
+                        'd_name' =>$donation_post->d_name,
+                        'd_email' =>$donation_post->d_email,
+                        'd_contact' =>$donation_post->d_contact,
+                        'd_address' =>$donation_post->d_address, 
+                        'user_name' => $user->name,
+                        'user_image' =>  $user_image,
+                        'specifications' => $specifications->name,
+                        'subcategory' => $subcategory->name,
+                        'category' => $category->name,
+                        'user_type' => $user_type->name,
+                        'donation_type' => $donation_type->name,
+                        'is_complete' => $is_complete,
+                        'condition' => $condition,
+                        'donation_status' => $status,
+                        'd_status' => $d_status,
+                        'is_urgent' => $is_urgent,
+                        'urgent_reason' => $urgent_reason,
+                        'consideration' => $consideration
+                    )
+                ) ;           	
+
+            }
+        }
+       return $results;
+    }
+    /**
+     * Get all post if page=0 
+     * else 
+     *  return 10 post when on behalf of page no
+     */
+    public function donations(Request $request)
+    {
+        $page = $request->offset ? $request->offset : 0;
+        $perPage = 2;
+        $offset = $page ?  ($page * $perPage) - $perPage : 0;
+
+        $query = DB::table('donation_posts')
+                ->where('status',1)
+                ->orderBy('created_at','desc');
+
+        if (!empty($request->donation_type_ids)){
+            $donation_type_ids = explode(', ',$request->donation_type_ids);
+            $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
+        }
+        // if (!empty($request->category_ids)){
+        //     $category_ids = explode(', ',$request->category_ids);
+        //     foreach($category_ids as $category_id){
+        //        $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
+        //     }
+        // }
+        // if (!empty($request->subcategory_ids)){
+        //     $subcategory_ids = explode(', ',$request->subcategory_ids);
+        //     foreach($subcategory_ids as $subcategory_id){
+        //        $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
+        //     }
+        // }
+        if (!empty($request->specification_ids)){
+            $specification_ids = explode(', ',$request->specification_ids);
+            $query->orWhereIn('specification_id',array_values($specification_ids));
+        }
+        if (!empty($request->conditions)){
+            $conditions = explode(', ',$request->conditions);
+            $query->orWhereIn('condition',array_values($conditions));
+        }
+        if (!empty($request->considerations)){
+            $considerations = explode(', ',$request->considerations);
+            $query->orWhereIn('consideration',array_values($considerations));
+        }
+        
+        $donation_posts = $query->get();
+        $dontions = $page ?  $donation_posts->slice($offset,$perPage) : $donation_posts; 
+        return response()->json([
+            'response' => 'success',
+            'message' => "List of donations",
+            'offset' => $page,
+            'results'=> $this->searchPost($dontions)
+        ]); 
+    }
 
 }
