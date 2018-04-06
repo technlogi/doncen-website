@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Api\Validate;
+use App\Http\Services\Api\ApiServices;
 use \App\Models\Category,\App\Models\Subcategory,\App\Models\User,\App\Models\Specification;
 use DB;
 class ApiController extends Controller
 {
     protected $validate;
-    
-    public function __construct(Validate $validate)
+    protected $apiService;
+
+    public function __construct(Validate $validate,ApiServices $apiService)
     {
         $this->validate = $validate;
+        $this->apiService = $apiService;
     }
    /**
     * List of all category
@@ -112,7 +115,8 @@ class ApiController extends Controller
     /**
      *  Donation form
     */
-    public function submitDonationForm(Request $request){
+    public function submitDonationForm(Request $request)
+    {
       if($this->validate->validateDonationForm($request)) return $this->validate->validateDonationForm($request);
       if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
   
@@ -122,7 +126,7 @@ class ApiController extends Controller
             return [
                 'response_code' => 401,
                 'response' => 'error',
-                'message' => 'User Is not valid.',
+                'message' => 'Invalid User.',
             ];
         }
         try{
@@ -166,24 +170,18 @@ class ApiController extends Controller
                 'status' =>1 ,
                 'created_at'=> new \DateTime(),
                 'updated_at'=> new \DateTime()
-             ]);
-            if ($request->hasFile('image_file')) {
-                $files = $request->file('image_file');
-                foreach($files as $file){
-                    $extension = $file->getClientOriginalExtension();
-                    $fileName = $id."-".date('ymdhis')."-".str_random(4).".".$extension;
-                    $folderpath  = base_path('images/uploads/donation_post/');
-                    $file->move($folderpath , $fileName);
-                    DB::table('donation_images')->insert([
-                        'donation_post_id' => $id ,
-                        'key' => generateKey(12),
-                        'image' => $fileName,
-                        'status' =>1 ,
-                        'created_at'=> new \DateTime(),
-                        'updated_at'=> new \DateTime()
-                    ]);
-                }
-            }
+            ]);
+ 
+            if(!empty($request->image_file1))
+                $this->apiService->uploadDonationImage($request->image_file1,$id);
+            if(!empty($request->image_file2))
+                $this->apiService->uploadDonationImage($request->image_file2,$id);
+            if(!empty($request->image_file3))
+                $this->apiService->uploadDonationImage($request->image_file3,$id);
+            if(!empty($request->image_file4))
+                $this->apiService->uploadDonationImage($request->image_file4,$id);
+          
+              
             return response()->json([
                 'response' => 'success',
                 'message' => "Donation Form create successfully",
