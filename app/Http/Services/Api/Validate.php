@@ -311,6 +311,197 @@
             }
 
     }
+    
+        
+    /**
+     *  Donation form validation
+      */
+    public function validateDonationForm($request)
+    {
+        $validator = Validator::make($request->all(), ['title'=> 'required']);
+        if ($validator->fails()) {
+                return [ 'response_code' => 401 ,
+                        'response' => 'error',
+                        'message'=> "The title field is required."
+                        ];            
+        }
+        $validator = Validator::make($request->all(), ['title' => 'min:5']);
+        if ($validator->fails()) {
+            return [ 'response_code' => 401 ,
+                     'response' => 'error',
+                     'message'=> 'The title field must have min 5 character.'
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['description' => 'required']);
+        if ($validator->fails()) {
+            return [ 'response_code' => 401 ,
+                     'response' => 'error',
+                     'message'=> 'The Description field is required.'
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['description' => 'min:10']);
+        if ($validator->fails()) {
+            return [ 'response_code' => 401 ,
+                     'response' => 'error',
+                     'message'=> 'The Description field must have min 10 character.'
+                    ];            
+        }
+      
+        $validator = Validator::make($request->all(), ['donation'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Donation field is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['donation_type'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Donation Type field is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['preference_gender'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Preference Gender field is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['preference_age'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Preference age field is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['condition'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Please select condition of donation."
+                    ];            
+        }
 
+        $validator = Validator::make($request->all(), ['image_file'=> 'required']);
+        if ($validator->fails()) {
+                return [ 'response_code' => 401 ,
+                        'response' => 'error',
+                        'message'=> "The title field is required."
+                        ];            
+        }
+        $validator = Validator::make($request->all(), ['image_file'=> 'mimes:jpeg,jpg,png,gif']);
+        if ($validator->fails()) {
+                return [ 'response_code' => 401 ,
+                        'response' => 'error',
+                        'message'=> "please select valid image formate."
+                        ];            
+        }
+        $validator = Validator::make($request->all(), ['mobile_no'=> 'required']);
+        if ($validator->fails()) {
+                return [ 'response_code' => 401 ,
+                        'response' => 'error',
+                        'message'=> "The mobile no field is required."
+                        ];            
+        }
+        $validator = Validator::make($request->all(), ['mobile_no' => 'regex:/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/']);
+        if ($validator->fails()) {
+        return [ 'response_code' => 401 ,
+                'response' => 'error',
+                'message'=> 'The Mobile Number must be 10 digit without country code.'
+                ];            
+        }
+        $validator = Validator::make($request->all(), ['helper_mobile_no' => 'nullable|regex:/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/']);
+        if ($validator->fails()) {
+        return [ 'response_code' => 401 ,
+                'response' => 'error',
+                'message'=> 'The Helper Mobile Number must be 10 digit without country code.'
+                ];            
+        }
+        $validator = Validator::make($request->all(), ['email' => 'nullable|email']);
+        if ($validator->fails()) {
+                return [ 'response_code'=>401,
+                         'response' => 'error',
+                         'message'=> "The email must be a valid email address."
+                ];            
+        }
+        $validator = Validator::make($request->all(), ['helper_email' => 'nullable|email']);
+        if ($validator->fails()) {
+                return [ 'response_code'=>401,
+                         'response' => 'error',
+                         'message'=> "The email must be a valid email address."
+                ];            
+        }
+        $validator = Validator::make($request->all(), ['name' => 'required']);
+        if ($validator->fails()) {
+                return [ 'response_code'=>401,
+                         'response' => 'error',
+                         'message'=> "The name filed is required."
+                ];            
+        }
+        $validator = Validator::make($request->all(), ['city'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Address filed is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['city'=> 'min:6']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Adress must be min 5 character."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['city'=> 'regex:/(.*[,]){3}/u']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Please Enter proper address. Ex: (Address, City, State, Country)."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['helper_address'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Address filed is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['helper_address'=> 'min:6']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Adress must be min 5 character."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['helper_address'=> 'regex:/(.*[,]){3}/u']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Please Enter proper address. Ex: (Address, City, State, Country)."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['address'=> 'required']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "The Helper Address filed is required."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['address'=> 'min:6']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Helper Address must be min 5 character."
+                    ];            
+        }
+        $validator = Validator::make($request->all(), ['address'=> 'regex:/(.*[,]){3}/u']);
+        if ($validator->fails()) {
+            return ['response_code'=>401,
+                    'response' => 'error',
+                    'message'=>  "Please Enter proper address. Ex: (Address, City, State, Country)."
+                    ];            
+        }
+    }
  }
  

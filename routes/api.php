@@ -52,5 +52,12 @@ Route::group(['middleware' => ['api','cors']], function () {
                             /* Backward RelationShiop */
     Route::post('/subcategory-to-category',      'Api\ApiController@subcategoryToCategory'     );
     Route::post('/specification-to-subcategory', 'Api\ApiController@specificationToSubcategory');
+
+                    /////////////////////////
+                   ///// Dontation Deatils//
+                  /////////////////////////
+    Route::post('/submit/donation',           'Api\ApiController@submitDonationForm');
+    Route::post('/donations',                 'Api\ApiController@getAllDonation');
+     
 });    
 
