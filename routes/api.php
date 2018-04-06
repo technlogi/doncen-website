@@ -53,11 +53,14 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('/subcategory-to-category',      'Api\ApiController@subcategoryToCategory'     );
     Route::post('/specification-to-subcategory', 'Api\ApiController@specificationToSubcategory');
 
-                    /////////////////////////
-                   ///// Dontation Deatils//
-                  /////////////////////////
+                    ////////////////////////////
+                   ///// Dontation Deatils/////
+                  ////////////////////////////
     Route::post('/submit/donation',           'Api\ApiController@submitDonationForm');
     Route::post('/donations',                 'Api\ApiController@getAllDonation');
+    
+    Route::post('/get-donation',                 'Api\ApiController@getDonation');
+    
      
 });    
 

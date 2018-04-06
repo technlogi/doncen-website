@@ -219,21 +219,31 @@ class ApiController extends Controller
             $urgent_reason =  $donation_post->urgent_reason ? $donation_post->urgent_reason : "" ;
             $consideration = $donation_post->consideration ? $donation_post->consideration ==1 ? "Non-Monetary" : "Monetary" : "Free" ;
             $urgent_reason =  $donation_post->urgent_reason ? $donation_post->urgent_reason : "" ;
-            
-            $donation_posts =  DB::table('donation_posts')
-                                ->select('key','post_no','title','description','address','lat',
-                                'long','helper_name',
-                                'helper_email',
-                                'helper_contact',
-                                'helper_address','d_name',
-                                'd_email',
-                                'd_contact',
-                                'd_address')
-                                ->where('id',$donation_post->id)
+            $donation_image = DB::table('donation_images')
+                                ->where('donation_post_id',$donation_post->id)
+                                ->where('status',1)
                                 ->first();
-          array_push($results,array(
+                if(!empty($donation_image)){
+                    $image = DONATION_POST_IMAGE($donation_image->image);
+                }else{
+                    $image = DONATION_POST_IMAGE('preview.jpg');
+                }
+                $donation_posts =  DB::table('donation_posts')
+                                    ->select('key','post_no','title','description','address','lat',
+                                    'long','helper_name',
+                                    'helper_email',
+                                    'helper_contact',
+                                    'helper_address','d_name',
+                                    'd_email',
+                                    'd_contact',
+                                    'd_address')
+                                    ->where('id',$donation_post->id)
+                                    ->first();
+           array_push($results,
+            array(
                 'key' =>$donation_post->key,
                 'post_no' =>$donation_post->post_no,
+                'image' => $image,
                 'title' =>$donation_post->title,
                 'description' =>$donation_post->description,
                 'address' =>$donation_post->address,
@@ -247,20 +257,21 @@ class ApiController extends Controller
                 'donner_email' =>$donation_post->d_email,
                 'donner_contact' =>$donation_post->d_contact,
                 'donner_address' =>$donation_post->d_address, 
-               'user_name' => $user->name,
-               'specifications' => $specifications->name,
-               'subcategory' => $subcategory->name,
-               'category' => $category->name,
-               'user_type' => $user_type->name,
-               'donation_type' => $donation_type->name,
-               'is_complete' => $is_complete,
-               'condition' => $condition,
-               'status' => $status,
-               'd_status' => $d_status,
-               'is_urgent' => $is_urgent,
-               'urgent_reason' => $urgent_reason,
-               'consideration' => $consideration
-          )) ;           	
+                'user_name' => $user->name,
+                'specifications' => $specifications->name,
+                'subcategory' => $subcategory->name,
+                'category' => $category->name,
+                'user_type' => $user_type->name,
+                'donation_type' => $donation_type->name,
+                'is_complete' => $is_complete,
+                'condition' => $condition,
+                'status' => $status,
+                'd_status' => $d_status,
+                'is_urgent' => $is_urgent,
+                'urgent_reason' => $urgent_reason,
+                'consideration' => $consideration
+            )
+          ) ;           	
 
         }
         return [
@@ -270,9 +281,75 @@ class ApiController extends Controller
         ];
     }
     
+    /**
+     * Get Specific donation on based of key
+    */
     public function getDonation(Request $request)
     {
-        if($this->validate->validateKey($request)) return $this->validate->validateKey($request);  
+       if($this->validate->validateKey($request)) return $this->validate->validateKey($request);  
+        if(DB::table('donation_posts')->where('key',$request->key)->count() > 0 ){
+            $donation_post = DB::table('donation_posts')->where('key',$request->key)
+                                        ->where('status',1)
+                                        ->first();
+            $donation_image = DB::table('donation_images')
+                                    ->where('donation_post_id',$donation_post->id)
+                                    ->where('status',1)
+                                    ->first();
+            if(!empty($donation_image)){
+                $image = DONATION_POST_IMAGE($donation_image->image);
+            }else{
+                $image = DONATION_POST_IMAGE('preview.jpg');
+            }
+            $user_type = DB::table('user_types')->where('id',$donation_post->user_type_id)->first();
+            $user = User::where('id',$donation_post->user_id)->where('status',1)->first();
+            $donation_type   = DB::table('donation_types')->where('id',$donation_post->donation_type_id)->first();
+            $specifications  = Specification::where('id',$donation_post->specification_id)->first();
+            $subcategory     = $specifications->subcategory;
+            $category        = $subcategory->category;
+            $array =   array(
+                'key' =>$donation_post->key,
+                'post_no' =>$donation_post->post_no,
+                'image' => $image,
+                'title' =>$donation_post->title,
+                'description' =>$donation_post->description,
+                'address' =>$donation_post->address,
+                'latitude' =>$donation_post->lat,
+                'longitude' =>$donation_post->long,
+                'helper_name' =>$donation_post->helper_name,
+                'helper_email' =>$donation_post->helper_email,
+                'helper_contact' =>$donation_post->helper_contact,
+                'helper_address' =>$donation_post->helper_address,
+                'donner_name' =>$donation_post->d_name,
+                'donner_email' =>$donation_post->d_email,
+                'donner_contact' =>$donation_post->d_contact,
+                'donner_address' =>$donation_post->d_address, 
+                'user_name' => $user->name,
+                'specifications' => $specifications->name,
+                'subcategory' => $subcategory->name,
+                'category' => $category->name,
+                'user_type' => $user_type->name,
+                'donation_type' => $donation_type->name,
+                'is_complete' => $donation_post->is_complete ? "Complete" : "Pandding",
+                'condition' => $donation_post->condition == 1 ? "New" : "old",
+                'status' => $donation_post->status ? "Active" : "Deactive" ,
+                'd_status' => $donation_post->d_status ? "Organization" : "Individual",
+                'is_urgent' => $donation_post->is_urgent ? "Urgent" : "" ,
+                'urgent_reason' => $donation_post->urgent_reason ? $donation_post->urgent_reason : "" ,
+                'consideration' =>  $donation_post->consideration ? $donation_post->consideration ==1 ? "Non-Monetary" : "Monetary" : "Free",
+                'created_at' => $donation_post->created_at
+            );
+           return response()->json([
+                'response' => 'success',
+                'message' => "Specifica donation with key:-".$request->key."" ,
+                'results'=> $array
+            ]); 
+        }else{
+            return [
+                'response_code' => 401,
+                'response' => 'error',
+                'message' => 'Invalid Key.',
+            ];
+        }  
     }
 
 }

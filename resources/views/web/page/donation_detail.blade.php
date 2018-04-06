@@ -8,9 +8,9 @@
             <!-- breadcrumb -->
             <ol class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
-                <li>Ad Post</li>
+                <li>Donate Now</li>
             </ol><!-- breadcrumb -->						
-            <h2 class="title">Mobile Phones</h2>
+            <h2 class="title">Donation Detail Form</h2>
         </div><!-- banner -->
         <div class="adpost-details">
             <div class="row">	
