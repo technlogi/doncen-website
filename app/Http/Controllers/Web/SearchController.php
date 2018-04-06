@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
-use \App\Models\City,\App\Models\Category,\App\Models\Specification;
+use \App\Models\City,\App\Models\Category,\App\Models\Subcategory,\App\Models\Specification;
 
 class SearchController extends Controller
 {
@@ -488,6 +488,70 @@ class SearchController extends Controller
         }else{
             echo '<div class="alert alert-info">There is no Donation Post.</div>';
         }
+    }
+    //Cateogry for on click to show data
+    public function getCategoryData(Request $request)
+    {
+        $resutls = array();
+        if(!empty($request->data)){
+            $category_ids = explode("&ct=", $request->data);
+            $category_ids[0] = substr($category_ids[0], 3);
+            if(!empty($category_ids)){
+                foreach($category_ids as $category_id){
+                    $categories = Category::where('id',$category_id)->first();
+                    if(!empty($categories)){
+                        foreach($categories->subcategories as $subcatogry) {
+                            if(!empty($subcatogry)){
+                                foreach($subcatogry->specifications as $specification) {
+                                    $donation_posts =  DB::table('donation_posts')
+                                                        ->where('status',1)
+                                                        ->where('specification_id',$specification->id)
+                                                        ->get();
+                                    if(!empty($donation_posts)){
+                                        foreach($donation_posts as $donation_post){
+                                            if(!empty($donation_post)){
+                                                array_push($resutls,$donation_post);
+                                            }                          
+                                        }             
+                                    }
+                                }    
+                           }
+                        }  
+                    }    
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
+    }
+    //SubCateogry for on click to show data
+    public function getsubCategoryData(Request $request)
+    {
+        $resutls = array();
+        if(!empty($request->data)){
+            $subcateogry_ids = explode("&st=", $request->data);
+            $subcateogry_ids[0] = substr($subcateogry_ids[0], 3);
+            if(!empty($subcateogry_ids)){
+                foreach($subcateogry_ids as $subcateogry_id){
+                    $subcatogry = Subcategory::where('id',$subcateogry_id)->first();
+                    if(!empty($subcatogry)){
+                        foreach($subcatogry->specifications as $specification) {
+                            $donation_posts =  DB::table('donation_posts')
+                                                ->where('status',1)
+                                                ->where('specification_id',$specification->id)
+                                                ->get();
+                            if(!empty($donation_posts)){
+                                foreach($donation_posts as $donation_post){
+                                    if(!empty($donation_post)){
+                                        array_push($resutls,$donation_post);
+                                    }                          
+                                }             
+                            }
+                        }    
+                    }
+                }
+            } 
+        }
+        echo $this->printData($resutls,array(), array());
     }
 
     //list of urgent donation of user by user id

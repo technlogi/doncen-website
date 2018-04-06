@@ -451,34 +451,56 @@ class ApiController extends Controller
                 ->where('status',1)
                 ->orderBy('created_at','desc');
 
-        if (!empty($request->donation_type_ids)){
-            $donation_type_ids = explode(', ',$request->donation_type_ids);
-            $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
-        }
-        // if (!empty($request->category_ids)){
-        //     $category_ids = explode(', ',$request->category_ids);
-        //     foreach($category_ids as $category_id){
-        //        $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
-        //     }
-        // }
-        // if (!empty($request->subcategory_ids)){
-        //     $subcategory_ids = explode(', ',$request->subcategory_ids);
-        //     foreach($subcategory_ids as $subcategory_id){
-        //        $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
-        //     }
-        // }
-        if (!empty($request->specification_ids)){
-            $specification_ids = explode(', ',$request->specification_ids);
-            $query->orWhereIn('specification_id',array_values($specification_ids));
-        }
-        if (!empty($request->conditions)){
-            $conditions = explode(', ',$request->conditions);
-            $query->orWhereIn('condition',array_values($conditions));
-        }
-        if (!empty($request->considerations)){
-            $considerations = explode(', ',$request->considerations);
-            $query->orWhereIn('consideration',array_values($considerations));
-        }
+            if (!empty($request->donation_type_ids)){
+                $donation_type_ids = explode(', ',$request->donation_type_ids);
+                $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
+            }
+            if (!empty($request->category_ids)){
+                $category_ids = explode(', ',$request->category_ids);
+                $ids = array();
+                if(!empty($category_ids)){
+                    foreach($category_ids as $category_id){
+                        $category = Category::where('id',$category_id)->where('status',1)->first();
+                        if(!empty($category)){
+                            foreach($category->subcategories as $subcatogry) {
+                                if(!empty($subcatogry)){
+                                    foreach($subcatogry->specifications as $specification) {
+                                        array_push($ids,$specification->id);
+                                    }    
+                                }
+                            }  
+                        }    
+                    }
+                } 
+                $query->orWhereIn('specification_id',array_values($ids));
+            }
+            if (!empty($request->subcategory_ids)){
+                $subcategory_ids = explode(', ',$request->subcategory_ids);
+                $ids = array();
+                if(!empty($subcategory_ids)){
+                    foreach($subcategory_ids as $subcateogry_id){
+                        $subcatogry = Subcategory::where('id',$subcateogry_id)->where('status',1)->first();
+                            if(!empty($subcatogry)){
+                                foreach($subcatogry->specifications as $specification) {
+                                    array_push($ids,$specification->id);
+                                }    
+                            }
+                    }
+                }
+                $query->orWhereIn('specification_id',array_values($ids)); 
+            }
+            if (!empty($request->specification_ids)){
+                $specification_ids = explode(', ',$request->specification_ids);
+                $query->orWhereIn('specification_id',array_values($specification_ids));
+            }
+            if (!empty($request->conditions)){
+                $conditions = explode(', ',$request->conditions);
+                $query->orWhereIn('condition',array_values($conditions));
+            }
+            if (!empty($request->considerations)){
+                $considerations = explode(', ',$request->considerations);
+                $query->orWhereIn('consideration',array_values($considerations));
+            }
         
         $donation_posts = $query->get();
         $dontions = $page ?  $donation_posts->slice($offset,$perPage) : $donation_posts; 

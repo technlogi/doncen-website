@@ -368,6 +368,7 @@ $(function(){
     });
 
     $('.selectCategory').click(function() {
+        call_ajax("{{ URL::route('web.home.getCategoryData')}}",$('#categoryForm').serialize());
         $.ajax({
             type        : 'POST',
             url         : "{{ URL::route('search.category.subcategory') }}", // the url where we want to POST
@@ -378,6 +379,8 @@ $(function(){
         });
     });
 
+
+    
     //drop down search
     $("#dropdownSearch").on('click',function(){
         call_ajax( "{{ route('search.dropdown.search') }}",$(this).val());
@@ -399,6 +402,7 @@ $(function(){
     });
    
     $(document).on('click','.selectSubCategory',function(){
+        call_ajax("{{ URL::route('web.home.getsubCategoryData')}}",$('#subCategoryForm').serialize());
         $.ajax({
             type        : 'POST',
             url         : "{{ URL::route('search.subcategory.specification') }}", // the url where we want to POST
