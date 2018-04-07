@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Api\Validate;
 use App\Http\Services\Api\ApiServices;
-use \App\Models\Category,\App\Models\Subcategory,\App\Models\User,\App\Models\Specification;
+use \App\Models\Category,\App\Models\Subcategory,\App\Models\Specification,
+    \App\Models\User, \App\Models\City;
 use DB;
 class ApiController extends Controller
 {
@@ -454,6 +455,16 @@ class ApiController extends Controller
             if (!empty($request->donation_type_ids)){
                 $donation_type_ids = explode(', ',$request->donation_type_ids);
                 $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
+            }
+            if(!empty($request->city_name)){
+                $city_name = explode(', ',$request->city_name);
+                $city = \App\Models\City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
+                $query->where('city_id','=',array_values($ids));
+                if(!empty($request->keyword))
+                {
+                    $query->orWhere('description','LIKE','%'.$request->keyword.'%');
+                    $query->orWhere('title','LIKE','%'.$request->keyword.'%');
+                }
             }
             if (!empty($request->category_ids)){
                 $category_ids = explode(', ',$request->category_ids);
