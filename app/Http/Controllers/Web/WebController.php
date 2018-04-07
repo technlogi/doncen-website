@@ -74,8 +74,9 @@ class WebController extends Controller
            return redirect('/user/login');
         }
         
-        $city_name = explode(', ',$request->city);
-        $city = City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
+        $search = explode(', ',$request->city);
+        $city = cheak_for_city($search);
+
         $specification = Specification::where('key',$request->key)->first();
         $id =  DB::table('donation_posts')->insertGetId([
             'key'=> generateKey(14),

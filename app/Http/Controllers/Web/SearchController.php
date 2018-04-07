@@ -13,11 +13,14 @@ class SearchController extends Controller
     //on load of page call function to print table
     public function getItemOnLoad(Request $request)
     {
+        $page = $request->data['page'];
+        $perPage = 2;
+        $offset = ($page * $perPage) - $perPage;
         $donation_posts =  DB::table('donation_posts')
                             ->where('status',1)
                             ->orderBy('created_at','desc')
-                            ->limit(2)
                             ->get();
+       $dontion = $donation_posts->slice($offset,$perPage); 
         echo $this->printData($donation_posts,array(), array());
     }
 

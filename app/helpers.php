@@ -182,4 +182,56 @@ if(! function_exists('SMS_GATEWAY')){
 }
 
 
+if(!function_exists('cheak_for_city')){
+  function cheak_for_city($search){
+    $length = sizeof($search);
+    if($length >= 3){       
+        $country_name = $search[ $length - 1 ];
+        $state_name   = $search[ $length - 2 ];
+        $city_name    = $search[ $length - 3 ];
+
+        $country_check_country = DB::table('countries')->where('name','LIKE',$country_name)->first();
+        if(empty($country_check_country)){
+            $state_check_country = DB::table('states')->where('name','LIKE',$country_name)->first();
+            if(empty($state_check_country)){
+                $city_cheak_country = DB::table('cities')->where('name','LIKE',$country_name)->first();
+                if(empty($city_cheak_country)){
+                    $country = DB::table('countries')->insertGetId(['name' =>$country_name,'key'=>generateKey(8),'sort_name'=>$country_name,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+                }else{
+                    return $city_cheak_country;
+                }
+            }
+        }
+        $state_check_country = DB::table('countries')->where('name','LIKE',$state_name)->first();
+        if(empty($state_check_country)){
+            $state_check_state = DB::table('states')->where('name','LIKE',$state_name)->first();
+            if(empty($state_check_state)){
+                $city_check_state = DB::table('cities')->where('name','LIKE',$state_name)->first();
+                if(empty($city_check_state)){
+                    $country = DB::table('countries')->where('name','LIKE',$country_name)->first();
+                    DB::table('state')->insertGetId(['name' =>$state_name,'key'=>generateKey(8),'country_id'=>$country->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+                }else{
+                    return $city_check_state;
+                }
+            }
+        }
+        $city_check_country = DB::table('countries')->where('name','LIKE',$city_name)->first();
+        if(empty($city_check_country)){
+            $city_check_state = DB::table('states')->where('name','LIKE',$city_name)->first();
+            if(empty($city_check_state)){
+                $city_check_city = DB::table('cities')->where('name','LIKE',$city_name)->first();
+                if(empty($city_check_city)){
+                    $state = DB::table('states')->where('name','LIKE',$state_name)->first();
+                    DB::table('cities')->insertGetId(['name' =>$city_name,'key'=>generateKey(8),'state_id'=>$state->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+                   $city = DB::table('cities')->where('name','LIKE',$city_name)->first();
+                   return $city;
+                }else{
+                    return $city_check_city;
+                }
+            }
+        }
+     }  
+    }
+}
+
 

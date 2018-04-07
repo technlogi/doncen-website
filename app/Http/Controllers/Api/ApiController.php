@@ -131,8 +131,8 @@ class ApiController extends Controller
             ];
         }
         try{
-            $city_name = explode(', ',$request->donation_address);
-            $city = City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
+            $search = explode(', ',$request->donation_address);
+            $city = cheak_for_city($search);
             $specification = Specification::where('key',$request->specification_key)->first();
             $id =  DB::table('donation_posts')->insertGetId([
                 'key'=> generateKey(14),
@@ -457,9 +457,9 @@ class ApiController extends Controller
                 $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
             }
             if(!empty($request->city_name)){
-                $city_name = explode(', ',$request->city_name);
-                $city = \App\Models\City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
-                $query->where('city_id','=',array_values($ids));
+                $search = explode(', ',$request->city_name);
+                $city = cheak_for_city($search);
+                $query->orWhere('city_id','=',$city->id);
                 if(!empty($request->keyword))
                 {
                     $query->orWhere('description','LIKE','%'.$request->keyword.'%');

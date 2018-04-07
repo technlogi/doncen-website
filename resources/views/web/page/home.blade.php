@@ -188,19 +188,29 @@
 
 <script>
 $(document).ready(function(){
+    var page = 1; //track user scroll as page number, right now page number is 1
+    $(window).scroll(function() { //detect page scroll
+        if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
+            page++; //page number increment
+            append_html("{{ URL::route('web.home.getItemOnLoad')}}",{page: page});
+        }
+    });       
     $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
     });
-    $.ajax({
-        type        : 'POST',
-        url         : "{{ URL::route('web.home.getItemOnLoad')}}", // the url where we want to POST
-        success: function(data){
-                $('.appendText').html(data);
-        }
-    });
-       
+    append_html("{{ URL::route('web.home.getItemOnLoad')}}",{page: 0});
+    function append_html(url , data) {
+        $.ajax({
+            type        : 'POST',
+            url         : url, // the url where we want to POST
+            data         : {data :data},
+            success: function(data){
+                    $('.appendText').html(data);
+            }
+        });
+    }
     $(document).on('click','.categoryTab',function(){
          key = $(this).attr('value');
          $.ajaxSetup({
