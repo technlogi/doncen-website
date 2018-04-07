@@ -121,8 +121,8 @@ class ApiController extends Controller
       if($this->validate->validateDonationForm($request)) return $this->validate->validateDonationForm($request);
       if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
   
-        if (User::where('key',$request->key)->count() > 0 ){
-          $user = User::where('key',$request->key)->first()->id;
+        if (User::where('key',$request->user_id)->count() > 0 ){
+          $user = User::where('key',$request->user_id)->first()->id;
         }else{
             return [
                 'response_code' => 401,
@@ -463,9 +463,9 @@ class ApiController extends Controller
                 $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
             }
             if(!empty($request->city_name)){
-                // $search = explode(', ',$request->city_name);
-                // $city = check_for_city($search);
-                $query->orWhere('city_id','=',$city->id);
+                $city_name = explode(', ',$request->city_name);
+                $city_ids = search_city( $city_name[0] ); //helper for find city ids
+                $query->orWhereIn('city_id',array_values($city_ids));
                 if(!empty($request->keyword))
                 {
                     $query->orWhere('description','LIKE','%'.$request->keyword.'%');
@@ -531,6 +531,57 @@ class ApiController extends Controller
                   $query->where('is_urgent',1);  
                 else
                   $query->where('status',1);  
+            }
+            if(!empty($request->user_urgent_donations)){
+                if (User::where('key',$request->key)->count() > 0 ){
+                    $user = User::where('key',$request->key)->first()->id;
+                }else{
+                    return [
+                        'response_code' => 401,
+                        'response' => 'error',
+                        'message' => 'Invalid User.',
+                    ];
+                }
+                $query->where('is_urgent',1);
+                $query->where('user_id',$user);
+            }
+            if(!empty($request->user_complete_donations)){
+                if (User::where('key',$request->key)->count() > 0 ){
+                    $user = User::where('key',$request->key)->first()->id;
+                }else{
+                    return [
+                        'response_code' => 401,
+                        'response' => 'error',
+                        'message' => 'Invalid User.',
+                    ];
+                }
+                $query->where('is_complete',1);
+                $query->where('user_id',$user);
+            }
+            if(!empty($request->user_pandding_donations)){
+                if (User::where('key',$request->key)->count() > 0 ){
+                    $user = User::where('key',$request->key)->first()->id;
+                }else{
+                    return [
+                        'response_code' => 401,
+                        'response' => 'error',
+                        'message' => 'Invalid User.',
+                    ];
+                }
+                $query->where('is_complete',0);
+                $query->where('user_id',$user);
+            }
+            if(!empty($request->user_all_donations)){
+                if (User::where('key',$request->key)->count() > 0 ){
+                    $user = User::where('key',$request->key)->first()->id;
+                }else{
+                    return [
+                        'response_code' => 401,
+                        'response' => 'error',
+                        'message' => 'Invalid User.',
+                    ];
+                }
+                $query->where('user_id',$user);
             }
         
         $donation_posts = $query->get();
