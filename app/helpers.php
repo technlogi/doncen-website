@@ -182,8 +182,8 @@ if(! function_exists('SMS_GATEWAY')){
 }
 
 
-if(!function_exists('cheak_for_city')){
-  function cheak_for_city($search){
+if(!function_exists('check_for_city')){
+  function check_for_city($search){
     $length = sizeof($search);
     if($length >= 3){       
         $country_name = $search[ $length - 1 ];

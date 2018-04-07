@@ -132,7 +132,11 @@ class ApiController extends Controller
         }
         try{
             $search = explode(', ',$request->donation_address);
-            $city = cheak_for_city($search);
+            $city = check_for_city($search);
+            $d_search = explode(', ',$request->address);
+            $d_city = check_for_city($d_search);
+            $helper_address_search = explode(', ',$request->helper_address);
+            $helper_city = check_for_city($helper_address_search);
             $specification = Specification::where('key',$request->specification_key)->first();
             $id =  DB::table('donation_posts')->insertGetId([
                 'key'=> generateKey(14),
@@ -162,11 +166,13 @@ class ApiController extends Controller
                 'd_name'	=> $request->name ,
                 'd_email'=> $request->email ,
                 'd_contact'=> $request->mobile_no ,
+                'd_city_id' => $d_city->id,
                 'd_address'=> $request->address ,
                 'helper_status'=> $request->helper_status ,                                       // 0-Individual | 1-Organization	
                 'helper_name'=> $request->helper_name ,
                 'helper_email'=> $request->helper_email ,
                 'helper_contact'=> $request->helper_contact ,
+                'helper_city_id' => $helper_city->id,
                 'helper_address'	=> $request->helper_address, 
                 'status' =>1 ,
                 'created_at'=> new \DateTime(),
@@ -457,8 +463,8 @@ class ApiController extends Controller
                 $query->orWhereIn('donation_type_id',array_values($donation_type_ids));
             }
             if(!empty($request->city_name)){
-                $search = explode(', ',$request->city_name);
-                $city = cheak_for_city($search);
+                // $search = explode(', ',$request->city_name);
+                // $city = check_for_city($search);
                 $query->orWhere('city_id','=',$city->id);
                 if(!empty($request->keyword))
                 {

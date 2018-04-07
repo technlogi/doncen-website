@@ -75,7 +75,11 @@ class WebController extends Controller
         }
         
         $search = explode(', ',$request->city);
-        $city = cheak_for_city($search);
+        $city = check_for_city($search);
+        $d_search = explode(', ',$request->address);
+        $d_city = check_for_city($d_search);
+        $helper_address_search = explode(', ',$request->helper_address);
+        $helper_city = check_for_city($helper_address_search);
 
         $specification = Specification::where('key',$request->key)->first();
         $id =  DB::table('donation_posts')->insertGetId([
@@ -106,11 +110,13 @@ class WebController extends Controller
             'd_name'	=> $request->name ,
             'd_email'=> $request->email ,
             'd_contact'=> $request->mobile_no ,
+            'd_city_id' => $d_city->id,
             'd_address'=> $request->address ,
             'helper_status'=> $request->helper_status ,                                       // 0-Individual | 1-Organization	
             'helper_name'=> $request->helper_name ,
             'helper_email'=> $request->helper_email ,
             'helper_contact'=> $request->helper_contact ,
+            'helper_city_id' => $helper_city->id,
             'helper_address'	=> $request->helper_address, 
             'status' =>1 ,
             'created_at'=> new \DateTime(),

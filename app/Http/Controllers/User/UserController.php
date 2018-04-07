@@ -54,7 +54,7 @@ class UserController extends Controller
             return redirect()->route('login')->with('error','You must login first.');
         }
         $search = explode(', ',$request->city);
-        $city = cheak_for_city($search);
+        $city = check_for_city($search);
          User::where('id',Auth::guard('user')->user()->id)
          ->update([
              'city_id' => $city->id,

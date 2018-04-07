@@ -27,7 +27,7 @@ class RegistrationController extends Controller
     {
       try{
         $search = explode(', ',$request->address);
-        $city = cheak_for_city($search);
+        $city = check_for_city($search);
        $user = User::create([
             'key'=> generateKey(1),
             'name' => $request->name,

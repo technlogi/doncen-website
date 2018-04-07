@@ -22,9 +22,9 @@
     
                                     <div class="dropdown category-dropdown">		
                                         <input type="text"  list="browsers" name="category_box" placeholder="Enter Category" id='category_box'>
-                                        <datalist id="browsers">
+                                        <datalist id="browsers" >
                                             @foreach($categories as $category)
-                                            <option value="{{$category->name}}">
+                                            <option value="{{$category->name}}" >
                                             @endforeach
                                         </datalist>
                                     </div> 
@@ -188,6 +188,13 @@
 
 <script>
 $(document).ready(function(){
+    function initializeAddress() {
+      var input = document.getElementById('search_text');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
     var page = 1; //track user scroll as page number, right now page number is 1
     $(window).scroll(function() { //detect page scroll
         if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
@@ -227,49 +234,49 @@ $(document).ready(function(){
            }
       });
     });
-    $("#search_text").autocomplete({
-        source: function(request, response) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-           });
-            $.ajax({
-                type: "POST",
-                url: "{{ route('home.search.city') }}",
-                dataType: "json",
-                data: {
-                    city : request.term
-                },
-                success: function(data) {
-                    response(data);
+    // $("#search_text").autocomplete({
+    //     source: function(request, response) {
+    //         $.ajaxSetup({
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //        });
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "{{ route('home.search.city') }}",
+    //             dataType: "json",
+    //             data: {
+    //                 city : request.term
+    //             },
+    //             success: function(data) {
+    //                 response(data);
                     
-                }
-            });
-        },
-      minLength: 2,
-    });
-    $("#category_box").autocomplete({
-        source: function(request, response) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-           });
-            $.ajax({
-                type: "POST",
-                url: "{{ route('home.search.category') }}",
-                dataType: "json",
-                data: {
-                    category : request.term
-                },
-                success: function(data) {
-                    response(data);
-                }
-            });
-        },
-      minLength: 1,
-    });
+    //             }
+    //         });
+    //     },
+    //   minLength: 2,
+    // });
+    // $("#category_box").autocomplete({
+    //     source: function(request, response) {
+    //         $.ajaxSetup({
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //        });
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "{{ route('home.search.category') }}",
+    //             dataType: "json",
+    //             data: {
+    //                 category : request.term
+    //             },
+    //             success: function(data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //   minLength: 1,
+    // });
     $("#search_form").submit(function(e){
     e.preventDefault();
     });

@@ -24,7 +24,12 @@
                             </div><!-- language-dropdown -->
 
                             <div class="dropdown category-dropdown">		
-                                <input type="text" name="category_box" placeholder="Enter Category" id='category_box'>
+                               <input type="text"  list="browsers" name="category_box" placeholder="Enter Category" id='category_box'>
+                                <datalist id="browsers" >
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->name}}" >
+                                    @endforeach
+                                </datalist>
                             </div> 
                             <div class="dropdown category-dropdown">
                                 <input type="text" name="word_box" placeholder="Type Your key word">
@@ -261,6 +266,15 @@
 <script>
 
 $(function(){
+    function initializeAddress() {
+      var input = document.getElementById('city_search_box');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+   
+   google.maps.event.addDomListener(window, 'load', initializeAddress);
     var page = 1; //track user scroll as page number, right now page number is 1
     $(window).scroll(function() { //detect page scroll
         if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
@@ -318,48 +332,48 @@ $(function(){
     }
     call_ajax("{{ URL::route('web.home.getItemOnLoad')}}",{page: 0});
   
-    $("#city_search_box").autocomplete({
-        source: function(request, response) {
-            $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('home.search.city') }}",
-                    dataType: "json",
-                    data: {
-                        city : request.term
-                    },
-                    success: function(data) {
-                        response(data);
-                    }
-                });
-            },
-        minLength: 2,
-    });
-    $("#category_box").autocomplete({
-            source: function(request, response) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('home.search.category') }}",
-                    dataType: "json",
-                    data: {
-                        category : request.term
-                    },
-                    success: function(data) {
-                        response(data);
-                    }
-                });
-            },
-        minLength: 1,
-    });
+    // $("#city_search_box").autocomplete({
+    //     source: function(request, response) {
+    //         $.ajaxSetup({
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 }
+    //         });
+    //             $.ajax({
+    //                 type: "POST",
+    //                 url: "{{ route('home.search.city') }}",
+    //                 dataType: "json",
+    //                 data: {
+    //                     city : request.term
+    //                 },
+    //                 success: function(data) {
+    //                     response(data);
+    //                 }
+    //             });
+    //         },
+    //     minLength: 2,
+    // });
+    // $("#category_box").autocomplete({
+    //         source: function(request, response) {
+    //             $.ajaxSetup({
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 }
+    //         });
+    //             $.ajax({
+    //                 type: "POST",
+    //                 url: "{{ route('home.search.category') }}",
+    //                 dataType: "json",
+    //                 data: {
+    //                     category : request.term
+    //                 },
+    //                 success: function(data) {
+    //                     response(data);
+    //                 }
+    //             });
+    //         },
+    //     minLength: 1,
+    // });
     $("#search_form").submit(function(e){
         e.preventDefault();
         call_ajax("{{ route('home.searchPage.searchItem') }}",$(this).serializeArray());
