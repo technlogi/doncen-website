@@ -17,7 +17,7 @@
 
                     <!-- banner-form -->
                     <div class="banner-form banner-form-full">
-                        <form  id="search_form">
+                    <form method="post" id="search_form" action="#">
                                 <!-- language-dropdown -->
                             <div class="dropdown category-dropdown"> 						
                                 <input type="text" name="city_search_box" placeholder="Enter City" id="city_search_box">
@@ -266,15 +266,15 @@
 <script>
 
 $(function(){
-    function initializeAddress() {
-      var input = document.getElementById('city_search_box');
-      var options = {
-        types: ['geocode'] //this should work !
-      };
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-    }
+//     function initializeAddress() {
+//       var input = document.getElementById('city_search_box');
+//       var options = {
+//         types: ['geocode'] //this should work !
+//       };
+//       var autocomplete = new google.maps.places.Autocomplete(input, options);
+//     }
    
-   google.maps.event.addDomListener(window, 'load', initializeAddress);
+//    google.maps.event.addDomListener(window, 'load', initializeAddress);
     var page = 1; //track user scroll as page number, right now page number is 1
     $(window).scroll(function() { //detect page scroll
         if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
@@ -374,9 +374,10 @@ $(function(){
     //         },
     //     minLength: 1,
     // });
+    
     $("#search_form").submit(function(e){
-        e.preventDefault();
-        call_ajax("{{ route('home.searchPage.searchItem') }}",$(this).serializeArray());
+         e.preventDefault();
+        call_ajax("{{ route('home.searchPage.searchItem') }}",{page: 0 ,data: $('#search_form').serializeArray()});
     });
     //Get list of category and subcateegory
     $('.categoryClass').click(function() {
@@ -395,8 +396,6 @@ $(function(){
         });
     });
 
-
-    
     //drop down search
     $("#dropdownSearch").on('click',function(){
         call_ajax( "{{ route('search.dropdown.search') }}",$(this).val());
@@ -428,6 +427,7 @@ $(function(){
             }
         });
     });
+    
     $(document).on('click','.selectSpecifiction',function(){
         call_ajax("{{ URL::route('search.specification.list')}}",$('#specificationForm').serialize());
     });

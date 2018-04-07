@@ -17,7 +17,7 @@
                                  <form method="post" id="search_form" action="#">
                                      <!-- language-dropdown -->
                                     <div class="dropdown category-dropdown"> 						
-                                        <input type="text" name="search_text" placeholder="Enter City" id='search_text'>
+                                        <input type="text" name="city_search_box" placeholder="Enter City" id='search_text'>
                                     </div><!-- language-dropdown -->
     
                                     <div class="dropdown category-dropdown">		
@@ -278,7 +278,7 @@ $(document).ready(function(){
     //   minLength: 1,
     // });
     $("#search_form").submit(function(e){
-    e.preventDefault();
+         e.preventDefault();
     });
 });
 </script>

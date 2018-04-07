@@ -181,7 +181,7 @@ if(! function_exists('SMS_GATEWAY')){
     }
 }
 
-
+//search for city and cheak user exits or not
 if(!function_exists('check_for_city')){
   function check_for_city($search){
     $length = sizeof($search);
@@ -233,5 +233,50 @@ if(!function_exists('check_for_city')){
      }  
     }
 }
+
+if(!function_exists('search_city')){
+  function search_city($city_name){
+    $country_check_country = DB::table('countries')->where('name','LIKE',$city_name)->first();
+    if(empty($country_check_country)){
+        $state_check_country = DB::table('states')->where('name','LIKE',$city_name)->first();
+        if(empty($state_check_country)){
+            $city_cheak_country = DB::table('cities')->where('name','LIKE',$city_name)->first();
+            if(empty($city_cheak_country)){
+                return array();
+            }else{
+                return array('0'=> $city_cheak_country->id );
+            }
+        }else{
+            $city_ids = array();
+            $state = \App\Models\State::where('id',$state_check_country->id)->first();
+            if(!empty($state)){
+                foreach($state->cities as $city){
+                    if(!empty($city)){
+                        array_push($city_ids,$city->id);
+                    }
+                }
+            }
+            return $city_ids;
+        }
+    }else{
+        $city_ids = array();
+        $country = \App\Models\Country::where('id',$country_check_country->id)->first();
+        if(!empty($country)){
+            foreach($country->states as $state){
+                if(!empty($state)){
+                    foreach($state->cities as $city){
+                        if(!empty($city)){
+                            array_push($city_ids,$city->id);
+                        }
+                    }
+                }
+            }
+        }
+        return $city_ids;
+    }
+  }
+}
+
+
 
 
