@@ -283,19 +283,36 @@ class SearchController extends Controller
             $donation_posts =  DB::table('donation_posts')
                                 ->where('status',1)
                                 ->orderBy('created_at','desc')
-                                ->limit(5)
                                 ->get();
                                 
             echo $this->printData($donation_posts,array(), array());
         }elseif ($request->data == 3) { 
                 $donation_posts =  DB::table('donation_posts')
                                     ->where('status',1)
-                                    ->where('is_urgent',1)
-                                    ->orderBy('created_at','desc')
-                                    ->limit(2)
+                                    ->orderBy('created_at','asc')
                                     ->get();
                 echo $this->printData($donation_posts,array(), array());
-        }else{
+        }elseif ($request->data == 4) { 
+            $donation_posts =  DB::table('donation_posts')
+                                ->where('status',1)
+                                ->orderBy('consideration_detail','asc')
+                                ->get();
+            echo $this->printData($donation_posts,array(), array());
+       }elseif ($request->data == 5) { 
+          $donation_posts =  DB::table('donation_posts')
+                            ->where('status',1)
+                            ->orderBy('consideration_detail','desc')
+                            ->get();
+            echo $this->printData($donation_posts,array(), array());
+        }elseif ($request->data == 6) { 
+            $donation_posts =  DB::table('donation_posts')
+                                ->where('status',1)
+                                ->where('is_urgent',1)
+                                ->orderBy('created_at','desc')
+                                ->get();
+            echo $this->printData($donation_posts,array(), array());
+        }
+       else{
             $donation_posts =  DB::table('donation_posts')
                                 ->where('status',1)
                                 ->get();

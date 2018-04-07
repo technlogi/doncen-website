@@ -130,28 +130,28 @@ class ApiController extends Controller
             ];
         }
         try{
-            $city_name = explode(', ',$request->city);
+            $city_name = explode(', ',$request->donation_address);
             $city = City::where('name','LIKE','%'.$city_name[sizeof($city_name)-3].'%')->first();
-            $specification = Specification::where('key',$request->key)->first();
+            $specification = Specification::where('key',$request->specification_key)->first();
             $id =  DB::table('donation_posts')->insertGetId([
                 'key'=> generateKey(14),
                 'post_no'=> generatePostNO(),
                 'user_id' =>  $user	,
                 'specification_id'=> $specification->id, 
-                'user_type_id' => $request->donation,
+                'user_type_id' => $request->user_type_id,
                 'title' => $request->title,
                 'description'=> $request->description,
                 'condition' => $request->condition,
                 'city_id' =>$city->id ,
-                'address' => $request->city,
-                'lat' => '',
-                'long' => '',
-                'system_code' =>$request->ip(),
-                'donation_type_id' => $request->donation_type,
+                'address' => $request->donation_address,
+                'lat' => $request->lat,
+                'long' => $request->long,
+                'system_code' =>$request->system_code,
+                'donation_type_id' => $request->donation_type_id,
                 'donation_type_other' => $request->donation_type_other,
                 'preference' =>$request->preference,                              //0-new | 1-anyone	
-                'preference_gender' => implode(',',$request->preference_gender),              // 1-male | 2-female | 3-other	
-                'preference_age' => implode(',',$request->preference_age),                   //1-0to14 | 2-14to30 | 3-30to60 | 4-above60	
+                'preference_gender' => $request->preference_gender,              // 1-male | 2-female | 3-other	
+                'preference_age' => $request->preference_age,                   //1-0to14 | 2-14to30 | 3-30to60 | 4-above60	
                 'preference_is_handicap'=> $request->preference_is_handicap,   // 0-no | 1-yes	
                 'consideration' => $request->consideration,                   //0-free | 1-Non-Monetary | 2-Monetary	
                 'consideration_detail'=> $request->consideration_detail,
@@ -448,8 +448,8 @@ class ApiController extends Controller
         $offset = $page ?  ($page * $perPage) - $perPage : 0;
 
         $query = DB::table('donation_posts')
-                ->where('status',1)
-                ->orderBy('created_at','desc');
+                    ->where('status',1)
+                    ->orderBy('created_at','desc');
 
             if (!empty($request->donation_type_ids)){
                 $donation_type_ids = explode(', ',$request->donation_type_ids);
@@ -500,6 +500,20 @@ class ApiController extends Controller
             if (!empty($request->considerations)){
                 $considerations = explode(', ',$request->considerations);
                 $query->orWhereIn('consideration',array_values($considerations));
+            }
+            if(!empty($request->sort_by)){
+                if($request->sort_by == 2)
+                  $query->orderBy('created_at','desc');
+                else if ($request->sort_by == 3)
+                  $query->orderBy('created_at','asc') ;
+                else if ($request->sort_by == 4)
+                  $query->orderBy('consideration_detail','asc');  
+                else if ($request->sort_by == 5)
+                  $query->orderBy('consideration_detail','desc');  
+                else if ($request->sort_by == 6)
+                  $query->where('is_urgent',1);  
+                else
+                  $query->where('status',1);  
             }
         
         $donation_posts = $query->get();

@@ -224,8 +224,10 @@
                                             <select id="dropdownSearch" class="form-controll" >
                                                 <option value="1">All</option>
                                                 <option value="2">Newest</option>
-                                                <option value="3">Urgent</option>
-                                                <option value="1">Featured</option>
+                                                <option value="3">Oldest</option>
+                                                <option value="6">Urgent</option>
+                                                <option value="4">Price Low-High</option>
+                                                <option value="5">Price High-Low</option>
                                             </select>								
                                         </div><!-- category-change -->														
                                     </div>							
