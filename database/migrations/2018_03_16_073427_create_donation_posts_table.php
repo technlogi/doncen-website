@@ -42,11 +42,13 @@ class CreateDonationPostsTable extends Migration
             $table->string('d_name');
             $table->string('d_email');
             $table->string('d_contact');
+            $table->integer('d_city_id')->comment('FK_cities');
             $table->string('d_address');
             $table->tinyInteger('helper_status')->nullable()->comment('0-Individual | 1-Organization');
             $table->string('helper_name')->nullable();
             $table->string('helper_email')->nullable();
             $table->string('helper_contact')->nullable();
+            $table->integer('helper_city_id')->nullable()->comment('FK_cities');
             $table->string('helper_address')->nullable();
             $table->tinyInteger('status')->default(1)->comment('0-deactive | 1-active');
             $table->tinyInteger('is_complete')->default(0)->comment('0-pandding | 1-complete');

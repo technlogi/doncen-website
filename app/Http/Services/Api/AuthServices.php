@@ -12,7 +12,7 @@
     public function createUser($request)
     {
          $otp = generateOTP(); //Helper Function
-         $user = User::create([
+         User::create([
              'key' =>generateKey(1),
              'name' =>$request->name,
              'contact' =>$request->contact,
@@ -21,8 +21,8 @@
              'otp' => $otp,
              'is_verify' => 0,
              'status' => 0,
-             'created_at' => date('Y-m-d H:i:s'),
-             'updated_at' => date('Y-m-d H:i:s') 
+             'created_at' => new \DateTime(),
+             'updated_at' => new \DateTime() 
          ]);
     }
  
