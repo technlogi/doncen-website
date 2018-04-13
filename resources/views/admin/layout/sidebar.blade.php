@@ -46,6 +46,12 @@
             <span class="nav-link-text">Donations</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Donation Item">
+          <a class="nav-link" href="{{ route('admin.contact.contactUs') }}">
+            <i class="fa fa-fw fa-phone"></i>
+            <span class="nav-link-text">Contact Us</span>
+          </a>
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

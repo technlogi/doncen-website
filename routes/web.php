@@ -85,8 +85,17 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/donation/lists',          [ 'uses' => 'Admin\DonationController@donations',               'as'=>'admin.donations.donations'     ]);
   Route::get('/donation/status/{key}',    [ 'uses' => 'Admin\DonationController@donationStatus',          'as'=>'admin.donations.status'        ]);
   Route::get('/donation/delete/{key}',    [ 'uses' => 'Admin\DonationController@donationDelete',          'as'=>'admin.donations.delete'        ]);
-  Route::get('/donation/{key}',           [ 'uses' => 'Admin\DonationController@donationShow',            'as'=>'admin.donations.show'        ]);
+  Route::get('/donation/{key}',           [ 'uses' => 'Admin\DonationController@donationShow',            'as'=>'admin.donations.show'          ]);
+                            //////////////////////
+                           ///// Contact Us /////
+                          //////////////////////
+  Route::get('/contact-us',                [ 'uses' => 'Admin\ContactUsController@contactUs',                'as'=>'admin.contact.contactUs'      ]); 
+  Route::post('/contact-us',               [ 'uses' => 'Admin\ContactUsController@contacts',                 'as'=>'admin.contact.contacts'       ]);  
+  Route::get('/contact-us/status/{key}',   [ 'uses' => 'Admin\ContactUsController@status_contact_us',        'as'=>'admin.contact.status'         ]); 
+  Route::get('/contact-us/delete/{key}',   [ 'uses' => 'Admin\ContactUsController@delete_contact_us',        'as'=>'admin.contact.delete'         ]); 
   
+                        
+                         
   
 });
 /** ============================================================================================================================================

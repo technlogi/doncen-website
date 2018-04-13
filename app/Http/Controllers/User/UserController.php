@@ -124,6 +124,7 @@ class UserController extends Controller
     public function contactUs(ContactUsRequest $request)
     {
       DB::table('contact_us')->insert([
+          'key' => generateKey(15),
          'name' => $request->name,
          'email' => $request->email,
          'subject' => $request->subject,
