@@ -72,13 +72,15 @@ if (! function_exists('dataTable')) {
                 foreach($column as $field){
                     if($field == 'created_at'){
                         $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
+                    }else if($field == 'status'){
+                        $nestedData['status'] = $category->status ? 'Active' : 'Deactive';
                     }else{
                         $nestedData[$field] = $category->$field;
                     }
                 }
                 $option = '';
                 if($show != ''){
-                    $show_link = route('admin.Location.country.country');
+                    $show_link = route($show,$category->key);
                     $option = "&emsp;<a href='{$show_link}' title='SHOW' ><span class='fa fa-eye'></span></a>";
                 }
                 if($edit != ''){
@@ -86,10 +88,16 @@ if (! function_exists('dataTable')) {
                     $option .= "&emsp;<a href='{$edit_link}' title='EDIT' ><span class='fa fa-edit'></span></a>";
                 }
                 if($delete != ''){
-                    $option .= "&emsp;<a href='{$delete}' title='DELETE' ><span class='fa fa-trash'></span></a>";
+                    $delete_donation_link = route($delete,$category->key);
+                    $option .= "&emsp;<a href='{$delete_donation_link}' title='DELETE' ><span class='fa fa-trash'></span></a>";
                 }
                 if($status != ''){
-                    $option .= "&emsp;<a href='{$delete}' title='DELETE' ><span class='fa fa-user'></span></a>";
+                    $status_link = route($status,$category->key);
+                    if($category->status){
+                        $option .= "&emsp;<a href='{$status_link}' title='Change Status To Deactive' ><span class='fa fa-check'></span></a>";
+                    }else{
+                        $option .= "&emsp;<a href='{$status_link}' title='Change Status To Active' ><span class='fa fa-close'></span></a>";
+                    }
                 }
                 $nestedData['options'] = $option ;
             $data[] = $nestedData;
@@ -209,7 +217,7 @@ if(!function_exists('check_for_city')){
                 $city_check_state = DB::table('cities')->where('name','LIKE',$state_name)->first();
                 if(empty($city_check_state)){
                     $country = DB::table('countries')->where('name','LIKE',$country_name)->first();
-                    DB::table('state')->insertGetId(['name' =>$state_name,'key'=>generateKey(8),'country_id'=>$country->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
+                    DB::table('states')->insertGetId(['name' =>$state_name,'key'=>generateKey(8),'country_id'=>$country->id,'status'=>1,'created_at'=>new \DateTime(),'updated_at'=>new \DateTime() ]);
                 }else{
                     return $city_check_state;
                 }

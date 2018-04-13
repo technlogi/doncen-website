@@ -119,7 +119,7 @@ class ApiController extends Controller
     public function submitDonationForm(Request $request)
     {
       if($this->validate->validateDonationForm($request)) return $this->validate->validateDonationForm($request);
-      if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
+      
   
         if (User::where('key',$request->user_id)->count() > 0 ){
           $user = User::where('key',$request->user_id)->first()->id;
@@ -133,10 +133,15 @@ class ApiController extends Controller
         try{
             $search = explode(', ',$request->donation_address);
             $city = check_for_city($search);
-            $d_search = explode(', ',$request->address);
+            $d_search = explode(', ',$request->d_address);
             $d_city = check_for_city($d_search);
-            $helper_address_search = explode(', ',$request->helper_address);
-            $helper_city = check_for_city($helper_address_search);
+            if(!empty($request->helper_address)){
+                $helper_address_search = explode(', ',$request->helper_address);
+                $helper_city = check_for_city($helper_address_search);
+                $helper_city_id = $helper_city->id;
+            }else{
+                $helper_city_id = null;
+            }
             $specification = Specification::where('key',$request->specification_key)->first();
             $id =  DB::table('donation_posts')->insertGetId([
                 'key'=> generateKey(14),
@@ -163,16 +168,16 @@ class ApiController extends Controller
                 'is_urgent'=> $request->is_urgent ,                          // 0-no | 1-yes
                 'urgent_reason'	=> $request->urgent_reason,
                 'd_status' => $request->d_status ,//0-Individual | 1-Organization	
-                'd_name'	=> $request->name ,
-                'd_email'=> $request->email ,
-                'd_contact'=> $request->mobile_no ,
+                'd_name'	=> $request->d_name ,
+                'd_email'=> $request->d_email ,
+                'd_contact'=> $request->d_contact ,
                 'd_city_id' => $d_city->id,
-                'd_address'=> $request->address ,
+                'd_address'=> $request->d_address ,
                 'helper_status'=> $request->helper_status ,                                       // 0-Individual | 1-Organization	
                 'helper_name'=> $request->helper_name ,
                 'helper_email'=> $request->helper_email ,
                 'helper_contact'=> $request->helper_contact ,
-                'helper_city_id' => $helper_city->id,
+                'helper_city_id' => $helper_city_id,
                 'helper_address'	=> $request->helper_address, 
                 'status' =>1 ,
                 'created_at'=> new \DateTime(),
@@ -393,7 +398,7 @@ class ApiController extends Controller
                     }else{
                         $user_image = USER_IMAGE('preview.jpg');
                     }
-                    $donation_posts =  DB::table('donation_posts')
+                    $donation_item =  DB::table('donation_posts')
                                         ->select('key','post_no','title','description','address','lat',
                                                     'long','helper_name',
                                                     'helper_email',
@@ -406,22 +411,22 @@ class ApiController extends Controller
                                         ->first();
                 array_push($results,
                     array(
-                        'key' =>$donation_post->key,
-                        'post_no' =>$donation_post->post_no,
+                        'key' =>$donation_item->key,
+                        'post_no' =>$donation_item->post_no,
                         'donation_image' => $image,
-                        'donation_title' =>$donation_post->title,
-                        'donation_description' =>$donation_post->description,
-                        'donation_address' =>$donation_post->address,
-                        'donation_latitude' =>$donation_post->lat,
-                        'donation_longitude' =>$donation_post->long,
-                        'helper_name' =>$donation_post->helper_name,
-                        'helper_email' =>$donation_post->helper_email,
-                        'helper_contact' =>$donation_post->helper_contact,
-                        'helper_address' =>$donation_post->helper_address,
-                        'd_name' =>$donation_post->d_name,
-                        'd_email' =>$donation_post->d_email,
-                        'd_contact' =>$donation_post->d_contact,
-                        'd_address' =>$donation_post->d_address, 
+                        'donation_title' =>$donation_item->title,
+                        'donation_description' =>$donation_item->description,
+                        'donation_address' =>$donation_item->address,
+                        'donation_latitude' =>$donation_item->lat,
+                        'donation_longitude' =>$donation_item->long,
+                        'helper_name' =>$donation_item->helper_name,
+                        'helper_email' =>$donation_item->helper_email,
+                        'helper_contact' =>$donation_item->helper_contact,
+                        'helper_address' =>$donation_item->helper_address,
+                        'd_name' =>$donation_item->d_name,
+                        'd_email' =>$donation_item->d_email,
+                        'd_contact' =>$donation_item->d_contact,
+                        'd_address' =>$donation_item->d_address, 
                         'user_name' => $user->name,
                         'user_image' =>  $user_image,
                         'specifications' => $specifications->name,

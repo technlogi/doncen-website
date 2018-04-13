@@ -63,6 +63,15 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/location/city',           [ 'uses' => 'Admin\LocationController@city',                'as'=>'admin.Location.city.city'         ]);
   Route::post('/location/city',          [ 'uses' => 'Admin\LocationController@cities',              'as'=>'admin.Location.city.cities'       ]);  
   Route::post('/create/city',            [ 'uses' => 'Admin\LocationController@store_city',          'as'=>'admin.Location.city.create'       ]);  
+                            ///////////////////////
+                           ////   Donations  /////
+                          ///////////////////////
+  Route::get('/donations',                [ 'uses' => 'Admin\DonationController@donation',                'as'=>'admin.donations.donation'      ]);
+  Route::post('/donation/lists',          [ 'uses' => 'Admin\DonationController@donations',               'as'=>'admin.donations.donations'     ]);
+  Route::get('/donation/status/{key}',    [ 'uses' => 'Admin\DonationController@donationStatus',          'as'=>'admin.donations.status'        ]);
+  Route::get('/donation/delete/{key}',    [ 'uses' => 'Admin\DonationController@donationDelete',          'as'=>'admin.donations.delete'        ]);
+  Route::get('/donation/{key}',    [ 'uses' => 'Admin\DonationController@donationShow',            'as'=>'admin.donations.show'        ]);
+  
   
 });
 /** ============================================================================================================================================
