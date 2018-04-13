@@ -30,10 +30,13 @@
                         <table class="table table-bordered" id="categoryDataTable" width="100%" cellspacing="0">
                             <thead>
                                 <th>Sr.No</th>
+                                <th>Created At</th>
+                                <th>User</th>
+                                <th>Category</th>
+                                <th>Address</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Created At</th>
                                 <th>Options</th>
                             </thead>
                         </table>
@@ -58,10 +61,13 @@
                    },
             "columns": [
                 { "data": "id" },
+                { "data": "created_at" },
+                { "data": "user" },
+                { "data": "category" },
+                { "data": "address" },
                 { "data": "title" },
                 { "data": "description" },
                 { "data": "status" },
-                { "data": "created_at" },
                 { "data": "options" }
             ]	 
 
