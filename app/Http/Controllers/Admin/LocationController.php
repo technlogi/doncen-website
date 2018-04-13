@@ -27,8 +27,8 @@ class LocationController extends Controller
                 $request,
                 $show= '', //route('posts.show',$category->id),
                 $edit = '',// route('posts.edit',$category->id),
-                $delete ='',
-                $status =''
+                $delete ='admin.Location.country.delete',
+                $status ='admin.Location.country.status'
             );
             echo json_encode($specifications);  
     }
@@ -43,6 +43,30 @@ class LocationController extends Controller
         ]);
       echo " Country create Successfully";
     
+    }
+    //change city status
+    public function status_country($key)
+    {
+        if(DB::table('countries')->where('key',$key)->count() > 0){
+            $country = DB::table('countries')->where('key',$key)->first();
+            DB::table('countries')->where('key',$key)->
+                                        update([
+                                        'status' => !$country->status 
+                                        ]);
+            return redirect()->back()->with('success','Status change successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something is worng.");    
+        }                        
+    }
+    //delete donatation from donation table
+    public function delete_country($key)
+    {
+        if(DB::table('countries')->where('key',$key)->count() > 0){
+            DB::table('countries')->where('key',$key)->delete();
+            return redirect()->back()->with('success','Country removed successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something went worng.");    
+        }                        
     }
     /**
      * State
@@ -61,8 +85,8 @@ class LocationController extends Controller
             $request,
             $show= '', //route('posts.show',$category->id),
             $edit = '',// route('posts.edit',$category->id),
-            $delete ='',
-            $status =''
+            $delete ='admin.Location.state.delete',
+            $status ='admin.Location.state.status'
         );
         echo json_encode($state);  
 
@@ -78,6 +102,30 @@ class LocationController extends Controller
             'updated_at' => new \DateTime()
         ]);
       echo " State create Successfully";
+    }
+    //change city status
+    public function status_state($key)
+    {
+        if(DB::table('states')->where('key',$key)->count() > 0){
+            $city = DB::table('states')->where('key',$key)->first();
+            DB::table('states')->where('key',$key)->
+                                        update([
+                                        'status' => !$city->status 
+                                        ]);
+            return redirect()->back()->with('success','Status change successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something is worng.");    
+        }                        
+    }
+    //delete donatation from donation table
+    public function delete_state($key)
+    {
+        if(DB::table('states')->where('key',$key)->count() > 0){
+            DB::table('states')->where('key',$key)->delete();
+            return redirect()->back()->with('success','State removed successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something went worng.");    
+        }                        
     }
     /**
      * City
@@ -96,8 +144,8 @@ class LocationController extends Controller
             $request,
             $show= '', //route('posts.show',$category->id),
             $edit = '',// route('posts.edit',$category->id),
-            $delete ='',
-            $status =''
+            $delete ='admin.Location.city.delete',
+            $status ='admin.Location.city.status'
         );
         echo json_encode($state);  
     }
@@ -114,4 +162,29 @@ class LocationController extends Controller
       echo " City create Successfully";
     
     }
+
+     //change city status
+     public function status_city($key)
+     {
+         if(DB::table('cities')->where('key',$key)->count() > 0){
+             $city = DB::table('cities')->where('key',$key)->first();
+             DB::table('cities')->where('key',$key)->
+                                         update([
+                                         'status' => !$city->status 
+                                         ]);
+             return redirect()->back()->with('success','Status change successfully.');    
+         }else{
+             return redirect()->back()->with('error',"Something is worng.");    
+         }                        
+     }
+     //delete donatation from donation table
+     public function delete_city($key)
+     {
+         if(DB::table('cities')->where('key',$key)->count() > 0){
+             DB::table('cities')->where('key',$key)->delete();
+             return redirect()->back()->with('success','City removed successfully.');    
+         }else{
+             return redirect()->back()->with('error',"Something went worng.");    
+         }                        
+     }
 }

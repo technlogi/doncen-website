@@ -42,7 +42,7 @@
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Donation Item">
           <a class="nav-link" href="{{ route('admin.donations.donation') }}">
-            <i class="fa fa-fw fa-gift"></i>
+            <i class="fa fa-fw fa-comment"></i>
             <span class="nav-link-text">Donations</span>
           </a>
         </li>

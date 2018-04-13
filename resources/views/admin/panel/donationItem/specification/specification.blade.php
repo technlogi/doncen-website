@@ -13,6 +13,12 @@
             </ol>
             <!-- end Breadcrumbs-->
             <!-- Example DataTables Card-->
+            @if (Session::has('error'))
+            <div class="alert alert-danger">{{ Session::get('error') }}</div>
+            @endif
+            @if (Session::has('success'))
+            <div class="alert alert-success">{{ Session::get('success') }}</div>
+            @endif
             <div class="card mb-3">
                 <div class="card-header">
                 <i class="fa fa-table"></i> Specification List

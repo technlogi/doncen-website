@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','Donations')
+@section('title','Donation Detail')
 @section('content')
 <div class="content-wrapper">
         <div class="container-fluid">
@@ -24,7 +24,7 @@
                 <div class="card-header">
                 <i class="fa fa-table"></i> Doantion Detail
                 <div class="pull-right">
-                  <a href="{{ route('admin.donations.donation') }}"><button class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back</button></a>
+                  <a href="{{ route('admin.donations.donation') }}"><button class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
                  </div>
                 </div>
                 <div class="card-body">

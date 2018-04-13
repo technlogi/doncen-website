@@ -39,14 +39,21 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/donation/item/category',          [ 'uses' => 'Admin\DonationItemController@category',             'as'=>'admin.donationItem.category.category'   ]);
   Route::post('/donation/item/category',         [ 'uses' => 'Admin\DonationItemController@categories',           'as'=>'admin.donationItem.category.categories' ]);
   Route::post('/donation/item/create/category',  [ 'uses' => 'Admin\DonationItemController@store_category',       'as'=>'admin.donationItem.category.create'     ]);
+  Route::get('/change/category/status/{key}',    [ 'uses' => 'Admin\DonationItemController@status_category',      'as'=>'admin.donationItem.category.status'     ]);
+  Route::get('/change/category/delete/{key}',    [ 'uses' => 'Admin\DonationItemController@delete_category',      'as'=>'admin.donationItem.category.delete'     ]);
+  
                                 /* Sub Category */
   Route::get('/donation/item/sub-category',           [ 'uses' => 'Admin\DonationItemController@subCategory',          'as'=>'admin.donationItem.subCategory.subCategory'  ]);
   Route::post('/donation/item/sub-category',          [ 'uses' => 'Admin\DonationItemController@subcategories',        'as'=>'admin.donationItem.subCategory.subcategories']);
   Route::post('/donation/item/create/sub-category',   [ 'uses' => 'Admin\DonationItemController@store_subcategories',  'as'=>'admin.donationItem.subCategory.create'       ]);
+  Route::get('/change/subcategory/status/{key}',      [ 'uses' => 'Admin\DonationItemController@status_subcategory',   'as'=>'admin.donationItem.subCategory.status'     ]);
+  Route::get('/change/subcategory/delete/{key}',      [ 'uses' => 'Admin\DonationItemController@delete_subcategory',   'as'=>'admin.donationItem.subCategory.delete'     ]);
                                 /* Specification  */
   Route::get('/donation/item/specification',           [ 'uses' => 'Admin\DonationItemController@specification',               'as'=>'admin.donationItem.specification.specification' ]);
   Route::post('/donation/item/specification',          [ 'uses' => 'Admin\DonationItemController@specifications',              'as'=>'admin.donationItem.specification.specifications']);
   Route::post('/donation/item/create/specification',   [ 'uses' => 'Admin\DonationItemController@store_specifications',        'as'=>'admin.donationItem.specification.create'        ]);
+  Route::get('/change/specification/status/{key}',     [ 'uses' => 'Admin\DonationItemController@status_specifications',       'as'=>'admin.donationItem.specification.status'     ]);
+  Route::get('/change/specification/delete/{key}',     [ 'uses' => 'Admin\DonationItemController@delete_specifications',       'as'=>'admin.donationItem.specification.delete'     ]);
                              //////////////////////////
                             ////// Locations    //////
                            //////////////////////////
@@ -54,15 +61,23 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/location/country',        [ 'uses' => 'Admin\LocationController@country',             'as'=>'admin.Location.country.country'   ]);
   Route::post('/location/country',       [ 'uses' => 'Admin\LocationController@countries',           'as'=>'admin.Location.country.countries' ]);
   Route::post('/create/country',         [ 'uses' => 'Admin\LocationController@store_country',       'as'=>'admin.Location.country.create'    ]);
+  Route::get('/country/status/{key}',    [ 'uses' => 'Admin\LocationController@status_country',      'as'=>'admin.Location.country.status'    ]);
+  Route::get('/country/delete/{key}',    [ 'uses' => 'Admin\LocationController@delete_country',      'as'=>'admin.Location.country.delete'    ]);
   
                                   /* State  */
   Route::get('/location/state',          [ 'uses' => 'Admin\LocationController@state',              'as'=>'admin.Location.state.state'        ]);
   Route::post('/location/state',         [ 'uses' => 'Admin\LocationController@states',             'as'=>'admin.Location.state.states'       ]);
   Route::post('/create/state',           [ 'uses' => 'Admin\LocationController@store_state',        'as'=>'admin.Location.state.create'       ]);
+  Route::get('/state/status/{key}',      [ 'uses' => 'Admin\LocationController@status_state',       'as'=>'admin.Location.state.status'       ]);
+  Route::get('/state/delete/{key}',      [ 'uses' => 'Admin\LocationController@delete_state',       'as'=>'admin.Location.state.delete'       ]);
                                   /* City  */
   Route::get('/location/city',           [ 'uses' => 'Admin\LocationController@city',                'as'=>'admin.Location.city.city'         ]);
   Route::post('/location/city',          [ 'uses' => 'Admin\LocationController@cities',              'as'=>'admin.Location.city.cities'       ]);  
-  Route::post('/create/city',            [ 'uses' => 'Admin\LocationController@store_city',          'as'=>'admin.Location.city.create'       ]);  
+  Route::post('/create/city',            [ 'uses' => 'Admin\LocationController@store_city',          'as'=>'admin.Location.city.create'       ]);
+  Route::get('/city/status/{key}',       [ 'uses' => 'Admin\LocationController@status_city',         'as'=>'admin.Location.city.status'       ]);
+  Route::get('/city/delete/{key}',       [ 'uses' => 'Admin\LocationController@delete_city',         'as'=>'admin.Location.city.delete'       ]);  
+    
+    
                             ///////////////////////
                            ////   Donations  /////
                           ///////////////////////
@@ -70,7 +85,7 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/donation/lists',          [ 'uses' => 'Admin\DonationController@donations',               'as'=>'admin.donations.donations'     ]);
   Route::get('/donation/status/{key}',    [ 'uses' => 'Admin\DonationController@donationStatus',          'as'=>'admin.donations.status'        ]);
   Route::get('/donation/delete/{key}',    [ 'uses' => 'Admin\DonationController@donationDelete',          'as'=>'admin.donations.delete'        ]);
-  Route::get('/donation/{key}',    [ 'uses' => 'Admin\DonationController@donationShow',            'as'=>'admin.donations.show'        ]);
+  Route::get('/donation/{key}',           [ 'uses' => 'Admin\DonationController@donationShow',            'as'=>'admin.donations.show'        ]);
   
   
 });

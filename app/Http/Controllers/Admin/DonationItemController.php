@@ -27,8 +27,8 @@ class DonationItemController extends Controller
                 $request,
                 $show= '', 
                 $edit = '',
-                $delete ='',
-                $status =''
+                $delete ='admin.donationItem.category.delete',
+                $status ='admin.donationItem.category.status'
             );
             echo json_encode($categories);  
     }
@@ -43,7 +43,30 @@ class DonationItemController extends Controller
         ]);
         echo "  Category create Successfully";
     }
-
+    //change city status
+    public function status_category($key)
+    {
+        if(DB::table('categories')->where('key',$key)->count() > 0){
+            $country = DB::table('categories')->where('key',$key)->first();
+            DB::table('categories')->where('key',$key)->
+                                        update([
+                                        'status' => !$country->status 
+                                        ]);
+            return redirect()->back()->with('success','Status change successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something is worng.");    
+        }                        
+    }
+    //delete donatation from donation table
+    public function delete_category($key)
+    {
+        if(DB::table('categories')->where('key',$key)->count() > 0){
+            DB::table('categories')->where('key',$key)->delete();
+            return redirect()->back()->with('success','Country removed successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something went worng.");    
+        }                        
+    }
 
     /**
      *  SubCategory
@@ -62,8 +85,8 @@ class DonationItemController extends Controller
                 $request,
                 $show= '', //route('posts.show',$category->id),
                 $edit = '',// route('posts.edit',$category->id),
-                $delete ='',
-                $status =''
+                $delete ='admin.donationItem.subCategory.delete',
+                $status ='admin.donationItem.subCategory.status'
             );
             echo json_encode($subcategorys);  
     }
@@ -80,6 +103,31 @@ class DonationItemController extends Controller
         ]);
         echo "   Sub Category create Successfully";
     }
+    //change city status
+    public function status_subcategory($key)
+    {
+        if(DB::table('subcategories')->where('key',$key)->count() > 0){
+            $country = DB::table('subcategories')->where('key',$key)->first();
+            DB::table('subcategories')->where('key',$key)->
+                                        update([
+                                        'status' => !$country->status 
+                                        ]);
+            return redirect()->back()->with('success','Status change successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something is worng.");    
+        }                        
+    }
+    //delete donatation from donation table
+    public function delete_subcategory($key)
+    {
+        if(DB::table('subcategories')->where('key',$key)->count() > 0){
+            DB::table('subcategories')->where('key',$key)->delete();
+            return redirect()->back()->with('success','Sub Categories removed successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something went worng.");    
+        }                        
+    }
+
 
 
     /**
@@ -99,8 +147,8 @@ class DonationItemController extends Controller
                 $request,
                 $show= '', //route('posts.show',$category->id),
                 $edit = '',// route('posts.edit',$category->id),
-                $delete ='',
-                $status =''
+                $delete ='admin.donationItem.specification.delete',
+                $status ='admin.donationItem.specification.status'
             );
             echo json_encode($specifications);  
     }
@@ -118,4 +166,29 @@ class DonationItemController extends Controller
         ]);
         echo "  Specification create Successfully";
     }
+    //change city status
+    public function status_specifications($key)
+    {
+        if(DB::table('specifications')->where('key',$key)->count() > 0){
+            $country = DB::table('specifications')->where('key',$key)->first();
+            DB::table('specifications')->where('key',$key)->
+                                        update([
+                                        'status' => !$country->status 
+                                        ]);
+            return redirect()->back()->with('success','Status change successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something is worng.");    
+        }                        
+    }
+    //delete donatation from donation table
+    public function delete_specifications($key)
+    {
+        if(DB::table('specifications')->where('key',$key)->count() > 0){
+            DB::table('specifications')->where('key',$key)->delete();
+            return redirect()->back()->with('success','Sub Categories removed successfully.');    
+        }else{
+            return redirect()->back()->with('error',"Something went worng.");    
+        }                        
+    }
+
 }
