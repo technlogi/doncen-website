@@ -13,51 +13,27 @@
       <!-- Icon Cards-->
       <div class="row">
         <!-- Example Notifications Card-->
-        <div class="card col-xl-4 col-sm-6 mb-4">
+        <div class="card col-xl-4 col-sm-6 mb-6">
           <div class="card-header">
-            <i class="fa fa-bell-o"></i>Live Donation</div>
+          <strong><i class="fa fa-bell-o"></i>Live Donation <span class="pull-right">{{ $total_live }}</span></strong></div>
           <div class="list-group list-group-flush small">
+          @foreach($lives as $live)
             <a class="list-group-item list-group-item-action" href="#">
               <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
+              @if($live['image'] != '')
+                  <img class="d-flex mr-3 rounded-circle" src="{{ $live['image'] }}" alt="" title="{{ $live['category'] }}">
+              @else
+              <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $live['category'] }}">
+              @endif
                 <div class="media-body">
-                  <strong>David Miller</strong>posted a new article to
-                  <strong>David Miller Website</strong>.
-                  <div class="text-muted smaller">Today at 5:43 PM - 5m ago</div>
+                  <span class="pull-right">{{ $live['post_no'] }}</span>
+                  <strong>{{ $live['person']}}</strong>{{ ' ( '.$live['contact'].' ) '}}
+                  <div class="text-muted smaller">{{ $live['datetime'] }}</div>
+                  <div class="text-muted smaller">{{ $live['location'] }}</div>
                 </div>
               </div>
             </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                <div class="media-body">
-                  <strong>Samantha King</strong>sent you a new message!
-                  <div class="text-muted smaller">Today at 4:37 PM - 1hr ago</div>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                <div class="media-body">
-                  <strong>Jeffery Wellings</strong>added a new photo to the album
-                  <strong>Beach</strong>.
-                  <div class="text-muted smaller">Today at 4:31 PM - 1hr ago</div>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action" href="#">
-              <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                <div class="media-body">
-                  <i class="fa fa-code-fork"></i>
-                  <strong>Monica Dennis</strong>forked the
-                  <strong>startbootstrap-sb-admin</strong>repository on
-                  <strong>GitHub</strong>.
-                  <div class="text-muted smaller">Today at 3:54 PM - 2hrs ago</div>
-                </div>
-              </div>
-            </a>
+            @endforeach
             <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -76,32 +52,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
+                  @foreach($top_users as $user)
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
+                      <td>{{ $user['name'] }}</td>
+                      <td>{{ $user['count'] }}</td>
                     </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -112,155 +73,31 @@
             </a>
           </div>
         </div>
-        <!-- <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-list"></i>
+        
+        <div class="card col-xl-4 col-sm-6 mb-6">
+          <div class="card-header">
+          <strong> <i class="fa fa-bell-o"></i>Urgent Donation<span class="pull-right">{{ $total_urgent }}</span></strong></div>
+          <div class="list-group list-group-flush small">
+          @foreach($urgents as $urgent)
+            <a class="list-group-item list-group-item-action" href="#">
+              <div class="media">
+              @if($urgent['image'] != '')
+                  <img class="d-flex mr-3 rounded-circle" src="{{ $urgent['image'] }}" alt="" title="{{ $urgent['category'] }}">
+              @else
+                <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $urgent['category'] }}">
+              @endif
+                <div class="media-body">
+                  <span class="pull-right">{{ $urgent['post_no'] }}</span>
+                  <strong>{{ $urgent['person']}}</strong>{{ ' ( '.$urgent['contact'].' ) '}}
+                  <div class="text-muted smaller">{{ $urgent['datetime'] }}</div>
+                  <div class="text-muted smaller">{{ $urgent['location'] }}</div>
+                </div>
               </div>
-              <div class="mr-5">11 New Tasks!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <div class="table-responsive">
-                <table class="table table-bordered"  width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
             </a>
+            @endforeach
+            <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
           </div>
-        </div> -->
-        <!-- <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-shopping-cart"></i>
-              </div>
-              <div class="mr-5">123 New Orders!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <div class="table-responsive">
-                <table class="table table-bordered"  width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div> -->
-        <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-support"></i>
-              </div>
-              <div class="mr-5">Urgent Requirement</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-            <div class="table-responsive">
-                <table class="table table-bordered"  width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
       </div>
 
@@ -281,7 +118,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">Categories</div>
+              <div class="mr-5"><strong>Categories: {{ $total_category }}</strong></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <div class="table-responsive">
@@ -289,32 +126,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                    @foreach($categories as $category)
+                      <tr>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->count }}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -331,7 +153,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="mr-5">Sub-Categories</div>
+              <div class="mr-5"><strong>Sub-Categories: {{ $total_subcategory }}</strong></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <div class="table-responsive">
@@ -339,32 +161,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                    @foreach($subcategories as $subcategory)
+                      <tr>
+                        <td>{{ $subcategory->name }}</td>
+                        <td>{{ $subcategory->count }}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -381,7 +188,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-shopping-cart"></i>
               </div>
-              <div class="mr-5">Specifications</div>
+              <div class="mr-5"><strong>Specifications: {{ $total_specification }}</strong></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <div class="table-responsive">
@@ -389,32 +196,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
+                  @foreach($specifications as $specification)
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
+                      <td>{{ $specification['name'] }}</td>
+                      <td>{{ $specification['count'] }}</td>
                     </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -458,31 +250,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
+                    @foreach($countries as $country)
+                      <tr>
+                        <td>{{ $country->name }}</td>
+                        <td>{{ $country->count }}</td>
+                      </tr>
+                    @endforeach
                     
                   </tbody>
                 </table>
@@ -508,32 +286,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                    @foreach($states as $state)
+                      <tr>
+                        <td>{{ $state->name }}</td>
+                        <td>{{ $state->count }}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -558,32 +321,17 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Position</th>
+                      <th>Total Post</th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                    </tr>
-                    
+                    @foreach($cities as $city)
+                      <tr>
+                        <td>{{ $city['name'] }}</td>
+                        <td>{{ $city['count'] }}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

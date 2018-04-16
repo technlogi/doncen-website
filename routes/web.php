@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin'], function () {
                              //////////////////////////////////
                             ////// Admin Authantication //////
                            //////////////////////////////////
-  Route::get('/home', 'Admin\DashBoardController@dashboard')->name('home');     
+  // Route::get('/home', 'Admin\DashBoardController@dashboard')->name('home');     
                                   /* Login  */
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'AdminAuth\LoginController@login');
