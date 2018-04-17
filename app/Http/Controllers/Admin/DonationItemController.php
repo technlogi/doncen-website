@@ -34,10 +34,21 @@ class DonationItemController extends Controller
     }
     public function store_category(Request $request)
     {
+        // if ($request->hasFile('image')) {
+        //     $extension = $request->image->getClientOriginalExtension();
+        //     $fileName = date('ymdhis')."-".str_random(4).".".$extension;
+        //     $folderpath  = base_path('images/uploads/svg/');
+        //     $request->image->move($folderpath , $fileName);
+        // }else{
+        //     $fileName = '';
+        // }
+        // print_r( $request->all() );
+            
         DB::table('categories')->insert([
             'key'=> generateKey(3),
             'title' => $request->title,
             'name' => $request->name,
+            'image' => $fileName,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
         ]);

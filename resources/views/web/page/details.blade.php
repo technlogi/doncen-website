@@ -17,8 +17,8 @@
                 <div class="section banner">				
                     <!-- banner-form -->
                     <div class="banner-form banner-form-full">
-                          <form  id="search_form">
-                                <!-- language-dropdown -->
+                          <form  id="search_form" action="{{ url('/search')}}">
+                                <!-- language-dropdown -->{{ csrf_field() }}
                             <div class="dropdown category-dropdown"> 						
                                 <input type="text" name="city_search_box" placeholder="Enter City" id="city_search_box">
                             </div><!-- language-dropdown -->

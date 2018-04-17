@@ -20,7 +20,7 @@
                     <form method="post" id="search_form" action="#">
                                 <!-- language-dropdown -->
                             <div class="dropdown category-dropdown"> 						
-                                <input type="text" name="city_search_box" placeholder="Enter City" id="city_search_box">
+                                <input type="text" name="city_search_box" placeholder="Enter City" id="city_search_box" value="{{ old('city_search_box') }}">
                             </div><!-- language-dropdown -->
 
                             <div class="dropdown category-dropdown">		
@@ -32,7 +32,7 @@
                                 </datalist>
                             </div> 
                             <div class="dropdown category-dropdown">
-                                <input type="text" name="word_box" placeholder="Type Your key word">
+                                <input type="text" name="word_box" placeholder="Type Your key word" value="{{ old('word_box') }}">
                             </div>
                             <button type="submit" class="form-control"  value="Search">Search</button>
                         </form>
@@ -266,15 +266,15 @@
 <script>
 
 $(function(){
-//     function initializeAddress() {
-//       var input = document.getElementById('city_search_box');
-//       var options = {
-//         types: ['geocode'] //this should work !
-//       };
-//       var autocomplete = new google.maps.places.Autocomplete(input, options);
-//     }
+    function initializeAddress() {
+      var input = document.getElementById('city_search_box');
+      var options = {
+        types: ['geocode'] //this should work !
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
    
-//    google.maps.event.addDomListener(window, 'load', initializeAddress);
+   google.maps.event.addDomListener(window, 'load', initializeAddress);
     var page = 1; //track user scroll as page number, right now page number is 1
     $(window).scroll(function() { //detect page scroll
         if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page

@@ -8,7 +8,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-        <form name="addCtegoryForm" id="addCtegoryFormId" method="POST" action="" onsubmit="return false">
+        <form name="addCtegoryForm" id="addCtegoryFormId" method="POST" action="" onsubmit="return false"  enctype="multipart/form-data">
                 <div class="modal-body">
                         {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -18,6 +18,10 @@
                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                         <label for="title" class="control-label">Title</label>
                         <input id="title" type="text"  class="form-control" name="title" >
+                    </div>
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <label for="image" class="control-label">Image</label>
+                        <input id="image" type="file" name="image"  class="form-control"  autofocus>
                     </div>
                 </div>
                 <div class="modal-footer">

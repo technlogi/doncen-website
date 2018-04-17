@@ -79,10 +79,12 @@
             rules: {
                 name: "required",
                 title: "required",
+                image: "required"
             },  
             messages: {
                 name: "Please enter name.",
                 title: "Please enter title.",
+                image: "Please select one image"
             },
             submitHandler: function(form) {
                     var datastring = $("#addCtegoryFormId").serialize();

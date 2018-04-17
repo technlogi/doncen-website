@@ -14,8 +14,9 @@
                             <h3>DonCen! Donate anything, whatever you can think.</h3>
                             <!-- banner-form -->
                             <div class="banner-form">
-                                 <form method="post" id="search_form" action="#">
+                                 <form method="post" id="search_form" action="{{ url('/search')}}">
                                      <!-- language-dropdown -->
+                                     {{ csrf_field() }}
                                     <div class="dropdown category-dropdown"> 						
                                         <input type="text" name="city_search_box" placeholder="Enter City" id='search_text'>
                                     </div><!-- language-dropdown -->
@@ -195,6 +196,7 @@ $(document).ready(function(){
       };
       var autocomplete = new google.maps.places.Autocomplete(input, options);
     }
+    google.maps.event.addDomListener(window, 'load', initializeAddress);
     // var page = 1; //track user scroll as page number, right now page number is 1
     // $(window).scroll(function() { //detect page scroll
     //     if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.7) { //if user scrolled from top to bottom of the page
@@ -277,9 +279,9 @@ $(document).ready(function(){
     //     },
     //   minLength: 1,
     // });
-    $("#search_form").submit(function(e){
-         e.preventDefault();
-    });
+    // $("#search_form").submit(function(e){
+    //      e.preventDefault();
+    // });
 });
 </script>
 @endpush

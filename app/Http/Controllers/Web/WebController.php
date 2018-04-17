@@ -121,9 +121,9 @@ class WebController extends Controller
             'status' =>1 ,
             'created_at'=> new \DateTime(),
             'updated_at'=> new \DateTime()
-      ]);
-      if ($request->hasFile('image_file')) {
-        $files = $request->file('image_file');
+        ]);
+        if ($request->hasFile('image_file')) {
+            $files = $request->file('image_file');
             foreach($files as $file){
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $id."-".date('ymdhis')."-".str_random(4).".".$extension;
@@ -138,7 +138,7 @@ class WebController extends Controller
                     'updated_at'=> new \DateTime()
                 ]);
             }
-    }
+        }
         
       session()->flash('success','Donation form posted Successfully.');
      return redirect('/user/dashboard');
@@ -226,37 +226,7 @@ class WebController extends Controller
         return $print;
     }
     
-    public function reportForm($key)
-    { 
-        $user_identity = $key;
-        return view('web.main.reportForm',compact('user_identity'));
-    }
 
-    public function storeReport(Request $request)
-    { 
-        if (Auth::guard('user')->check()){
-            $user = Auth::guard('user')->user()->id;
-        }else{
-            session()->flash('error', 'You must logged in before report against any donation post.');
-           return redirect('/user/login');
-        }
-        $this->validate($request , [
-            'report_subject' => 'required|min:5',
-            'report' => 'required|min:10'
-        ]);
-        $id = DB::table('donation_posts')->where('key',$request->key)->select('key','id')->first();
-        DB::table('donation_post_reports')->insert([
-           'report' => $request->report,
-           'report_subject' => $request->report_subject,
-           'user_id' => $user,
-           'donation_post_id' => $id->id,
-           'created_at' => new \DateTime(),
-           'updated_at' => new \DateTime()
-        ]);
-        session()->flash('success','We will resolve your issue as soon as possible. Thank you for your feed back.');
-        return redirect('/user/dashboard');
-    }
-    
     public function addToFavoriate($key)
     {
         if (Auth::guard('user')->check()){

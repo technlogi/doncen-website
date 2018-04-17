@@ -15,7 +15,7 @@
         <div class="adpost-details">
             <div class="row">	
                 <div class="col-md-8">
-                    <form action="{{ route('web.donation.create',[$key]) }}" method="POST"  enctype="multipart/form-data">>
+                    <form action="{{ route('web.donation.create',[$key]) }}" method="POST"  enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <fieldset>
                             <input type="hidden" name="key" value="{{$key}}"/>

@@ -94,6 +94,12 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/contact-us',               [ 'uses' => 'Admin\ContactUsController@contacts',                 'as'=>'admin.contact.contacts'       ]);  
   Route::get('/contact-us/status/{key}',   [ 'uses' => 'Admin\ContactUsController@status_contact_us',        'as'=>'admin.contact.status'         ]); 
   Route::get('/contact-us/delete/{key}',   [ 'uses' => 'Admin\ContactUsController@delete_contact_us',        'as'=>'admin.contact.delete'         ]); 
+                            ///////////////////
+                           ///// Report  /////
+                          ///////////////////
+  Route::get('/report',                [ 'uses' => 'Admin\ReportController@report',                 'as'=>'admin.report.reports'      ]); 
+  Route::post('/reports',              [ 'uses' => 'Admin\ReportController@reports',                'as'=>'admin.report.lists'        ]);  
+
   
                         
                          
@@ -216,8 +222,12 @@ Route::post('/get-subcategories',      [  'uses' => 'Web\SearchController@getsub
 
 
 
-Route::get('/donation/report/{key}',      [  'uses' => 'Web\WebController@reportForm',          'as' => 'web.donation.reprot' ]);
-Route::post('/donation/report/{key}',     [  'uses' => 'Web\WebController@storeReport',         'as' => 'web.donation.storereprot' ]);
+Route::get('/donation/report/{key}',      [  'uses' => 'Admin\ReportController@reportForm',          'as' => 'web.donation.reprot' ]);
+Route::post('/donation/report/{key}',     [  'uses' => 'Admin\ReportController@storeReport',         'as' => 'web.donation.storereprot' ]);
+Route::get('/donation/report/status/{key}',[  'uses' => 'Admin\ReportController@reportStatus',       'as' => 'admin.reprot.status' ]);
+Route::get('/donation/report/delete/{key}',[  'uses' => 'Admin\ReportController@reportDelete',       'as' => 'admin.reprot.delete' ]);
+
+
 Route::get('/donation/favoriate/{key}',   [  'uses' => 'Web\WebController@addToFavoriate',      'as' => 'web.donation.favoriate' ]);
 
 

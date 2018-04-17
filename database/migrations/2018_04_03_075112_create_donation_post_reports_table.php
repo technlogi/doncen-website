@@ -15,6 +15,7 @@ class CreateDonationPostReportsTable extends Migration
     {
         Schema::create('donation_post_reports', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('key');
             $table->integer('donation_post_id')->comment('FK_donation_posts');
             $table->integer('user_id')->comment('FK_users');
             $table->string('report_subject');
