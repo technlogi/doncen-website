@@ -13,31 +13,33 @@
       <!-- Icon Cards-->
       <div class="row">
         <!-- Example Notifications Card-->
-        <div class="card col-xl-4 col-sm-6 mb-6">
-          <div class="card-header">
-          <strong><i class="fa fa-bell-o"></i>Live Donation <span class="pull-right">{{ $total_live }}</span></strong></div>
-          <div class="list-group list-group-flush small">
-          @foreach($lives as $live)
-            <a class="list-group-item list-group-item-action" href="#">
-              <div class="media">
-              @if($live['image'] != '')
-                  <img class="d-flex mr-3 rounded-circle" src="{{ $live['image'] }}" alt="" title="{{ $live['category'] }}">
-              @else
-              <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $live['category'] }}">
-              @endif
-                <div class="media-body">
-                  <span class="pull-right">{{ $live['post_no'] }}</span>
-                  <strong>{{ $live['person']}}</strong>{{ ' ( '.$live['contact'].' ) '}}
-                  <div class="text-muted smaller">{{ $live['datetime'] }}</div>
-                  <div class="text-muted smaller">{{ $live['location'] }}</div>
-                </div>
+        <div class="col-lg-4 col-xl-4 col-sm-6 mb-4">
+            <div class="card  mb-3">
+              <div class="card-header">
+              <strong><i class="fa fa-bell-o"></i>Live Donation <span class="pull-right">{{ $total_live }}</span></strong></div>
+              <div class="list-group list-group-flush small">
+              @foreach($lives as $live)
+                <a class="list-group-item list-group-item-action" href="#">
+                  <div class="media">
+                  @if($live['image'] != '')
+                      <img class="d-flex mr-3 rounded-circle" src="{{ $live['image'] }}" alt="" title="{{ $live['category'] }}">
+                  @else
+                  <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $live['category'] }}">
+                  @endif
+                    <div class="media-body">
+                      <span class="pull-right">{{ $live['post_no'] }}</span>
+                      <strong>{{ $live['person']}}</strong>{{ ' ( '.$live['contact'].' ) '}}
+                      <div class="text-muted smaller">{{ $live['datetime'] }}</div>
+                      <div class="text-muted smaller">{{ $live['location'] }}</div>
+                    </div>
+                  </div>
+                </a>
+                @endforeach
+                <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
               </div>
-            </a>
-            @endforeach
-            <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+        </div> 
         <!-- <div class="col-xl-4 col-sm-6 mb-4">
           <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
@@ -107,41 +109,42 @@
         </div>
         
         
-        <div class="card col-xl-4 col-sm-6 mb-6">
-          <div class="card-header">
-          <strong> <i class="fa fa-bell-o"></i>Urgent Donation<span class="pull-right">{{ $total_urgent }}</span></strong></div>
-          <div class="list-group list-group-flush small">
-          @foreach($urgents as $urgent)
-            <a class="list-group-item list-group-item-action" href="#">
-              <div class="media">
-              @if($urgent['image'] != '')
-                  <img class="d-flex mr-3 rounded-circle" src="{{ $urgent['image'] }}" alt="" title="{{ $urgent['category'] }}">
-              @else
-                <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $urgent['category'] }}">
-              @endif
-                <div class="media-body">
-                  <span class="pull-right">{{ $urgent['post_no'] }}</span>
-                  <strong>{{ $urgent['person']}}</strong>{{ ' ( '.$urgent['contact'].' ) '}}
-                  <div class="text-muted smaller">{{ $urgent['datetime'] }}</div>
-                  <div class="text-muted smaller">{{ $urgent['location'] }}</div>
-                </div>
+        <div class="col-lg-4 col-xl-4 col-sm-6 mb-4">
+          <div class="card  mb-3">
+            <div class="card-header">
+              <strong> <i class="fa fa-bell-o"></i>Urgent Donation<span class="pull-right">{{ $total_urgent }}</span></strong></div>
+              <div class="list-group list-group-flush small">
+                @foreach($urgents as $urgent)
+                <a class="list-group-item list-group-item-action" href="#">
+                  <div class="media">
+                    @if($urgent['image'] != '')
+                        <img class="d-flex mr-3 rounded-circle" src="{{ $urgent['image'] }}" alt="" title="{{ $urgent['category'] }}">
+                    @else
+                      <img class="d-flex mr-3 rounded-circle" src="{{URL::asset('uploads/svg/Donate icon.png')}}" alt="" title="{{ $urgent['category'] }}">
+                    @endif
+                    <div class="media-body">
+                      <span class="pull-right">{{ $urgent['post_no'] }}</span>
+                      <strong>{{ $urgent['person']}}</strong>{{ ' ( '.$urgent['contact'].' ) '}}
+                      <div class="text-muted smaller">{{ $urgent['datetime'] }}</div>
+                      <div class="text-muted smaller">{{ $urgent['location'] }}</div>
+                    </div>
+                  </div>
+                </a>
+                @endforeach
+                <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
               </div>
-            </a>
-            @endforeach
-            <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
       </div>
 
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-area-chart"></i> Donation Post Summery<span class="pull-right">Total post:-545</span></div>
-          
+          <i class="fa fa-area-chart"></i><strong> Donation Post Summery<span class="pull-right">Total post: {{ $total_post }}</span></strong>
+        </div>
         <div class="card-body">
           <canvas id="myAreaChart" width="100%" height="30"></canvas>
           <input type="hidden"  id="max"    value="{{ $total }}">
-    
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
@@ -614,19 +617,7 @@
           </div>
           <!-- /Card Columns-->
         </div>
-        <div class="col-lg-4">
-          <!-- Example Pie Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-users"></i> Users<span class="pull-right">{{$total_user}}</span></div>
-            <div class="card-body">
-              <canvas id="myPieChart" width="100%" height="100"></canvas>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
-          
-        </div>
-      </div>
     </div>
 
 
@@ -652,7 +643,7 @@ myLineChart=new Chart(ctx,
             labels: label,
         datasets:[
             {
-                label:"Sessions",lineTension:.3,
+                label:"Post",lineTension:.3,
                 backgroundColor:"rgba(2,117,216,0.2)",
                 borderColor:"rgba(2,117,216,1)",
                 pointRadius:5,

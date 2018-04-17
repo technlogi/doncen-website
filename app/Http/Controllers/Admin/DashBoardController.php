@@ -34,7 +34,7 @@ class DashBoardController extends Controller
         $total_specification = DB::table('specifications')->where('status',1)->count();
         $total_category      = DB::table('categories')->where('status',1)->count();
         $total_subcategory   = DB::table('subcategories')->where('status',1)->count();
-
+        $total_post = DB::table('donation_posts')->count();
         $total_urgent = DB::table('donation_posts')->where('status',1)->where('is_urgent',1)->count();
         $total_live   = DB::table('donation_posts')->where('status',1)->where('is_urgent',0)->count();
         
@@ -69,7 +69,7 @@ class DashBoardController extends Controller
                                          'specifications',
                                          'subcategories',
                                          'categories',
-                                         'top_users','urgents',
+                                         'top_users','urgents','total_post',
                                          'total_specification',
                                          'total_category',
                                          'total_subcategory',
@@ -130,7 +130,7 @@ class DashBoardController extends Controller
                     ->select('created_at','post_no','specification_id','city_id','user_id')
                     ->where('status',1)
                     ->where('is_urgent',1)
-                    ->limit(5)
+                    ->limit(7)
                     ->get();
         $array =  array();
         foreach($urgents as $urgent){
@@ -158,7 +158,7 @@ class DashBoardController extends Controller
                     ->select('created_at','post_no','specification_id','city_id','user_id')
                     ->where('status',1)
                     ->where('is_urgent',0)
-                    ->limit(5)
+                    ->limit(7)
                     ->get();
         $array =  array();
         foreach($urgents as $urgent){
