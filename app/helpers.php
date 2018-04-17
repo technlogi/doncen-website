@@ -74,7 +74,13 @@ if (! function_exists('dataTable')) {
                         $nestedData['created_at'] = date('j M Y h:i a',strtotime($category->created_at));
                     }else if($field == 'status'){
                         $nestedData['status'] = $category->status ? 'Active' : 'Deactive';
-                    }else{
+                    }else if($field == 'country_name'){
+                        $state = \App\Models\State::where('key',$category->key)->first();
+                        $nestedData['country_name'] = $state->country->name;;
+                    }else if($field == 'state_name'){
+                        $city = \App\Models\City::where('key',$category->key)->first();
+                        $nestedData['state_name'] = $city->state->name;;
+                    }else {
                         $nestedData[$field] = $category->$field;
                     }
                 }
@@ -100,7 +106,7 @@ if (! function_exists('dataTable')) {
                     }
                 }
                 $nestedData['options'] = $option ;
-            $data[] = $nestedData;
+                $data[] = $nestedData;
             }
         }
         $json_data = array(

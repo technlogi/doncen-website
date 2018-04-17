@@ -47,7 +47,7 @@ class CategoriesTableSeeder extends Seeder
               'key' => generateKey(3),
               'name' => $categories[$i],
               'image' => $svg[$i],
-              'title' =>  $categories[$i].'title'
+              'title' =>  $categories[$i].'-title'
             ]);
            } 
     }

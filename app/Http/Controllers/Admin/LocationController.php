@@ -79,7 +79,7 @@ class LocationController extends Controller
     public function states(Request $request)
     {
         $state = dataTable(
-            ['id','name','created_at', 'key'],
+            ['id','name','country_name','created_at', 'key'],
             'states' ,
             'name',
             $request,
@@ -89,7 +89,6 @@ class LocationController extends Controller
             $status ='admin.Location.state.status'
         );
         echo json_encode($state);  
-
     }
     public function store_state(Request $request)
     {
@@ -138,7 +137,7 @@ class LocationController extends Controller
     public function cities(Request $request)
     {
         $state = dataTable(
-            ['id','name','created_at', 'key'],
+            ['id','name','state_name','created_at', 'key'],
             'cities' ,
             'name',
             $request,

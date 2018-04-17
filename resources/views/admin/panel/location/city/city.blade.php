@@ -34,6 +34,7 @@
                             <thead>
                                 <th>Sr.No</th>
                                 <th>Name</th>
+                                <th>State Name</th>
                                 <th>Created At</th>
                                 <th>Options</th>
                             </thead>
@@ -61,6 +62,7 @@
             "columns": [
                 { "data": "id" },
                 { "data": "name" },
+                { "data": "state_name" },
                 { "data": "created_at" },
                 { "data": "options" }
             ]	 

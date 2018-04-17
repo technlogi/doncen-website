@@ -79,7 +79,7 @@ class DonationItemController extends Controller
     public function subcategories(Request $request)
     { 
            $subcategorys = dataTable(
-                ['id','name','type','created_at','key'],
+                ['id','name','created_at','key'],
                 'subcategories' ,
                 'name',
                 $request,
@@ -141,7 +141,7 @@ class DonationItemController extends Controller
     public function specifications(Request $request)
     { 
            $specifications = dataTable(
-                [0 =>'id',1 =>'name',2=> 'type',3=> 'created_at',4=> 'key'],
+                ['id','name','created_at','key'],
                 'specifications' ,
                 'name',
                 $request,
