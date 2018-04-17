@@ -59,8 +59,13 @@ class DashBoardController extends Controller
             array_push($labels, date('d F', strtotime($date->date)) );
             array_push($data,  $date->total );
         }
-
-        return view('admin.home',compact('total_user',
+        $users_lists = User::all();
+        $user_status = array(
+                    '0' => User::where('status',1)->where('is_verify',1)->count(),
+                    '1' => User::where('status',0)->where('is_verify',1)->count(),
+                    '2' => User::where('is_verify',0)->count()
+                    );
+                return view('admin.home',compact('total_user',
                                          'specifications',
                                          'subcategories',
                                          'categories',
@@ -75,7 +80,8 @@ class DashBoardController extends Controller
                                          'total_live',
                                          'total_urgent',
                                          'total',
-                                         'labels','data'
+                                         'labels','data',
+                                         'user_status'
                                         ));
     }
 

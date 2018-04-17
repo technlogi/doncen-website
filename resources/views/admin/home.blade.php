@@ -38,7 +38,7 @@
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-        <div class="col-xl-4 col-sm-6 mb-4">
+        <!-- <div class="col-xl-4 col-sm-6 mb-4">
           <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
@@ -72,7 +72,40 @@
               </span>
             </a>
           </div>
+        </div> -->
+
+        <div class="col-lg-4 col-xl-4 col-sm-6 mb-4">
+          <!-- Example Pie Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-users"></i><strong> Users<span class="pull-right">{{$total_user}}</span></strong></div>
+            <div class="card-body">
+              <canvas id="myPieChart" width="100%" height="100"></canvas>
+            </div>
+            <div class="table-responsive card-footer clearfix small z-1">
+                <table class="table table-bordered"  width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Total Post</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  @foreach($top_users as $user)
+                    <tr>
+                      <td>{{ $user['name'] }}</td>
+                      <td>{{ $user['count'] }}</td>
+                    </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+              </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+          
         </div>
+        
         
         <div class="card col-xl-4 col-sm-6 mb-6">
           <div class="card-header">
@@ -606,6 +639,7 @@
   var label = <?php echo json_encode($labels); ?>;
   var data =  <?php echo json_encode($data); ?>;
   var element = document.getElementById("max");
+  var users = <?php echo json_encode($user_status);?>;
   var total = parseInt(element.value);
 
 Chart.defaults.global.defaultFontFamily='-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
@@ -652,5 +686,18 @@ myLineChart=new Chart(ctx,
                 }
             }
         });
+ctx=document.getElementById("myPieChart"),
+myPieChart=new Chart(ctx,
+    {
+        type:"pie",
+        data:{
+            labels:["Active","Inactive","Not Verified"],
+            datasets:[
+                {   data: users,
+                    backgroundColor:["#28a745","#dc3545","#ffc107",]
+                }
+            ]
+        }
+    });
 </script>
 @endpush
