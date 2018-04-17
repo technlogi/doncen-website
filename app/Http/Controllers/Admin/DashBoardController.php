@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use \App\Models\User;
 use DB;
-
+use \Carbon;
 class DashBoardController extends Controller
 {
     public function dashboard()
@@ -38,6 +38,28 @@ class DashBoardController extends Controller
         $total_urgent = DB::table('donation_posts')->where('status',1)->where('is_urgent',1)->count();
         $total_live   = DB::table('donation_posts')->where('status',1)->where('is_urgent',0)->count();
         
+
+        $query  = DB::table('donation_posts')
+                    ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+                    ->where('status',1)
+                    ->groupBy('date')
+                    ->orderBy('total', 'desc');
+            
+        $max =  $query->first()->total;
+        $total  = ceil( $max / 100)*100;
+       
+        $dates = DB::select(' SELECT DATE(created_at) as date,count(*) as total 
+                             FROM donation_posts t 
+                             WHERE created_at >= DATE_ADD(CURDATE(), INTERVAL - 12 DAY) and status = 1
+                             GROUP BY date
+                             order by date ASC');
+        $labels = array();
+        $data = array(); 
+        foreach($dates as $date){
+            array_push($labels, date('d F', strtotime($date->date)) );
+            array_push($data,  $date->total );
+        }
+
         return view('admin.home',compact('total_user',
                                          'specifications',
                                          'subcategories',
@@ -51,7 +73,9 @@ class DashBoardController extends Controller
                                          'cities',
                                          'lives',
                                          'total_live',
-                                         'total_urgent'
+                                         'total_urgent',
+                                         'total',
+                                         'labels','data'
                                         ));
     }
 

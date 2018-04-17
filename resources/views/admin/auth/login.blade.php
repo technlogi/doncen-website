@@ -1,5 +1,5 @@
 @extends('admin.layout.auth')
-
+@section('title',"Admin Login")
 @section('content')
 <body class="bg-dark"> 
   <div class="container col-md-5 col-md-offset-2">

@@ -107,7 +107,8 @@
           
         <div class="card-body">
           <canvas id="myAreaChart" width="100%" height="30"></canvas>
-          <input type="hidden"  id="max" value="{{ $total }}">
+          <input type="hidden"  id="max"    value="{{ $total }}">
+    
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
@@ -584,7 +585,7 @@
           <!-- Example Pie Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Pie Chart Example</div>
+              <i class="fa fa-users"></i> Users<span class="pull-right">{{$total_user}}</span></div>
             <div class="card-body">
               <canvas id="myPieChart" width="100%" height="100"></canvas>
             </div>
@@ -600,3 +601,56 @@
     
     </div>
 @endsection
+@push('javaScript')
+<script>
+  var label = <?php echo json_encode($labels); ?>;
+  var data =  <?php echo json_encode($data); ?>;
+  var element = document.getElementById("max");
+  var total = parseInt(element.value);
+
+Chart.defaults.global.defaultFontFamily='-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+Chart.defaults.global.defaultFontColor="#292b2c";
+var ctx = document.getElementById("myAreaChart"),
+myLineChart=new Chart(ctx,
+    {
+        type:"line",
+        data:{
+            labels: label,
+        datasets:[
+            {
+                label:"Sessions",lineTension:.3,
+                backgroundColor:"rgba(2,117,216,0.2)",
+                borderColor:"rgba(2,117,216,1)",
+                pointRadius:5,
+                pointBackgroundColor:"rgba(2,117,216,1)",
+                pointBorderColor:"rgba(255,255,255,0.8)",
+                pointHoverRadius:5,
+                pointHoverBackgroundColor:"rgba(2,117,216,1)",
+                pointHitRadius:20,
+                pointBorderWidth:2,
+                data: data 
+                
+            }]},
+            options:{
+                scales:{
+                    xAxes:[{time:{unit:"date"},
+                    gridLines:{display:!1},
+                    ticks:{maxTicksLimit:7}}],
+                    yAxes:[
+                        {
+                            ticks: {
+                                min:0,max: total  ,maxTicksLimit:5
+                            },
+                            gridLines:{
+                                color:"rgba(0, 0, 0, .125)"
+                            }
+                        }
+                    ]
+                },
+                legend:{
+                    display:!1
+                }
+            }
+        });
+</script>
+@endpush
