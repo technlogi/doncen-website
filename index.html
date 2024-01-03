@@ -6,11 +6,11 @@
     <title>DevOps Interview Q&A</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            background-color: #1a1a1a;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -18,13 +18,14 @@
 
         header {
             text-align: center;
-            background-color: #3498db;
+            background-color: #2c3e50;
             padding: 20px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             margin: 0;
+            color: #ecf0f1;
         }
 
         main {
@@ -41,21 +42,22 @@
         li {
             counter-increment: item;
             margin-bottom: 30px;
-            border-left: 3px solid #3498db;
+            border-left: 5px solid #3498db;
             padding-left: 20px;
         }
 
         li::before {
-            content: counter(item);
+            content: "\2022"; /* Unicode character for a bullet point */
             font-weight: bold;
             color: #3498db;
             margin-right: 10px;
+            font-size: 1.5em;
         }
 
         footer {
             text-align: center;
             padding: 10px;
-            background-color: #3498db;
+            background-color: #2c3e50;
             color: #ecf0f1;
             box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
         }
