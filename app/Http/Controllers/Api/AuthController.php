@@ -24,6 +24,8 @@ class AuthController extends Controller
       */
     public function login(Request $request)
     {
+        // echo "Hi";
+        // die();
         if($this->validate->validateLogin($request)) return $this->validate->validateLogin($request);
         if (User::Where('contact', $request->mobile_no)->count() > 0) {
 
@@ -35,6 +37,7 @@ class AuthController extends Controller
                 }
                 return response()->json([
                     'response' => 'success',
+                    'message' => 'Login successfully.',
                     'result' => ['key' => $user->key]
                 ]);
             }else{
@@ -78,16 +81,24 @@ class AuthController extends Controller
     */
     public function register(Request $request)
     {
+		
+		/* User::where('contact','6352550686')->first()->delete();
+		exit; */
         if($this->validate->validateRegistrationRequest($request)) return $this->validate->validateRegistrationRequest($request);
             try{
                 $contact = $request->contact;
                 $this->authServices->createUser($request);
                 $user = User::where('contact',$contact)->first();
-                // $message = "Hello ".$user->name."! Your Verification OTP is ".$user->otp;
-                // SMS_GATEWAY($request->contact,$message);
+//                  $message = "Dear User,
+// ".$user->otp." is your one time password (OTP). Please enter the OTP to proceed.
+
+// Thank you
+// Team Doncen.org ";
+                //  SMS_GATEWAY($request->contact,$message);
                 return response()->json([
                     'response' => 'success',
-                    'message' => ['success' => "OTP has been sent." ,'otp' =>$user->otp, 'key' => $user->key  ]
+                    'message' => 'OTP has been sent.',
+                    'result' => ['otp' =>$user->otp, 'key' => $user->key, 'status' =>$user->user_status ]
                 ]);
             }catch(\Exception  $exception){
                 $user = User::where('contact',$request->contact)->first();
@@ -115,12 +126,19 @@ class AuthController extends Controller
     */
     public function getOtp(Request $request)
     {
-        if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
-        if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
+        if($this->validate->validateContact($request)) return $this->validate->validateContact($request);
+        // if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
         try{
-            $user = User::Where('key', $request->key)->first();
+            $user = User::Where('contact', $request->mobile_no)->Where('status', '1')->first();
+//             $message = "Dear User,
+// ".$user->otp." is your one time password (OTP). Please enter the OTP to proceed.
+
+// Thank you
+// Team Doncen.org ";
+            // SMS_GATEWAY($request->contact,$message);   
                 return response()->json([
                         'response' => 'success',
+                        'message' => "OTP has been sent on your mobile number.",
                         'result' => [
                             'otp' => $user->otp
                         ],
@@ -139,21 +157,40 @@ class AuthController extends Controller
     */
     public function submitOtp(Request $request)
     {  
+		
         if($this->validate->validateOtp($request)) return $this->validate->validateOtp($request);
-        if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
-        if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
+        if($this->validate->validateContact($request)) return $this->validate->validateContact($request);
+        
         try{
-                $user = User::Where('key', $request->key)->first();
+                $user = User::Where('contact', $request->mobile_no)->Where('status', '1')->first();
+                
+                // echo $user->otp;
+                // echo $request->otp;
+
+                // die();
+
+
                 if($user->otp == $request->otp){
                     $user->otp = generateOtp();
                     $user->status = 1;
                     $user->is_verify = 1;
+                    // if($user->is_verify == 0)
+                    // {
+//                     $message = "Dear User,
+// ".$user->otp." is your one time password (OTP). Please enter the OTP to proceed.
+
+// Thank you
+// Team Doncen.org ";
+                    //     SMS_GATEWAY($request->contact,$message);    
+                    // }
+                    
                     $user->save();
-                    $message = "OTP matched. Your Registration is Completed.";
-                    SMS_GATEWAY($user->contact,$message);
+                    
+                    
                     return response()->json([
                             'response' => 'success',
-                            'message' => 'OTP matched. Your Registration is Completed.',
+                            'message' => "OTP matched successfully.",
+                            'result' => ['key' => $user->key]
                     ]);
                 }else{
                     return response()->json([
@@ -176,33 +213,37 @@ class AuthController extends Controller
     */
     public function changePassword(Request $request)
     {
+	
         if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
         if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
         if($this->validate->validatechangePassword($request)) return $this->validate->validatechangePassword($request);
+        
         try{
+            
             $user =  User::Where('key', $request->key)->where('status',1)->first();
-             if (!(Hash::check($request->old_password, $user->password))) {
-                return response()->json([
-                        'response_code' => 401,
-                        'response' => 'error',
-                        'message' => "Your current password does not matches with the password you provided. Please try again.",
-                 ]);
-            }
-            if(strcmp($request->old_password, $request->new_password) == 0){
-                return response()->json([
-                        'response_code' => 401,
-                        'response' => 'error',
-                        'message' => "New Password cannot be same as your current password. Please choose a different password.",
-                 ]);
-            }
+            //  if (!(Hash::check($request->old_password, $user->password))) {
+            //     return response()->json([
+            //             'response_code' => 401,
+            //             'response' => 'error',
+            //             'message' => "Your current password does not matches with the password you provided. Please try again.",
+            //      ]);
+            // }
+            // if(strcmp($request->new_password) == 0){
+            //     return response()->json([
+            //             'response_code' => 401,
+            //             'response' => 'error',
+            //             'message' => "New Password cannot be same as your current password. Please choose a different password.",
+            //      ]);
+            // }
                 $user->password = bcrypt($request->new_password);
                 $user->save();
                 return response()->json([
                         'response' => 'success',
-                        'message' => "Password changed successfully !",
+                        'message' => "Password changed successfully!",
                  ]);
              
            } catch(\Exception  $exception){
+        
                  return response()->json([
                         'error_code' => 401,
                         'response' => 'error',
@@ -221,18 +262,23 @@ class AuthController extends Controller
             $user = User::Where('contact', $request->mobile_no)->where('status',1)->first();
             $user->otp = generateOTP();
             $user->save();
-            // $message = $user->otp." is your OTP for verification at the time of registration on Doncen.org";
+//             $message = "Dear User,
+// ".$user->otp." is your one time password (OTP). Please enter the OTP to proceed.
+
+// Thank you
+// Team Doncen.org ";
             // SMS_GATEWAY($request->contact,$message);
             return response()->json([
                       'response' => 'success',
                       'message' => 'OTP sent.',
-                      'OTP' => $user->otp
+                      'result' => ['OTP' => $user->otp]
+                      
                ]);
           }catch(\Exception  $exception){
                return response()->json([
                       'response_code' => 401,
                       'response' => 'error',
-                      'message' => 'Mobile Number not found in database.',
+                      'message' => 'Mobile number not found in database.',
                ]);
           }
     }
@@ -250,7 +296,7 @@ class AuthController extends Controller
           $user->save();
           return response()->json([
                     'response' => 'success',
-                    'message' => 'Password reset Successfully.',
+                    'message' => 'Password reset successfully.',
              ]);
         }catch(\Exception  $exception){
              return response()->json([
@@ -270,7 +316,26 @@ class AuthController extends Controller
       if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key);
       
       try{
-        $user = User::where('key',$request->key)->select('name','email','contact as mobile_no')->where('is_verify',1)->where('status',1)->first();
+		/* Save Lat Long Of User Start */
+		if($request->lat!='' && $request->long!='')
+		{
+				 User::where('key',$request->key)
+				->where('is_verify',1)
+				->where('status',1)
+				->first()
+				->update([
+						'lat'=>$request->lat,
+						'long'=>$request->long,
+					]);
+				
+		}
+			 //
+		 $user = User::where('key',$request->key)->select('key','name','email','lat','long','contact as mobile_no')->where('is_verify',1)->where('status',1)->first();	
+			
+		
+		/* Save Lat Long Of User End */
+		
+		
         // $user_info =     DB::table('users as u')
         //                     ->select('u.first_name','u.referral_code as ref_code','u.last_name','u.key','u.contact AS mobile','u.account_no AS wallet_no','u.email','LT.login_type_name AS user_type','u.user_name')
         //                     ->join('login_types as LT','u.user_types_id','=','LT.id')
@@ -286,7 +351,15 @@ class AuthController extends Controller
         // $user_data_image = array_add((array)$user_info, 'profile_pic', $profile_url);
         return response()->json([
                'response' => 'success',
-               'result' => $user
+               'result' => [
+                   'key' => $user->key,
+                   'name' => $user->name,
+                   'email' => $user->email,
+                   'lat' => $user->lat,
+                   'long' => $user->long,
+                   'mobile_no' => $user->mobile_no
+                   ]
+               
              ]);
         }catch(\Exception  $exception){
             return response()->json([
@@ -302,6 +375,7 @@ class AuthController extends Controller
     */
     public function updateFcmId(Request $request)
     {
+		
         if($this->validate->validateKey($request)) return $this->validate->validateKey($request);
         if($this->authServices->checkUser($request->key)) return $this->authServices->checkUser($request->key); 
         try{

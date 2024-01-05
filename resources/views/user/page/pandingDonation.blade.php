@@ -1,14 +1,76 @@
 @extends('user.layout.master')
-@section('title',"Panding Donation")
+@section('title',"Pending Donation")
 @section('content')
+<style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 225px;  /* The height is 225 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+       #cat_link{
+          background: none!important;
+          border: none;
+          padding: 0!important;
+          /*optional*/
+          font-family: arial, sans-serif;
+          /*input has OS specific font-family*/
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+       }
+       #search_form1{
+        display: inline-block;
+       }
+       .my .star-rating {
+            display: flex;
+           /* flex-direction: row-reverse;*/
+            font-size: 2.5em;
+            padding: 0 0em;
+            text-align: center;
+            width:0em;
+            display: flex;
+            justify-content: space-between;
+        }
 
+        .my .star-rating input {
+          display:none;
+        }
+
+        .my .star-rating label {
+          color:#ccc;
+          cursor:pointer;
+        }
+
+        .my .star-rating :checked ~ label {
+          color:#f90;
+        }
+
+        .my .star-rating label:hover,
+        .my .star-rating label:hover ~ label {
+          color:#fc0;
+        }
+
+        /* explanation */
+
+        .my article {
+          background-color:#ffe;
+          box-shadow:0 0 1em 1px rgba(0,0,0,.25);
+          color:#006;
+          font-family:cursive;
+          font-style:italic;
+          margin:4em;
+          max-width:30em;
+          padding:2em;
+        }
+
+    </style>
    <!-- delete-page -->
    <section id="main" class="clearfix delete-page">
             <div class="container">
                 <div class="breadcrumb-section">
                     <!-- breadcrumb -->
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{url('/')}}">Home</a></li>
                         <li>Profile</li>
                     </ol><!-- breadcrumb -->						
                     <h2 class="title">My Profile</h2>
@@ -23,34 +85,47 @@
                         </div>
                         <div class="user">
                             <h2>Hello, <a href="#">{{ ucfirst($user->name) }}</a></h2>
-                            <!-- <h5>You last logged in at: 14-01-2016 6:40 AM [ USA time (GMT + 6:00hrs)]</h5> -->
+                            <h5>Member since: {{ $user->created_at->format('d-m-Y') }}</h5>
                         </div>
 
                         <div class="favorites-user">
-                            <div class="my-ads">
+                            <!-- <div class="my-ads">
                                 <a href="my-ads.html">23<small>My ADS</small></a>
-                            </div>
+                            </div> -->
                             <div class="favorites">
-                                <a href="#">{{ $total_post }}<small>Post By You</small></a>
+                                <a href="#">{{ $total_post }}<small>Pending Post</small></a>
                             </div>
                         </div>								
                     </div><!-- user-profile -->
-                   <ul class="user-menu">
-                        <li><a href="{{ route('user.myDonation') }}">My donation</a></li>
-                        <li><a href="{{ route('user.urgent.requirement') }}">Urgent requirement</a></li>
-                        <li><a href="{{ route('user.complete.donation') }}">Donation Complete</a></li>
-                        <li  class="active"><a href="{{ route('user.pandingDonation')}}">Panding donation</a></li>
-                        <li><a href="{{ route('user.favoriateDonation')}}">Favourite Donation</a></li>
+                   
+
+                    <ul class="user-menu">
                         <li><a href="{{ url('user/dashboard') }}">Profile</a></li>
-                        <li><a href="{{ route('user.deleteAccount') }}">Close account</a></li>
+                        <li><a  href="{{ route('user.myDonation') }}">My Posts</a></li>
+                        <li  class="active"><a href="{{ route('user.pandingDonation')}}">Pending</a></li>
+                        <li><a href="{{ route('user.complete.donation') }}">Complete</a></li>
+                        <li><a href="{{ route('user.urgent.requirement') }}">Urgent</a></li>
+                        <li><a href="{{ route('user.favoriateDonation')}}">Favorite</a></li>
+                        
+                        
+                        <li class="fa fa-sign-out">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    Logout
+                            </a>
+                         
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
                     </ul>
 
                 </div><!-- ad-profile -->		
 
                 <div class="close-account">
-                        <div class="col-sm-8">
+                        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
                             <div class="section">
-                                <h2>My Panding Donation</h2>
+                                <h2>My Pending Donation</h2>
                                 <div class="appendText"></div>
                             </div>
                         </div><!-- my-ads -->
@@ -60,8 +135,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @push('javaScript')
-<script src="{{ URL::asset('/js/user/js/jquery.min.js')}}"></script>
-<script src="{{ URL::asset('/js/user/js/jquery-ui.min.js')}}"></script>
 
 <script>
 $(function(){
@@ -86,9 +159,9 @@ $(function(){
     });
   }
     call_ajax("{{ URL::route('user.panding.donation')}}",0);
-   setInterval(function(){
-    call_ajax("{{ URL::route('user.panding.donation')}}",0);
-}, 10000);
+//    setInterval(function(){
+//     call_ajax("{{ URL::route('user.panding.donation')}}",0);
+// }, 10000);
 });
 </script>
 @endpush

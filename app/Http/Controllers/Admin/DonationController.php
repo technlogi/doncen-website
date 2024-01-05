@@ -26,9 +26,11 @@ class DonationController extends Controller
             $delete = 'admin.donations.delete',
             $status = 'admin.donations.status'
         );
+
         echo json_encode($donations);  
     }
     public function dataTable($column,$table_name,$request, $show , $edit , $delete , $status) {
+       
         $totalData = DB::table($table_name)->count();
 
         $totalFiltered = $totalData; 
@@ -85,7 +87,6 @@ class DonationController extends Controller
                     ->orWhere('description', 'LIKE',"%{$search}%")
                     ->count();
         }
-
         $data = array();
         if(!empty($donation_posts))
         {
@@ -145,6 +146,7 @@ class DonationController extends Controller
             "recordsFiltered" => intval($totalFiltered), 
             "data"            => $data   
             );
+
         return $json_data;
        
     }

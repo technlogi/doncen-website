@@ -34,6 +34,7 @@
                         <table class="table table-bordered" id="categoryDataTable" width="100%" cellspacing="0">
                             <thead>
                                 <th>Sr.No</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Title</th>
                                 <th>Created At</th>
@@ -65,6 +66,7 @@
                    },
             "columns": [
                 { "data": "id" },
+                { "data": "image" },
                 { "data": "name" },
                 { "data": "title" },
                 { "data": "created_at" },

@@ -1,0 +1,3 @@
+﻿SrNo,Category Name,Sub Category Name,Specification Name,Who are you?,title,description,condition,address,Country,State,City,donation_type_id,donation_type_other,preference_gender,preference_age,preference_is_handicap,consideration,consideration_detail,is_urgent,urgent_reason
+,,,,(Donor / Donee / Helper of donor / Helper of donee),,,New / Old,,,,,Go and F2F,,M / F / O,30-50,YES / NO,(Free / Monetary / Non monetary),,Yes / No,
+1,,,,,,,,,,,,,,,,,,,,

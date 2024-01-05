@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use \App\Models\User;
 class UserRegistration extends FormRequest
 {
     /**
@@ -24,19 +24,22 @@ class UserRegistration extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'contact' => 'required|min:8|unique:users',
-            'address' => 'required|min:5|regex:/(.*[,]){3}/u'
+            'name' => 'nullable|min:3|max:50|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'contact' => 'required|min:10|max:10|digits:10',
+            
+ 	       'password' => 'min:4|max:4|digits:4',
+           'password_confirmation' => 'min:4|max:4|digits:4|same:password',
+            
+            'email' => 'nullable|email|max:255|unique:users',
+            'address' => 'nullable|min:15|regex:/[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]{3}/'
         ];
     }
     public function messages()
     {
         return [
-            'address.required' => 'Address filed is required',
-            'address.min' => 'Address name must be min 5 character',
-            'address.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)'
+            'address.required' => 'Location filed is required',
+            'address.min' => 'It should have proper Location, City, State, Country.',
+            'address.regex' => 'It should have proper Location, City, State, Country.'
         ];
     }
 }

@@ -23,10 +23,7 @@
                     @endforeach
                 </select> 
                 </div>  
-                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-                    <label for="title" class="control-label">Type</label>
-                    <input id="type" type="text"  class="form-control" name="type" >
-                </div>
+         
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary pull-left" type="button" data-dismiss="modal">Cancel</button>

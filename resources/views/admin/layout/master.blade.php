@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from blackrockdigital.github.io/startbootstrap-sb-admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2018 11:02:31 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,6 +50,6 @@
     
     <script src="{{ URL::asset('/js/admin/js/sb-admin-charts.min.js')}}"></script>
     @stack('javaScript')
-  </div>
+  
 </body>
 </html>

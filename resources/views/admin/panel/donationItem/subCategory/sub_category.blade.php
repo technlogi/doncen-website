@@ -31,7 +31,9 @@
                         <table class="table table-bordered" id="categoryDataTable" width="100%" cellspacing="0">
                             <thead>
                                 <th>Sr.No</th>
-                                <th>Name</th>
+                                <!-- <th>Name</th> -->
+                                <th>Sub Category name </th> 
+                                <!-- <th>Options</th> -->
                                 <th>Created At</th>
                                 <th>Options</th>
                             </thead>
@@ -57,10 +59,12 @@
                    },
             "columns": [
                 { "data": "id" },
+                // { "data": "category_id" },
                 { "data": "name" },
+                // { "data": "status" },
                 { "data": "created_at" },
                 { "data": "options" }
-            ]	 
+            ]	  
 
         });
         $("form[name='addSubCategory']").validate({
@@ -85,7 +89,9 @@
                         success: function(data){
                             $('#addSubCategoryModel').modal('hide');
                             $("#addSubCategoryId").trigger("reset");
-                            $('#messageSuccess').removeClass('fade');  
+                            $('#messageSuccess').removeClass('fade');
+                            $("#categoryDataTable").load();
+
                             setTimeout(() => {
                                 $('#messageSuccess').addClass('fade');  
                             }, 2500);

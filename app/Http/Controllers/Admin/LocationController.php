@@ -34,6 +34,9 @@ class LocationController extends Controller
     }
     public function store_country(Request $request)
     {
+        // echo "<pre>";
+        // print_r($request->all());
+        // exit();
         DB::table('countries')->insert([
             'key'=> generateKey(8),
             'name' => $request->name,

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg style="position:relative" version="1.1" width="130" height="105" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/">
+    <g ng-preview="" ng-model="config" ng-shapes="indexedShapes" ng-etape="etape" class="ng-presentation ng-isolate-scope ng-pristine ng-valid" transform="translate(0 5.082244873046875)">
+		<g class="logo-preview ng-scope" transform="scale(0.39622641509433965)">
+			<g class="logo-ctn">
+				<g class="logo" id="item-qcj3hq9cuzari1t43kvyn85rdog7fk9h" transform="translate(87.55136108398438 0) scale(2.47643611075423)">
+					<path d="M44.916,0c7.242,20.901-12.418,13.45-12.418,13.45c16.975,12.202-1.646,21.308-1.646,21.308
+							C64.572,21.938,44.916,0,44.916,0z M40.26,11.383c2,0,3.621-1.621,3.621-3.623c0-2-1.621-3.62-3.621-3.62
+							c-1.998,0-3.619,1.62-3.619,3.62C36.641,9.762,38.262,11.383,40.26,11.383z" fill="#4abb61">
+					</path>
+					<path d="M32.602,20.895c0,0-19.654,7.451-12.414-13.446c0,0-19.654,21.93,14.068,34.757
+						C34.256,42.205,15.635,33.1,32.602,20.895z M24.842,18.826c2,0,3.627-1.619,3.627-3.619s-1.627-3.623-3.627-3.623
+						c-2.002,0-3.619,1.623-3.619,3.623S22.84,18.826,24.842,18.826z" fill="#2bb1a2">
+					</path>
+					<path d="M32.84,54.063c0.068-2.484,0.586-5.053,1.877-7.205c1.469-2.454,3.869-3.531,6.074-5.168
+							c2.285-1.702,4.02-4.139,4.854-6.863c0.178-0.567,0.434-1.363,1.018-1.672c0.65-0.342,1.525,0,1.965,0.52
+							c1.383,1.612,0.67,4.839-0.096,6.566c-0.498,1.125-3.547,4.423-2.184,5.653c1.869,1.675,6.846-8.066,6.846-8.066
+							c1.639-3.165,3.035-6.549,3.924-10.001c0.449-1.746,0.951-5.391,3.02-6.022c0.014-0.003,0.027-0.007,0.043-0.014
+							c4.16-1.107,1.639,7.745,1.313,9.198c-1.486,6.609-4.805,12.51-9.676,17.205c-3.713,3.578-8.307,6.283-11.313,10.559
+							c-1.604,2.29-2.633,5.113-2.229,7.875C34.393,63.899,32.725,58.816,32.84,54.063" fill="#2bb1a2">
+					</path>
+					<path d="M29.707,54.063c-0.07-2.484-0.586-5.053-1.877-7.205c-1.471-2.454-3.869-3.531-6.074-5.168
+							c-2.287-1.702-4.02-4.139-4.854-6.863c-0.178-0.567-0.434-1.363-1.018-1.672c-0.65-0.342-1.525,0-1.967,0.52
+							c-1.381,1.612-0.67,4.839,0.096,6.566c0.5,1.125,3.549,4.423,2.186,5.653c-1.871,1.675-6.848-8.066-6.848-8.066
+							c-1.637-3.165-3.035-6.549-3.924-10.001C4.98,26.08,4.479,22.436,2.41,21.804c-0.014-0.003-0.027-0.007-0.045-0.014
+							c-4.158-1.107-1.637,7.745-1.313,9.198c1.488,6.609,4.807,12.51,9.678,17.205c3.711,3.578,8.307,6.283,11.313,10.559
+							c1.604,2.29,2.633,5.113,2.229,7.875C28.154,63.899,29.822,58.816,29.707,54.063" fill="#4abb61">
+					</path>
+				</g>
+			</g>
+			<g class="main" transform="translate(0 170.00001525878906)">
+				<g class="formes">
+				</g>
+				<g class="inline-shape">
+					<g class="contents">
+						<g id="texts">
+							<g class="firstLine" transform="translate(30.0625 0) scale(1)">
+								<text id="item-zbmmk6ajqabgc9r9erziqh88sizlytbk" key="0" dominant-baseline="auto" alignment-baseline="auto" font-family="Arial" font-size="72px" fill="#2bb1a2" letter-spacing="0" xml:space="preserve" class="" transform="translate(0 56)">Don
+								</text>
+							</g>
+							<g class="firstLine" transform="translate(165.0625 0) scale(1)">
+								<text id="item-zbmmk6ajqabgc9r9erziqh88sizlytbk" key="0" dominant-baseline="auto" alignment-baseline="auto" font-family="Arial" font-size="72px" fill="#4abb61" letter-spacing="0" xml:space="preserve" class="" transform="translate(0 56)">Cen
+								</text>
+							</g>
+							<g class="initial"></g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g> 
+</svg>

@@ -26,7 +26,7 @@
                             <label for="mobile_no" class="control-label pull-left">Mobile No :-</label><br>
 
                             <div class="">
-                                <input id="mobile_no" type="mobile_no" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}">
+                                <input id="mobile_no" type="number" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}">
                                 @if ($errors->has('mobile_no'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('mobile_no') }}</strong>

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
 use Illuminate\Http\Request;
-
+use \App\Models\User;
 class LoginController extends Controller
 {
     /*
@@ -39,6 +39,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        
         $this->middleware('user.guest', ['except' => 'logout']);
     }
 
@@ -47,30 +48,25 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
-    {
-        if (Auth::guard('user')->check()){
-            session()->flash('error', 'You be logout for regirstration.');
-           return redirect('/user/dashboard');
-        }
-        return view('user.auth.login');
-    }
-
+    // public function showLoginForm()
+    // {
+    //     if (Auth::guard('user')->check()){
+    //         session()->flash('error', 'You be logout for regirstration.');
+    //        return redirect('/user/dashboard');
+    //     }
+    //     return view('user.auth.login');
+    // }
 
     protected function credentials(Request $request)
     {
-        if(is_numeric($request->get('email'))){
-             
-            $this->validate($request,[
-                $this->username() => 'required|regex:/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/'
-             ],['regex' => 'The Contact Number must be 10 digit without country code.']);
-             return ['contact'=>$request->get('email'),'password'=>$request->get('password'),'is_verify' =>1 ,'status'=>1];
-        }else {
-            $this->validate($request,[
-                $this->username() => 'required|email'
-             ],['email' => 'Please Enter valid email Formate.']);
-             return ['email'=>$request->get('email'),'password'=>$request->get('password'),'is_verify' =>1 ,'status'=>1];
-        }
+            // $this->validate($request,[
+            //     $this->username() => 'required|regex:/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/'
+            //  ],['regex' => 'The Contact Number must be 10 digit without country code.']);
+            //      $this->validate($request,[ 'otp'=>'required|regex:/^\d{4}$/'],[
+            //         'otp.required' => "Please Enter OTP.",
+            //         'otp.regex' => "OTP must be 4 digit.",
+            //     ]);
+             return ['contact'=>$request->contact,'otp'=>$request->otp];
     }
 
     /**

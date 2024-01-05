@@ -1,0 +1,20 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Doncen",
+  "short_name": "Doncen",
+  "description": "Donate ANYTHING, whatever you can think.",
+  
+  "start_url": ".",
+  
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "icons": [{
+    "src": "uploads/icon/doncen-icon-48x48.png",
+    "sizes": "48x48",
+    "type": "image/png",
+    "purpose": "any maskable"
+  }]
+  
+}

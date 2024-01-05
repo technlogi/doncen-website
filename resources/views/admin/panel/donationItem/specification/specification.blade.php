@@ -31,6 +31,7 @@
                         <table class="table table-bordered" id="specificationDataTable" width="100%" cellspacing="0">
                             <thead>
                                 <th>Sr.No</th>
+                                <!-- <th>Image</th> -->
                                 <th>Name</th>
                                 <th>Created At</th>
                                 <th>Options</th>
@@ -57,6 +58,7 @@
                    },
             "columns": [
                 { "data": "id" },
+                // { "data": "image" },
                 { "data": "name" },
                 { "data": "created_at" },
                 { "data": "options" }

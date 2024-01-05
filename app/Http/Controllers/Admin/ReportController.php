@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use URL;
 
 class ReportController extends Controller
 {
@@ -18,7 +19,7 @@ class ReportController extends Controller
         $donations = dataTable(
             ['id','report_subject','report','status','created_at', 'key'],
             'donation_post_reports' ,
-            'message',
+            'report',
             $request,
             $show= '', //route('posts.show',$category->id),
             $edit = '',                     // route('posts.edit',$category->id),
@@ -33,7 +34,7 @@ class ReportController extends Controller
         if (Auth::guard('user')->check()){
             $user = Auth::guard('user')->user()->id;
         }else{
-            session()->flash('error', 'You must logged in before report against any donation post.');
+            session()->flash('error', 'You must logged in before report against any post.');
            return redirect('/user/login');
         }
         $this->validate($request , [
@@ -50,9 +51,45 @@ class ReportController extends Controller
            'created_at' => new \DateTime(),
            'updated_at' => new \DateTime()
         ]);
-        session()->flash('success','We will resolve your issue as soon as possible. Thank you for your feed back.');
-        return redirect('/user/dashboard');
+        session()->flash('success', 'Repost against this post has been submitted.');
+        return redirect(URL::previous());
     }
+
+
+
+
+public function storereview(Request $request)
+    { 
+        
+        if (Auth::guard('user')->check()){
+            $user = Auth::guard('user')->user()->id;
+        }else{
+            session()->flash('error', 'You must logged in before report against any post.');
+           return redirect('/user/login');
+        }
+        // $this->validate($request , [
+        //     'rate_input' => 'required|min:5',
+        //     'review_subject' => 'required|min:10'
+        // ]);
+
+        $id = DB::table('donation_posts')->where('key',$request->key)->select('key','id')->first();
+        DB::table('donation_post_review')->insert([
+            'rate_input'=>$request->rate,
+           'key' => generateKey(17),
+           'review_subject' => $request->review_subject,
+           'user_id' => $user,
+           'donation_post_id' => $id->id,
+           'created_at' => new \DateTime(),
+           'updated_at' => new \DateTime()
+        ]);
+        
+        session()->flash('success', 'Your review on this post has been submitted.');
+       return redirect(URL::previous());
+    }
+
+
+
+
 
     public function reportForm($key)
     { 
@@ -60,6 +97,11 @@ class ReportController extends Controller
         return view('web.main.reportForm',compact('user_identity'));
     }
 
+ public function reviewForm($key)
+    { 
+        $user_identity = $key;
+        return view('web.main.review',compact('user_identity'));
+    }
     //change city status
     public function reportStatus($key)
     {

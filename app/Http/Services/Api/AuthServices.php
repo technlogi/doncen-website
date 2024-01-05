@@ -16,11 +16,19 @@
              'key' =>generateKey(1),
              'name' =>$request->name,
              'contact' =>$request->contact,
-             'email' => $request->email,
              'password' => bcrypt($request->password),
+             
+             
+             'user_status' => $request->status,
+             'ip_address' => $request->ip_address,
+             'system_code' => $request->system_code,
+             
+             
+             'address' => $request->address,
+             'email' => $request->email,
              'otp' => $otp,
              'is_verify' => 0,
-             'status' => 0,
+             'status' => 1,
              'created_at' => new \DateTime(),
              'updated_at' => new \DateTime() 
          ]);
@@ -46,7 +54,7 @@
             return [
                     'response_code' => 401,
                     'response' => 'error',
-                    'message' => 'Invalid Request.',
+                    'message' => 'Invalid User Request.',
             ];
         }
     }

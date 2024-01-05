@@ -30,7 +30,7 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('auth/getOtp',                  'Api\AuthController@getOtp'                    );
     Route::post('auth/submitOtp',               'Api\AuthController@submitOtp'                 );
                             /* Forgot Password */
-    Route::post('auth/forgotPassword',          'Api\AuthController@forgotPassword'            );
+    // Route::post('auth/forgotPassword',          'Api\AuthController@forgotPassword'            );
                             /* Change Password */
     Route::post('auth/changePassword',          'Api\AuthController@changePassword'            );
                             /* Reset Password */
@@ -59,8 +59,9 @@ Route::group(['middleware' => ['api','cors']], function () {
     Route::post('/submit/donation',           'Api\ApiController@submitDonationForm');
     Route::post('/donations',                 'Api\ApiController@donations');
     
-    // Route::post('/get-donation',                 'Api\ApiController@getDonation');
+	Route::post('/search-donation',                 'Api\ApiController@searchDonationPost');
     
+	Route::post('/get-donation',                 'Api\ApiController@getDonation');
     // Route::post('/list/donations' , 'Api\ApiController@donations');
      
 });    

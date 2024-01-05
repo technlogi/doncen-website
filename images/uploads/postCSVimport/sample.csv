@@ -1,0 +1,3 @@
+﻿SrNo,Category Name,Sub Category Name,Specification Name,Who are you?,title,description,condition,address,Country,State,City,donation_type_id,donation_type_other,preference_gender,preference_age,preference_is_handicap,consideration,consideration_detail,is_urgent,urgent_reason,d_status,d_name,d_email,d_contact,d_address,d_country,d_state,d_city
+,,,,(2 = Helper of donor / 4 = Helper of donee),,,1 = New / 2 = Old,,,,,1 = Go and F2F / 2 = ,,M / F / O,30-50,YES / NO,(Free / Monetary / Non monetary),,Yes / No,,Ind / Org,,,,,,,
+1,Hospital,Blood,AB,2,Mr Y want to donate bolld,Any one can call me ,1,Ranjeet Temple,India,MP,Ahmedabad,1,,1,1,1,1,,1,,1,Gaurav,test@gmail.com,123456789,Ahmdabad,Indore,GJ,Ahamdabad

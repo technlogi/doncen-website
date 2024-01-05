@@ -28,7 +28,7 @@
                                     <label for="password" class="control-label pull-left">New Password</label>
 
                                     <div class="">
-                                        <input id="password" type="password" class="form-control" name="password">
+                                        <input id="password" type="password" pattern="[0-9]*" inputmode="numeric" class="form-control" name="password">
 
                                         @if ($errors->has('password'))
                                             <span class="help-block">
@@ -41,7 +41,7 @@
                                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                     <label for="password-confirm" class="control-label pull-left">Confirm Password</label>
                                     <div class="">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                        <input id="password-confirm" type="password" pattern="[0-9]*" inputmode="numeric" class="form-control" name="password_confirmation">
 
                                         @if ($errors->has('password_confirmation'))
                                             <span class="help-block">

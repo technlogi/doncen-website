@@ -31,7 +31,7 @@
                             <thead>
                                 <th>Sr.No</th>
                                 <th>Report Subject</th>
-                                <th>report</th>
+                                <th>Report Message</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Options</th>

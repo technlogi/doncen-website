@@ -12,23 +12,28 @@ class DashBoardController extends Controller
 {
     public function dashboard()
     {
+
         $users[] = Auth::user();
         $users[] = Auth::guard()->user();
         $users[] = Auth::guard('admin')->user();
 
-        $top_users       = $this->users();
-        $urgents         = $this->urgent();
-        $lives           = $this->live();
-        
-        $categories      = $this->categories(); 
-        $subcategories   = $this->subCategories(); 
-        $specifications  = $this->specifications();
+        $lives = (!empty($this->live())) ? $this->live() : "" ;
 
-        $countries       = $this->countries();
-        $states          = $this->states();
-        $cities          = $this->cities(); 
-        
+        $top_users       = (!empty($this->users())) ? $this->users() : "";
+        $urgents         = (!empty($this->urgent())) ? $this->urgent() : "";
+        // $lives           = (!empty($this->live())) ? $this->live() : "";
 
+
+        // dd($lives);
+        
+        $categories      = (!empty($this->categories())) ? $this->categories() : "" ;
+        $subcategories   = (!empty($this->subCategories())) ? $this->subCategories() : "" ;
+        $specifications  = (!empty($this->specifications())) ? $this->specifications() : "";
+
+        $countries       = (!empty($this->countries())) ? $this->countries() : "";
+        $states          = (!empty($this->states())) ? $this->states() : "";
+        $cities          = (!empty($this->cities())) ? $this->cities() : "" ;
+       
 
         $total_user = User::count();
         $total_specification = DB::table('specifications')->where('status',1)->count();
@@ -44,8 +49,13 @@ class DashBoardController extends Controller
                     ->where('status',1)
                     ->groupBy('date')
                     ->orderBy('total', 'desc');
-            
-        $max =  $query->first()->total;
+
+         if(!empty($query) && $query->first()){
+	        $max =  $query->first()->total; 
+         }else{
+         	  $max = 0;
+         }
+        
         $total  = ceil( $max / 100)*100;
        
         $dates = DB::select(' SELECT DATE(created_at) as date,count(*) as total 
@@ -59,6 +69,7 @@ class DashBoardController extends Controller
             array_push($labels, date('d F', strtotime($date->date)) );
             array_push($data,  $date->total );
         }
+         
         $users_lists = User::all();
         $user_status = array(
                     '0' => User::where('status',1)->where('is_verify',1)->count(),
@@ -138,10 +149,10 @@ class DashBoardController extends Controller
             $specification = \App\Models\Specification::where('id',$urgent->specification_id)->first();
             $subcategory   = $specification->subcategory;
             $category      = $subcategory->category;
-            $city = \App\Models\city::where('id',$urgent->city_id)->first();
+            $city = \App\Models\City::where('id',$urgent->city_id)->first();
             $state = $city->state;
             $country  = $state->country;
-            array_push($array, array('datetime' => date('j M Y h:i a',strtotime($urgent->created_at)),
+            array_push($array, array('datetime' => date('D M Y h:i a',strtotime($urgent->created_at)),
                                      'post_no' => $urgent->post_no,
                                      'image' =>    $category->image,
                                      'category' => $category->name.'->'.$subcategory->name.'->'.$specification->name,
@@ -166,10 +177,10 @@ class DashBoardController extends Controller
             $specification = \App\Models\Specification::where('id',$urgent->specification_id)->first();
             $subcategory   = $specification->subcategory;
             $category      = $subcategory->category;
-            $city = \App\Models\city::where('id',$urgent->city_id)->first();
+            $city = \App\Models\City::where('id',$urgent->city_id)->first();
             $state = $city->state;
             $country  = $state->country;
-            array_push($array, array('datetime' => date('j M Y h:i a',strtotime($urgent->created_at)),
+            array_push($array, array('datetime' => date('D M Y h:i a',strtotime($urgent->created_at)),
                                      'post_no' => $urgent->post_no,
                                      'image' =>    $category->image,
                                      'category' => $category->name.'->'.$subcategory->name.'->'.$specification->name,
@@ -178,6 +189,8 @@ class DashBoardController extends Controller
                                      'contact' => $user->contact
             ));
         }
+        
+
         return $array;
     }
     public function cities()

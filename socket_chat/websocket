@@ -1,0 +1,63 @@
+-index page call
+- index page pe ek input box or button he or button par send_chat function call ho raha he 
+- after 
+
+
+<script>
+  websocket.onmessage = function(e){
+    var data = JSON.parse(e.data)
+    if(data == null)
+      return false;
+    if(data.type=="chat_sent" && data.by != "<?php echo $_SESSION['login_id'] ?>"){
+      if((typeof window['notify'] === 'function') == true && '<?php echo isset($convo_id) ? $convo_id : '' ?>' != data.convo_id)
+        notify(data.convo_id)
+      if((typeof window['received_message'] === 'function') == true)
+        received_message(data)
+      if((typeof window['renew_contacts'] === 'function') == true)
+        renew_contacts(data)
+      
+    }
+  }
+
+- after ajax.php file ke under chat_sent 
+==========================================================
+
+
+idhar se json format ka message send krnunga like
+
+
+idhar se json format ka message send krnunga like
+
+data
+{
+	type:"chat_send", // 'login, logout, create_account, get_users, send_chat, save_user, load_convo, read_msg => call function name 
+	by:"id",   // current login user id
+	name:"ashok", // current login user name
+	convo_id:"socket id",  // socket_id or sending user id like A vala B ko msg send kar raha he to B ka ID
+	function:"received_message",	// Pass function name 
+	message:"hello world", //Pass message
+	renew_contacts :"3,4" // 3= sender_user_id and 4 = reccever_user_id
+	page :"conversation" // page name is static conversation 
+	action :"send_chat" // 'login, logout, create_account, get_users, send_chat, save_user, load_convo, read_msg
+	
+	
+	
+}
+
+*action
+1). create_account 
+	name,username,password,img
+2). login
+	username, password
+3). logout
+	key //$_SESSION[$key]
+4). get_users 
+5). send_chat
+	message,user_id,convo_id,convo_users like 1,2 
+6). save_user
+	name,username,password
+7). load_convo
+8). read_msg
+	status = 1 //static valu pass 1, convo_id, user_id
+
+

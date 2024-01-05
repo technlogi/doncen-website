@@ -1,0 +1,7 @@
+﻿Category Name,Sub Category Name,Specification Name,Who are you?,title,description,condition,address,Country,State,City,donation_type_id,donation_type_other,preference_gender,preference_age,preference_is_handicap,consideration,consideration_detail,is_urgent,urgent_reason,d_status,d_name,d_email,d_contact,d_address,d_country,d_state,d_city
+,,,Donor,,,New / Old,,,,,Go and F2F,,M / F / O,30-50,YES / NO,Free,,Yes / No,,Ind / Org,ANIL KANZARIYA,NULL,9106576363,,,,
+,,,Donee,,,,,,,,,,,,,Monatory,,,,,,,,,,,
+,,,Helper of Donor,,,,,,,,,,,,,Non Monetory,,,,,,,,,,,
+,,,Helper of Donee,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,1,1,Donor,Testing,description,NEW,star bazzar,iindaian,gujrat,Ahmedabad,Go,Donation,M,35,YES,Free,Consider,Yes,Urgenet,In,Anil,anil@gmail.com,,,,,

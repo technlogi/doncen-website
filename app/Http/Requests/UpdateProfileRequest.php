@@ -24,17 +24,18 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_name' => 'required|min:3',
-            'email' => 'required|email',
-            'city' => 'required|min:5|regex:/(.*[,]){3}/u'
+            'user_name' => 'required|min:3|max:50|regex:/(^[A-Za-z0-9 ]+$)+/',
+            
+            'email' => 'nullable|email|max:255',
+            'city' => 'nullable|min:15|regex:/[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]+\,[a-zA-Z0-9 ]{3}/'
         ];
     }
     public function messages()
     {
         return [
-            'city.required' => 'City filed is required',
-            'city.min' => 'City name must be min 5 character',
-            'city.regex' => 'Please Enter proper address. Ex: (Address, City, State, Country)'
+            'city.required' => 'Field is required',
+            'city.min' => 'It should have proper Location, City, State, Country.',
+            'city.regex' => 'It should have proper Location, City, State, Country.'
         ];
     }
 }
