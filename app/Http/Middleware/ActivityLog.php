@@ -7,6 +7,9 @@ use DB;
 use Location;   //vendor/stevebauman/location/src
 use URL;
 
+echo "activity Log";
+die();
+
 class ActivityLog
 {
 	/**
