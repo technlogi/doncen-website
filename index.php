@@ -7,9 +7,7 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
-echo "HEEE";
-die();
- define('LARAVEL_START', microtime(true));
+define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
